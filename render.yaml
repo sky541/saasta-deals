@@ -6,4 +6,4 @@ services:
     startCommand: "python3 -c \"from web_app import app; app.run(host='0.0.0.0', port=$PORT)\""
     envVars:
       - key: PYTHON_VERSION
-        value: "3.11"
+        value: "3.11.0"
