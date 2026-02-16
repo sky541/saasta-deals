@@ -10,6 +10,7 @@ from datetime import datetime
 from typing import List, Dict, Any
 
 from flask import Flask, render_template_string, jsonify, request
+from apscheduler.schedulers.background import BackgroundScheduler
 
 logging.basicConfig(
     level=logging.INFO,
@@ -18,6 +19,25 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+
+# Global variable to store cached coupons
+coupons_cache = None
+cache_updated = None
+
+def refresh_coupons():
+    """Refresh coupons from data file"""
+    global coupons_cache, cache_updated
+    coupons_cache = load_coupons()
+    cache_updated = datetime.now()
+    logger.info(f"Coupons refreshed: {len(coupons_cache)} coupons at {cache_updated}")
+
+# Start scheduler to refresh every 12 hours
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=refresh_coupons, trigger="interval", hours=12)
+scheduler.start()
+
+# Initial load
+refresh_coupons()
 
 
 DASHBOARD_TEMPLATE = """
@@ -461,7 +481,8 @@ def load_coupons() -> List[Dict[str, Any]]:
 @app.route('/')
 def index():
     """Main dashboard page"""
-    all_coupons = load_coupons()
+    global coupons_cache
+    all_coupons = coupons_cache if coupons_cache else load_coupons()
     
     # Apply filters
     source = request.args.get('source', '')
@@ -525,6 +546,21 @@ def run_server(host='0.0.0.0', port=None):
     logger.info(f"Starting Saasta Deals on http://{host}:{port}")
     app.run(host=host, port=port, debug=False)
 
+
+@app.route('/refresh')
+def refresh():
+    """Manually refresh coupons"""
+    refresh_coupons()
+    return jsonify({"status": "success", "last_updated": cache_updated.isoformat() if cache_updated else None, "coupons_count": len(coupons_cache) if coupons_cache else 0})
+
+@app.route('/status')
+def status():
+    """Show cache status"""
+    return jsonify({
+        "last_updated": cache_updated.isoformat() if cache_updated else None,
+        "coupons_count": len(coupons_cache) if coupons_cache else 0,
+        "next_refresh": "in 12 hours"
+    })
 
 if __name__ == "__main__":
     run_server()
