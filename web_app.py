@@ -36,8 +36,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(func=refresh_coupons, trigger="interval", hours=12)
 scheduler.start()
 
-# Initial load
-refresh_coupons()
+# Initial load - will be done after load_coupons is defined
 
 
 DASHBOARD_TEMPLATE = """
@@ -476,6 +475,9 @@ def load_coupons() -> List[Dict[str, Any]]:
             except:
                 pass
     return []
+
+# Initial load after function is defined
+refresh_coupons()
 
 
 @app.route('/')
