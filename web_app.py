@@ -343,7 +343,7 @@ DASHBOARD_TEMPLATE = """
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🎫 Saasta <span>Deals</span></div>
+            <div class="logo">🎫 OfferOye</div>
         </div>
     </header>
     
