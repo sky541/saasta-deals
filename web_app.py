@@ -37,8 +37,7 @@ def check_and_refresh():
     if cache_updated is None or (datetime.now() - cache_updated) > timedelta(hours=REFRESH_INTERVAL_HOURS):
         refresh_coupons()
 
-# Initial load
-refresh_coupons()
+# Don't call refresh_coupons() here - load_coupons not defined yet
 
 
 DASHBOARD_TEMPLATE = """
@@ -477,6 +476,9 @@ def load_coupons() -> List[Dict[str, Any]]:
             except:
                 pass
     return []
+
+# Initial load after load_coupons is defined
+refresh_coupons()
 
 
 @app.route('/')
