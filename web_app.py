@@ -6,11 +6,10 @@ Show live coupons from Indian e-commerce websites
 import os
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
 from flask import Flask, render_template_string, jsonify, request
-from apscheduler.schedulers.background import BackgroundScheduler
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,6 +22,7 @@ app = Flask(__name__)
 # Global variable to store cached coupons
 coupons_cache = None
 cache_updated = None
+REFRESH_INTERVAL_HOURS = 12
 
 def refresh_coupons():
     """Refresh coupons from data file"""
@@ -31,12 +31,14 @@ def refresh_coupons():
     cache_updated = datetime.now()
     logger.info(f"Coupons refreshed: {len(coupons_cache)} coupons at {cache_updated}")
 
-# Start scheduler to refresh every 12 hours
-scheduler = BackgroundScheduler()
-scheduler.add_job(func=refresh_coupons, trigger="interval", hours=12)
-scheduler.start()
+def check_and_refresh():
+    """Check if refresh needed and refresh if needed"""
+    global cache_updated
+    if cache_updated is None or (datetime.now() - cache_updated) > timedelta(hours=REFRESH_INTERVAL_HOURS):
+        refresh_coupons()
 
-# Initial load - will be done after load_coupons is defined
+# Initial load
+refresh_coupons()
 
 
 DASHBOARD_TEMPLATE = """
@@ -476,14 +478,13 @@ def load_coupons() -> List[Dict[str, Any]]:
                 pass
     return []
 
-# Initial load after function is defined
-refresh_coupons()
-
 
 @app.route('/')
 def index():
     """Main dashboard page"""
     global coupons_cache
+    # Check if refresh needed on each request
+    check_and_refresh()
     all_coupons = coupons_cache if coupons_cache else load_coupons()
     
     # Apply filters
