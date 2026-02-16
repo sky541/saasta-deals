@@ -1,5 +1,5 @@
 """
-Saasta Deals - Coupons Web Application
+OfferOye - Coupons Web Application
 Show live coupons from Indian e-commerce websites
 """
 
@@ -22,7 +22,7 @@ app = Flask(__name__)
 # Global variable to store cached coupons
 coupons_cache = None
 cache_updated = None
-REFRESH_INTERVAL_HOURS = 12
+REFRESH_INTERVAL_HOURS = 4
 
 def refresh_coupons():
     """Refresh coupons from data file"""
@@ -46,7 +46,7 @@ DASHBOARD_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saasta Deals - Coupons & Offers</title>
+    <title>OfferOye - Coupons & Offers</title>
     <meta name="description" content="Find the best coupon codes and offers from top Indian retailers">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -445,7 +445,7 @@ DASHBOARD_TEMPLATE = """
     </div>
     
     <footer>
-        <p>© 2026 Saasta Deals - Find the Best Coupons in India</p>
+        <p>© 2026 OfferOye - Find the Best Coupons in India</p>
     </footer>
     
     <script>
@@ -548,7 +548,7 @@ def api_coupons():
 def run_server(host='0.0.0.0', port=None):
     if port is None:
         port = int(os.environ.get('PORT', 5000))
-    logger.info(f"Starting Saasta Deals on http://{host}:{port}")
+    logger.info(f"Starting OfferOye on http://{host}:{port}")
     app.run(host=host, port=port, debug=False)
 
 
