@@ -441,7 +441,7 @@ DASHBOARD_TEMPLATE = """
             'Bangalore': {lat: 12.9716, lon: 77.5946},
             'Mumbai': {lat: 19.0760, lon: 72.8777},
             'Delhi': {lat: 28.7041, lon: 77.1025},
-            'Chennai': {lat: 13.0827, lon: 80.2707},
+            'Chennai': {lat: 13.0820, lon: 80.2707},
             'Pune': {lat: 18.5204, lon: 73.8567},
             'Kolkata': {lat: 22.5726, lon: 88.3639},
             'Chandigarh': {lat: 30.7333, lon: 76.7794},
@@ -456,11 +456,15 @@ DASHBOARD_TEMPLATE = """
             }
             return closest;
         }
-        if (navigator.geolocation) {
+        // Only run geolocation if no city is already selected
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedCity = urlParams.get('city');
+        if (!selectedCity && navigator.geolocation && !localStorage.getItem('geoDone')) {
             navigator.geolocation.getCurrentPosition(
                 function(position) {
                     const city = findClosestCity(position.coords.latitude, position.coords.longitude);
                     document.getElementById('detecting').innerHTML = '📍 Detected: <strong>' + city + '</strong>';
+                    localStorage.setItem('geoDone', 'true');
                     setTimeout(() => {
                         const select = document.querySelector('select[name="city"]');
                         if (select && select.value === '') { select.value = city; select.form.submit(); }
@@ -468,7 +472,10 @@ DASHBOARD_TEMPLATE = """
                 },
                 function() { document.getElementById('detecting').innerHTML = '📍 Location not available'; }
             );
-        } else { document.getElementById('detecting').innerHTML = '📍 Location not supported'; }
+        } else {
+            document.getElementById('detecting').style.display = 'none';
+        }
+        </script>
         </script>
         <div class="stats-bar">
             <div class="stat"><div class="stat-number">{{ total_coupons }}</div><div class="stat-label">Deals</div></div>
