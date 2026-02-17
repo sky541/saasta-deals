@@ -95,6 +95,26 @@ DASHBOARD_TEMPLATE = """
         
         .logo span { color: #FFD60A; }
         
+        .tabs {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .tab {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+            text-decoration: none;
+            color: #023E8A;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover, .tab.active {
+            background: white;
+            color: #00B4D8;
+        }
+        
         .hero {
             background: linear-gradient(135deg, #00B4D8 0%, #48CAE4 100%);
             color: white;
@@ -344,6 +364,10 @@ DASHBOARD_TEMPLATE = """
     <header>
         <div class="header-content">
             <div class="logo">🎫 OfferOye</div>
+            <nav class="tabs">
+                <a href="/" class="tab {% if request.path == '/' %}active{% endif %}">🏠 All Deals</a>
+                <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
+            </nav>
         </div>
     </header>
     
@@ -479,6 +503,35 @@ def load_coupons() -> List[Dict[str, Any]]:
 
 # Initial load after load_coupons is defined
 refresh_coupons()
+
+
+@app.route('/local')
+def local_deals():
+    """Local restaurants and food deals page"""
+    global coupons_cache
+    check_and_refresh()
+    all_coupons = coupons_cache if coupons_cache else load_coupons()
+    
+    # Filter only food/restaurants
+    food_coupons = [c for c in all_coupons if c.get('category') == 'food']
+    
+    # Get unique cities from food deals
+    cities = sorted(set(c.get('city') for c in food_coupons if c.get('city') and c.get('city') != 'all'))
+    
+    # Apply city filter
+    city = request.args.get('city', '')
+    if city and city != 'all':
+        food_coupons = [c for c in food_coupons if c.get('city') == city or c.get('city') == 'all']
+    
+    return render_template_string(
+        DASHBOARD_TEMPLATE,
+        coupons=food_coupons[:50],
+        total_coupons=len(food_coupons),
+        sources=sorted(set(c.get('source') for c in food_coupons)),
+        cities=cities,
+        selected_city=city,
+        last_updated=cache_updated.strftime('%Y-%m-%d %H:%M') if cache_updated else 'N/A'
+    )
 
 
 @app.route('/')
