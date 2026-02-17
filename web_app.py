@@ -405,7 +405,7 @@ DASHBOARD_TEMPLATE = """
                     <option value="electronics">Electronics</option>
                     <option value="fashion">Fashion</option>
                     <option value="mobiles">Mobiles</option>
-                    <option value="food">Food & Dining</option>
+                    <option value="food">🍔 Food & Restaurants</option>
                     <option value="beauty">Beauty</option>
                     <option value="home">Home</option>
                 </select>
