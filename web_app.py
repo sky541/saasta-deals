@@ -52,30 +52,33 @@ DASHBOARD_TEMPLATE = """
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #00B4D8;
-            --secondary: #90E0EF;
-            --dark: #0077B6;
-            --light: #CAF0F8;
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --dark: #4f46e5;
+            --light: #e0e7ff;
             --white: #ffffff;
-            --success: #28a745;
-            --danger: #E63946;
+            --success: #10b981;
+            --danger: #ef4444;
+            --orange: #f97316;
+            --text: #1f2937;
+            --gray: #6b7280;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(180deg, #CAF0F8 0%, #90E0EF 100%);
-            color: #023E8A;
+            background: #f8fafc;
+            color: #1f2937;
             min-height: 100vh;
         }
         
         header {
-            background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
-            padding: 1.2rem 0;
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
         
         .header-content {
@@ -116,25 +119,39 @@ DASHBOARD_TEMPLATE = """
         }
         
         .hero {
-            background: linear-gradient(135deg, #00B4D8 0%, #48CAE4 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
-            padding: 2.5rem 20px;
+            padding: 2rem 20px;
             text-align: center;
         }
         
-        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .hero p { font-size: 1.2rem; opacity: 0.95; }
+        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .hero p { font-size: 1.1rem; opacity: 0.95; }
         
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 30px;
             margin-top: 1.5rem;
             flex-wrap: wrap;
         }
         
         .stat {
-            background: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.2);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
             padding: 12px 25px;
             border-radius: 15px;
         }
@@ -175,7 +192,7 @@ DASHBOARD_TEMPLATE = """
         
         .filter-row button {
             padding: 10px 25px;
-            background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
             border: none;
             border-radius: 25px;
@@ -186,6 +203,19 @@ DASHBOARD_TEMPLATE = """
         
         .filter-row button:hover { transform: translateY(-2px); }
         
+        .filter-row input, .filter-row select {
+            padding: 10px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .filter-row input:focus, .filter-row select:focus {
+            border-color: #6366f1;
+        }
+        
         .coupons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -194,23 +224,23 @@ DASHBOARD_TEMPLATE = """
         
         .coupon-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,119,182,0.15);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
             transition: all 0.3s;
-            border: 3px solid transparent;
+            border: 2px solid transparent;
         }
         
         .coupon-card:hover {
             transform: translateY(-5px);
-            border-color: #00B4D8;
-            box-shadow: 0 12px 30px rgba(0,119,182,0.25);
+            border-color: #6366f1;
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
         }
         
         .coupon-header {
-            background: linear-gradient(135deg, #00B4D8 0%, #0077B6 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
             color: white;
-            padding: 1.2rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -218,13 +248,17 @@ DASHBOARD_TEMPLATE = """
         
         .coupon-source {
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
         .coupon-discount {
-            background: #FFD60A;
-            color: #0077B6;
-            padding: 5px 15px;
+            background: #f97316;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
             border-radius: 20px;
             font-weight: bold;
             font-size: 1rem;
@@ -380,7 +414,7 @@ DASHBOARD_TEMPLATE = """
                 <div class="stat-label">Active Coupons</div>
             </div>
             <div class="stat">
-                <div class="stat-number">{{ sources }}</div>
+                <div class="stat-number">{{ sources|length }}</div>
                 <div class="stat-label">Partner Stores</div>
             </div>
         </div>
@@ -515,8 +549,8 @@ def local_deals():
     # Filter only food/restaurants
     food_coupons = [c for c in all_coupons if c.get('category') == 'food']
     
-    # Get unique cities from food deals
-    cities = sorted(set(c.get('city') for c in food_coupons if c.get('city') and c.get('city') != 'all'))
+    # Get unique cities from food deals - proper cities only
+    all_cities = ['Hyderabad', 'Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Pune', 'Kolkata', 'Chandigarh', 'Ahmedabad', 'Jaipur']
     
     # Apply city filter
     city = request.args.get('city', '')
@@ -527,8 +561,8 @@ def local_deals():
         DASHBOARD_TEMPLATE,
         coupons=food_coupons[:50],
         total_coupons=len(food_coupons),
-        sources=sorted(set(c.get('source') for c in food_coupons)),
-        cities=cities,
+        sources=[],  # Empty - hide source filter on local page
+        cities=all_cities,
         selected_city=city,
         last_updated=cache_updated.strftime('%Y-%m-%d %H:%M') if cache_updated else 'N/A'
     )
