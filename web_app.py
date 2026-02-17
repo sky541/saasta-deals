@@ -722,7 +722,7 @@ def index():
         coupons=filtered[:50],
         total_coupons=len(filtered),
         sources=len(sources),
-        cities=sorted(cities),
+        cities=sorted([c for c in cities if c]),
         last_updated=datetime.now().strftime("%Y-%m-%d %H:%M")
     )
 
