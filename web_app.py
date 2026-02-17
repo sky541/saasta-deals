@@ -606,8 +606,13 @@ DASHBOARD_TEMPLATE = """
                     <div class="city-badge">{{ coupon.city }}</div>
                     {% endif %}
                     <div class="coupon-code">
-                        <div class="code-box">{{ coupon.coupon_code }}</div>
-                        <button class="copy-btn" onclick="copyCode('{{ coupon.coupon_code }}')">Copy</button>
+                        {% set coupon_code = coupon.code or coupon.coupon_code %}
+                        {% if coupon_code %}
+                        <div class="code-box" style="background:#22c55e;color:white;">{{ coupon_code }}</div>
+                        <button class="copy-btn" onclick="copyCode('{{ coupon_code }}')">Copy</button>
+                        {% else %}
+                        <div class="code-box" style="background:#06b6d4;color:white;">Coupon Not Required</div>
+                        {% endif %}
                     </div>
                     <p class="coupon-desc">{{ coupon.description }}</p>
                     <div class="coupon-details">
@@ -711,7 +716,7 @@ def index():
         # Show coupons for specific city or all (non-city specific)
         filtered = [c for c in filtered if c.get('city') == city or c.get('city') == 'all']
     if search:
-        filtered = [c for c in filtered if search in c.get('description', '').lower() or search in c.get('coupon_code', '').lower()]
+        filtered = [c for c in filtered if search in c.get('description', '').lower() or search in (c.get('code') or c.get('coupon_code') or '').lower()]
     
     # Get stats
     sources = set(c.get('source') for c in all_coupons)
