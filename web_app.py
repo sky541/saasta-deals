@@ -414,7 +414,7 @@ DASHBOARD_TEMPLATE = """
                 <div class="stat-label">Active Coupons</div>
             </div>
             <div class="stat">
-                <div class="stat-number">{{ sources|length }}</div>
+                <div class="stat-number">{{ sources }}</div>
                 <div class="stat-label">Partner Stores</div>
             </div>
         </div>
