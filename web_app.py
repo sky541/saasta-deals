@@ -119,6 +119,30 @@ DASHBOARD_TEMPLATE = """
             color: #00B4D8;
         }
         
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            header {
+                padding: 10px 0;
+            }
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+                padding: 0 10px;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .tabs {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .tab {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+        }
+        
         .hero {
             background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
             color: white;
@@ -406,20 +430,61 @@ DASHBOARD_TEMPLATE = """
         </div>
     </header>
     
+    {% if is_local %}
+    <div class="hero">
+        <h1>🍔 Local Food & Restaurant Deals</h1>
+        <p>Best restaurant coupons in your city!</p>
+        <p id="detecting" style="font-size: 0.9rem; opacity: 0.9;">📍 Detecting your city...</p>
+        <script>
+        const cities = {
+            'Hyderabad': {lat: 17.3850, lon: 78.4867},
+            'Bangalore': {lat: 12.9716, lon: 77.5946},
+            'Mumbai': {lat: 19.0760, lon: 72.8777},
+            'Delhi': {lat: 28.7041, lon: 77.1025},
+            'Chennai': {lat: 13.0827, lon: 80.2707},
+            'Pune': {lat: 18.5204, lon: 73.8567},
+            'Kolkata': {lat: 22.5726, lon: 88.3639},
+            'Chandigarh': {lat: 30.7333, lon: 76.7794},
+            'Ahmedabad': {lat: 23.0225, lon: 72.5714},
+            'Jaipur': {lat: 26.9124, lon: 75.7873}
+        };
+        function findClosestCity(lat, lon) {
+            let closest = null, minDist = Infinity;
+            for (const [city, coords] of Object.entries(cities)) {
+                const dist = Math.sqrt(Math.pow(lat - coords.lat, 2) + Math.pow(lon - coords.lon, 2));
+                if (dist < minDist) { minDist = dist; closest = city; }
+            }
+            return closest;
+        }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    const city = findClosestCity(position.coords.latitude, position.coords.longitude);
+                    document.getElementById('detecting').innerHTML = '📍 Detected: <strong>' + city + '</strong>';
+                    setTimeout(() => {
+                        const select = document.querySelector('select[name="city"]');
+                        if (select && select.value === '') { select.value = city; select.form.submit(); }
+                    }, 1500);
+                },
+                function() { document.getElementById('detecting').innerHTML = '📍 Location not available'; }
+            );
+        } else { document.getElementById('detecting').innerHTML = '📍 Location not supported'; }
+        </script>
+        <div class="stats-bar">
+            <div class="stat"><div class="stat-number">{{ total_coupons }}</div><div class="stat-label">Deals</div></div>
+            <div class="stat"><div class="stat-number">{{ cities|length }}</div><div class="stat-label">Cities</div></div>
+        </div>
+    </div>
+    {% else %}
     <div class="hero">
         <h1>🎟️ Best Coupon Codes in India</h1>
         <p>Find working coupon codes from Amazon, Flipkart, Myntra, Ajio and more!</p>
         <div class="stats-bar">
-            <div class="stat">
-                <div class="stat-number">{{ total_coupons }}</div>
-                <div class="stat-label">Active Coupons</div>
-            </div>
-            <div class="stat">
-                <div class="stat-number">{{ sources }}</div>
-                <div class="stat-label">Partner Stores</div>
-            </div>
+            <div class="stat"><div class="stat-number">{{ total_coupons }}</div><div class="stat-label">Active Coupons</div></div>
+            <div class="stat"><div class="stat-number">{{ sources }}</div><div class="stat-label">Partner Stores</div></div>
         </div>
     </div>
+    {% endif %}
     
     <div class="container">
         <div class="filters">
@@ -565,7 +630,8 @@ def local_deals():
         sources=[],  # Empty - hide source filter on local page
         cities=all_cities,
         selected_city=city,
-        last_updated=cache_updated.strftime('%Y-%m-%d %H:%M') if cache_updated else 'N/A'
+        last_updated=cache_updated.strftime('%Y-%m-%d %H:%M') if cache_updated else 'N/A',
+        is_local=True
     )
 
 
