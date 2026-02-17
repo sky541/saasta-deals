@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any
 
 from flask import Flask, render_template_string, jsonify, request
+from apscheduler.schedulers.background import BackgroundScheduler
 
 logging.basicConfig(
     level=logging.INFO,
@@ -36,6 +37,17 @@ def check_and_refresh():
     global cache_updated
     if cache_updated is None or (datetime.now() - cache_updated) > timedelta(hours=REFRESH_INTERVAL_HOURS):
         refresh_coupons()
+
+# Initialize background scheduler for automatic refresh (after refresh_coupons is defined)
+scheduler = BackgroundScheduler()
+scheduler.add_job(
+    func=refresh_coupons,
+    trigger="interval",
+    hours=REFRESH_INTERVAL_HOURS,
+    id="coupon_refresh_job",
+    name="Refresh coupons from file",
+    replace_existing=True
+)
 
 # Don't call refresh_coupons() here - load_coupons not defined yet
 
@@ -767,6 +779,12 @@ def api_coupons():
 def run_server(host='0.0.0.0', port=None):
     if port is None:
         port = int(os.environ.get('PORT', 5000))
+    
+    # Start the background scheduler
+    if not scheduler.running:
+        scheduler.start()
+        logger.info(f"Background scheduler started - will refresh coupons every {REFRESH_INTERVAL_HOURS} hours")
+    
     logger.info(f"Starting GrabCoupon on http://{host}:{port}")
     app.run(host=host, port=port, debug=False)
 
@@ -783,7 +801,7 @@ def status():
     return jsonify({
         "last_updated": cache_updated.isoformat() if cache_updated else None,
         "coupons_count": len(coupons_cache) if coupons_cache else 0,
-        "next_refresh": "in 12 hours"
+        "next_refresh": f"in {REFRESH_INTERVAL_HOURS} hours"
     })
 
 if __name__ == "__main__":
