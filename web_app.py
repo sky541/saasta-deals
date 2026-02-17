@@ -46,39 +46,40 @@ DASHBOARD_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OfferOye - Coupons & Offers</title>
+    <title>GrabCoupon - Coupons & Offers</title>
     <meta name="description" content="Find the best coupon codes and offers from top Indian retailers">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
-            --dark: #4f46e5;
-            --light: #e0e7ff;
+            --primary: #0ea5e9;
+            --secondary: #38bdf8;
+            --dark: #0284c7;
+            --light: #f0f9ff;
             --white: #ffffff;
-            --success: #10b981;
+            --success: #22c55e;
             --danger: #ef4444;
             --orange: #f97316;
-            --text: #1f2937;
-            --gray: #6b7280;
+            --text: #334155;
+            --gray: #94a3b8;
+            --bg: #f8fafc;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f8fafc;
-            color: #1f2937;
+            color: #334155;
             min-height: 100vh;
         }
         
         header {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
             color: white;
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 2px 10px rgba(14, 165, 233, 0.2);
         }
         
         .header-content {
@@ -119,7 +120,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .hero {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
             color: white;
             padding: 2rem 20px;
             text-align: center;
@@ -192,7 +193,7 @@ DASHBOARD_TEMPLATE = """
         
         .filter-row button {
             padding: 10px 25px;
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
             color: white;
             border: none;
             border-radius: 25px;
@@ -226,19 +227,19 @@ DASHBOARD_TEMPLATE = """
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.1);
             transition: all 0.3s;
             border: 2px solid transparent;
         }
         
         .coupon-card:hover {
             transform: translateY(-5px);
-            border-color: #6366f1;
-            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.2);
+            border-color: #0ea5e9;
+            box-shadow: 0 12px 25px rgba(14, 165, 233, 0.15);
         }
         
         .coupon-header {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
             color: white;
             padding: 1rem;
             display: flex;
@@ -397,7 +398,7 @@ DASHBOARD_TEMPLATE = """
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🎫 OfferOye</div>
+            <div class="logo">🎫 GrabCoupon</div>
             <nav class="tabs">
                 <a href="/" class="tab {% if request.path == '/' %}active{% endif %}">🏠 All Deals</a>
                 <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
@@ -503,7 +504,7 @@ DASHBOARD_TEMPLATE = """
     </div>
     
     <footer>
-        <p>© 2026 OfferOye - Find the Best Coupons in India</p>
+        <p>© 2026 GrabCoupon - Find the Best Coupons in India</p>
     </footer>
     
     <script>
@@ -635,7 +636,7 @@ def api_coupons():
 def run_server(host='0.0.0.0', port=None):
     if port is None:
         port = int(os.environ.get('PORT', 5000))
-    logger.info(f"Starting OfferOye on http://{host}:{port}")
+    logger.info(f"Starting GrabCoupon on http://{host}:{port}")
     app.run(host=host, port=port, debug=False)
 
 
