@@ -99,7 +99,7 @@ DASHBOARD_TEMPLATE = """
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
         
@@ -235,6 +235,24 @@ DASHBOARD_TEMPLATE = """
         
         .filter-row input:focus, .filter-row select:focus {
             border-color: #6366f1;
+        }
+        
+        @media (max-width: 600px) {
+            .filter-row {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .filter-row select, .filter-row input {
+                min-width: 120px;
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+            .filter-row button {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+                white-space: nowrap;
+            }
         }
         
         .coupons-grid {
@@ -448,7 +466,7 @@ DASHBOARD_TEMPLATE = """
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🎫 GrabCoupon - Best Coupons in India</div>
+            <div class="logo">🎫 GrabCoupon</div>
         </div>
     </header>
     
@@ -606,7 +624,7 @@ DASHBOARD_TEMPLATE = """
     </div>
     
     <footer>
-        <p>© 2026 GrabCoupon - Find the Best Coupons in India</p>
+        <p>© 2026 GrabCoupon</p>
     </footer>
     
     <script>
