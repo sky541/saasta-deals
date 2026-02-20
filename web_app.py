@@ -58,15 +58,8 @@ DASHBOARD_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrabCoupon - Best Coupon Codes & Deals in India</title>
-    <meta name="description" content="Find verified coupon codes, deals and discounts from Amazon, Flipkart, Myntra, Ajio, Swiggy, Zomato and 100+ top Indian stores. Save big on every purchase!">
-    <meta name="keywords" content="coupon codes, deals, discounts, Amazon coupons, Flipkart offers, Myntra sale, Ajio discount, Swiggy coupons, Zomato offers, grocery deals, fashion discounts">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="GrabCoupon - Best Coupon Codes & Deals in India">
-    <meta property="og:description" content="Find verified coupon codes from 100+ top Indian stores. Save big on every purchase!">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://grabcoupon.onrender.com">
+    <title>GrabCoupon - Coupons & Offers</title>
+    <meta name="description" content="Find the best coupon codes and offers from top Indian retailers">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -129,6 +122,46 @@ DASHBOARD_TEMPLATE = """
             display: none;
         }
         
+        .category-search {
+            background: #f8f9fa;
+            padding: 12px 20px;
+            text-align: center;
+        }
+        
+        .category-search form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .category-search input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 0.95rem;
+        }
+        
+        .category-search select {
+            padding: 10px 16px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+        }
+        
+        .category-search button {
+            padding: 10px 24px;
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
         .tab {
             padding: 8px 16px;
             background: rgba(255,255,255,0.3);
@@ -188,61 +221,18 @@ DASHBOARD_TEMPLATE = """
         
         /* Search in Hero */
         .hero-search {
-            max-width: 400px;
-            margin: 10px auto 0;
-        }
-        
-        .unified-search {
-            max-width: 700px;
-            margin: 10px auto 0;
-            display: flex;
-            gap: 8px;
-        }
-        
-        .unified-search form {
-            display: flex;
-            width: 100%;
-            gap: 8px;
-        }
-        
-        .unified-search input {
-            flex: 1;
-            padding: 10px 16px;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 20px;
-            outline: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .unified-search select {
-            padding: 10px 14px;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 20px;
-            background: white;
-            cursor: pointer;
-            min-width: 120px;
-        }
-        
-        .unified-search button {
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            background: #023E8A;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
+            max-width: 600px;
+            margin: 20px auto 0;
         }
         
         .hero-search input {
             width: 100%;
-            padding: 10px 16px;
-            font-size: 0.9rem;
+            padding: 14px 20px;
+            font-size: 1rem;
             border: none;
-            border-radius: 20px;
+            border-radius: 30px;
             outline: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
         
         /* Mobile Responsive */
@@ -272,25 +262,25 @@ DASHBOARD_TEMPLATE = """
         .hero {
             background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
             color: white;
-            padding: 0.75rem 20px;
+            padding: 2rem 20px;
             text-align: center;
         }
         
-        .hero h1 { font-size: 1.2rem; margin-bottom: 0.25rem; }
-        .hero p { font-size: 0.9rem; opacity: 0.95; margin-bottom: 0.5rem; }
+        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .hero p { font-size: 1.1rem; opacity: 0.95; }
         
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 0.5rem;
+            gap: 30px;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
         }
         
         .stat {
             background: rgba(255,255,255,0.2);
-            padding: 0.4rem 1rem;
-            border-radius: 8px;
+            padding: 1rem 2rem;
+            border-radius: 12px;
             backdrop-filter: blur(10px);
         }
         
@@ -578,7 +568,7 @@ DASHBOARD_TEMPLATE = """
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🎫 GrabCoupon</div>
+            <div class="logo">🎫 GrabCoupon - Best Coupons in India</div>
         </div>
     </header>
     
@@ -597,6 +587,26 @@ DASHBOARD_TEMPLATE = """
         <a href="/?category=recharge" class="tab {% if request.args.get('category') == 'recharge' %}active{% endif %}">💰 Recharge</a>
         <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
     </nav>
+    
+    <!-- Category Search Bar -->
+    <div class="category-search">
+        <form method="get">
+            {% if request.args.get('category') %}
+            <input type="hidden" name="category" value="{{ request.args.get('category') }}">
+            {% endif %}
+            <input type="text" name="search" placeholder="🔍 Search within {{ request.args.get('category', 'all') }}..." value="{{ request.args.get('search', '') }}">
+            <select name="source">
+                <option value="">All Stores</option>
+                <option value="Amazon" {% if request.args.get('source')=='Amazon' %}selected{% endif %}>Amazon</option>
+                <option value="Flipkart" {% if request.args.get('source')=='Flipkart' %}selected{% endif %}>Flipkart</option>
+                <option value="Myntra" {% if request.args.get('source')=='Myntra' %}selected{% endif %}>Myntra</option>
+                <option value="Ajio" {% if request.args.get('source')=='Ajio' %}selected{% endif %}>Ajio</option>
+                <option value="Swiggy" {% if request.args.get('source')=='Swiggy' %}selected{% endif %}>Swiggy</option>
+                <option value="Zomato" {% if request.args.get('source')=='Zomato' %}selected{% endif %}>Zomato</option>
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </div>
     
     {% if is_local %}
     <div class="hero">
@@ -652,38 +662,255 @@ DASHBOARD_TEMPLATE = """
     </div>
     {% else %}
     <div class="hero">
+        <h1>🎟️ Best Coupon Codes in India</h1>
         <p>Find working coupon codes from Amazon, Flipkart, Myntra, Ajio and more!</p>
         
-        <!-- Unified Search & Filter -->
-        <div class="unified-search">
+        <!-- Search in Hero -->
+        <div class="hero-search">
             <form method="get">
                 {% if request.args.get('category') %}
                 <input type="hidden" name="category" value="{{ request.args.get('category') }}">
                 {% endif %}
-                <input type="text" name="search" placeholder="🔍 Search coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
-                <select name="source">
-                    <option value="">All Stores</option>
-                    <option value="Amazon" {% if request.args.get('source')=='Amazon' %}selected{% endif %}>Amazon</option>
-                    <option value="Flipkart" {% if request.args.get('source')=='Flipkart' %}selected{% endif %}>Flipkart</option>
-                    <option value="Myntra" {% if request.args.get('source')=='Myntra' %}selected{% endif %}>Myntra</option>
-                    <option value="Ajio" {% if request.args.get('source')=='Ajio' %}selected{% endif %}>Ajio</option>
-                    <option value="Swiggy" {% if request.args.get('source')=='Swiggy' %}selected{% endif %}>Swiggy</option>
-                    <option value="Zomato" {% if request.args.get('source')=='Zomato' %}selected{% endif %}>Zomato</option>
-                    <option value="Meesho" {% if request.args.get('source')=='Meesho' %}selected{% endif %}>Meesho</option>
-                    <option value="Nykaa" {% if request.args.get('source')=='Nykaa' %}selected{% endif %}>Nykaa</option>
-                </select>
-                <button type="submit">Search</button>
+                <input type="text" name="search" placeholder="🔍 Search for coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
             </form>
         </div>
         
         <div class="stats-bar">
-            <div class="stat"><div class="stat-number">{{ total_coupons }}</div><div class="stat-label">Coupons</div></div>
-            <div class="stat"><div class="stat-number">{{ sources }}</div><div class="stat-label">Stores</div></div>
+            <div class="stat"><div class="stat-number">{{ total_coupons }}</div><div class="stat-label">Active Coupons</div></div>
+            <div class="stat"><div class="stat-number">{{ sources }}</div><div class="stat-label">Partner Stores</div></div>
         </div>
     </div>
     {% endif %}
     
     <div class="container">
+        <div class="filters">
+            <form class="filter-row" method="get">
+                {% if request.args.get('category') %}
+                <input type="hidden" name="category" value="{{ request.args.get('category') }}">
+                {% endif %}
+                {% if request.args.get('search') %}
+                <input type="hidden" name="search" value="{{ request.args.get('search') }}">
+                {% endif %}
+                <select name="source">
+                    <option value="">All Stores</option>
+                    <option value="Amazon">Amazon (6)</option>
+                    <option value="Flipkart">Flipkart (6)</option>
+                    <option value="YouTube Shopping">YouTube Shopping (8)</option>
+                    <option value="Myntra">Myntra (4)</option>
+                    <option value="Swiggy">Swiggy (4)</option>
+                    <option value="Zomato">Zomato (4)</option>
+                    <option value="Ajio">Ajio (3)</option>
+                    <option value="Croma">Croma (3)</option>
+                    <option value="Meesho">Meesho (3)</option>
+                    <option value="Nykaa">Nykaa (3)</option>
+                    <option value="Paytm">Paytm (3)</option>
+                    <option value="Reliance Digital">Reliance Digital (3)</option>
+                    <option value="Snapdeal">Snapdeal (3)</option>
+                    <option value="Tata Cliq">Tata Cliq (3)</option>
+                    <option value="Swiggy Delivery">Swiggy Delivery (3)</option>
+                    <option value="Pepperfry">Pepperfry (2)</option>
+                    <option value="Shoppers Stop">Shoppers Stop (2)</option>
+                    <option value="Blinkit">Blinkit</option>
+                    <option value="Zepto">Zepto</option>
+                    <option value="BigBasket">BigBasket</option>
+                    <option value="Dmart">Dmart</option>
+                    <option value="FirstCry">FirstCry</option>
+                    <option value="PharmEasy">PharmEasy</option>
+                    <option value="BookMyShow">BookMyShow</option>
+                    <option value="MakeMyTrip">MakeMyTrip</option>
+                    <option value="Goibibo">Goibibo</option>
+                    <option value="Yatra">Yatra</option>
+                    <option value="CRED">CRED</option>
+                    <option value="Simpl">Simpl</option>
+                    <option value="PineLabs">PineLabs</option>
+                    <option value="Nykaa Fashion">Nykaa Fashion</option>
+                    <option value="Libas">Libas</option>
+                    <option value="W For Woman">W For Woman</option>
+                    <option value="Allen Solly">Allen Solly</option>
+                    <option value="Louis Philippe">Louis Philippe</option>
+                    <option value="Peter England">Peter England</option>
+                    <option value="adidas">adidas</option>
+                    <option value="Nike">Nike</option>
+                    <option value="Puma">Puma</option>
+                    <option value="Samsung">Samsung</option>
+                    <option value="OnePlus">OnePlus</option>
+                    <option value="Vivo">Vivo</option>
+                    <option value="Oppo">Oppo</option>
+                    <option value="Realme">Realme</option>
+                    <option value="Lenovo">Lenovo</option>
+                    <option value="Dell">Dell</option>
+                    <option value="HP">HP</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Jio">Jio</option>
+                    <option value="Airtel">Airtel</option>
+                    <option value="Vi">Vi</option>
+                    <option value="McDonald's">McDonald's</option>
+                    <option value="KFC">KFC</option>
+                    <option value="Pizza Hut">Pizza Hut</option>
+                    <option value="Domino's">Domino's</option>
+                    <option value="Subway">Subway</option>
+                    <option value="Burger King">Burger King</option>
+                    <option value="Costa Coffee">Costa Coffee</option>
+                    <option value="CCD">CCD</option>
+                    <option value="Barista">Barista</option>
+                    <option value="Starbucks">Starbucks</option>
+                    <option value="Dunkin">Dunkin</option>
+                    <option value="Faasos">Faasos</option>
+                    <option value="FreshMenu">FreshMenu</option>
+                    <option value="Spencer's">Spencer's</option>
+                    <option value="Big Bazaar">Big Bazaar</option>
+                    <option value="Lifestyle">Lifestyle</option>
+                    <option value="Westside">Westside</option>
+                    <option value="FabIndia">FabIndia</option>
+                    <option value="Urban Ladder">Urban Ladder</option>
+                    <option value="Home Centre">Home Centre</option>
+                    <option value="Wakefit">Wakefit</option>
+                    <option value="Sleepyhead">Sleepyhead</option>
+                    <option value="Nilkamal">Nilkamal</option>
+                    <option value="Godrej">Godrej</option>
+                    <option value="Bajaj">Bajaj</option>
+                    <option value="Philips">Philips</option>
+                    <option value="Syska">Syska</option>
+                    <option value="Havells">Havells</option>
+                    <option value="Orient">Orient</option>
+                    <option value="Kaff">Kaff</option>
+                    <option value="Eureka Forbes">Eureka Forbes</option>
+                    <option value="Kent">Kent</option>
+                    <option value="Aqua">Aqua</option>
+                    <option value="Livpure">Livpure</option>
+                    <option value="Pureit">Pureit</option>
+                    <option value="Brita">Brita</option>
+                    <option value="Voltas">Voltas</option>
+                    <option value="Blue Star">Blue Star</option>
+                    <option value="Daikin">Daikin</option>
+                    <option value="LG">LG</option>
+                    <option value="Whirlpool">Whirlpool</option>
+                    <option value="IFB">IFB</option>
+                    <option value="Sony">Sony</option>
+                    <option value="Panasonic">Panasonic</option>
+                    <option value="Toshiba">Toshiba</option>
+                    <option value="Hitachi">Hitachi</option>
+                    <option value="Sharp">Sharp</option>
+                    <option value="Haier">Haier</option>
+                    <option value="Kelvinator">Kelvinator</option>
+                    <option value="Videocon">Videocon</option>
+                    <option value="Onida">Onida</option>
+                    <option value="Akai">Akai</option>
+                    <option value="Micromax">Micromax</option>
+                    <option value="Intex">Intex</option>
+                    <option value="Lavie">Lavie</option>
+                    <option value="Samsonite">Samsonite</option>
+                    <option value="American Tourister">American Tourister</option>
+                    <option value="Skybags">Skybags</option>
+                    <option value="Safari">Safari</option>
+                    <option value="VIP">VIP</option>
+                    <option value="Delsey">Delsey</option>
+                    <option value="Parker">Parker</option>
+                    <option value="Pilot">Pilot</option>
+                    <option value="Cello">Cello</option>
+                    <option value="Maped">Maped</option>
+                    <option value="Camlin">Camlin</option>
+                    <option value="Faber Castell">Faber Castell</option>
+                    <option value="Doms">Doms</option>
+                    <option value="Reynolds">Reynolds</option>
+                    <option value="Flair">Flair</option>
+                    <option value="Add Gel">Add Gel</option>
+                    <option value="Montex">Montex</option>
+                    <option value="Roto">Roto</option>
+                    <option value="Kores">Kores</option>
+                    <option value="Luxor">Luxor</option>
+                    <option value="Nataraj">Nataraj</option>
+                    <option value="Apsara">Apsara</option>
+                    <option value="Staedtler">Staedtler</option>
+                    <option value="Pentel">Pentel</option>
+                    <option value="Tombow">Tombow</option>
+                    <option value="Mohan">Mohan</option>
+                    <option value="Gem">Gem</option>
+                    <option value="Casio">Casio</option>
+                    <option value="Citizen">Citizen</option>
+                    <option value="Seiko">Seiko</option>
+                    <option value="Fastrack">Fastrack</option>
+                    <option value="Titan">Titan</option>
+                    <option value="Sonata">Sonata</option>
+                    <option value="Maxima">Maxima</option>
+                    <option value="Timex">Timex</option>
+                    <option value="Roland">Roland</option>
+                    <option value="Yamaha">Yamaha</option>
+                    <option value="Rockstand">Rockstand</option>
+                    <option value="Micheal">Micheal</option>
+                    <option value="JBL">JBL</option>
+                    <option value="Bose">Bose</option>
+                    <option value="Sennheiser">Sennheiser</option>
+                    <option value="Audio Technica">Audio Technica</option>
+                    <option value="Skullcandy">Skullcandy</option>
+                    <option value="Boat">Boat</option>
+                    <option value="Marshall">Marshall</option>
+                    <option value="Bang">Bang</option>
+                    <option value="Olufsen">Olufsen</option>
+                    <option value="Defy">Defy</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Shure">Shure</option>
+                    <option value="Vestel">Vestel</option>
+                    <option value="TCL">TCL</option>
+                    <option value="Vu">Vu</option>
+                    <option value="Mi">Mi</option>
+                    <option value="Motorola">Motorola</option>
+                    <option value="Nokia">Nokia</option>
+                    <option value="Acer">Acer</option>
+                    <option value="MSI">MSI</option>
+                    <option value="Apple">Apple</option>
+                    <option value="Logitech">Logitech</option>
+                    <option value="Microsoft">Microsoft</option>
+                    <option value="Shopclues">Shopclues</option>
+                    <option value="ebay">ebay</option>
+                    <option value="Vijay Sales">Vijay Sales</option>
+                    <option value="Poorvika">Poorvika</option>
+                    <option value="Big C Mobiles">Big C Mobiles</option>
+                    <option value="World Mobiles">World Mobiles</option>
+                    <option value="Sangeetha Mobiles">Sangeetha Mobiles</option>
+                    <option value="Lot Mobiles">Lot Mobiles</option>
+                    <option value="UniverCell">UniverCell</option>
+                    <option value="Redmi">Redmi</option>
+                    <option value="POCO">POCO</option>
+                    <option value="Infinix">Infinix</option>
+                    <option value="Tecno">Tecno</option>
+                    <option value="Itel">Itel</option>
+                    <option value="Lava">Lava</option>
+                    <option value="BSNL">BSNL</option>
+                    <option value="MTNL">MTNL</option>
+                    <option value="Lucknow">Lucknow</option>
+                    <option value="Kanpur">Kanpur</option>
+                    <option value="Nagpur">Nagpur</option>
+                    <option value="Indore">Indore</option>
+                    <option value="Thane">Thane</option>
+                    <option value="Bhopal">Bhopal</option>
+                    <option value="Visakhapatnam">Visakhapatnam</option>
+                    <option value="Vadodara">Vadodara</option>
+                    <option value="Coimbatore">Coimbatore</option>
+                    <option value="Kochi">Kochi</option>
+                    <option value="Patna">Patna</option>
+                    <option value="Raipur">Raipur</option>
+                    <option value="Ranchi">Ranchi</option>
+                    <option value="Jammu">Jammu</option>
+                    <option value="Srinagar">Srinagar</option>
+                    <option value="Dehradun">Dehradun</option>
+                    <option value="Mysore">Mysore</option>
+                    <option value="Guwahati">Guwahati</option>
+                    <option value="Bhubaneswar">Bhubaneswar</option>
+                    <option value="Cuttack">Cuttack</option>
+                    <option value="Puri">Puri</option>
+                    <option value="Rourkela">Rourkela</option>
+                    <option value="Berhampur">Berhampur</option>
+                    <option value="Durgapur">Durgapur</option>
+                    <option value="Asansol">Asansol</option>
+                    <option value="Malda">Malda</option>
+                    <option value="Shibpur">Shibpur</option>
+                </select>
+                <button type="submit">Apply Filters</button>
+                <button type="button" onclick="window.location.href='/'">Reset</button>
+            </form>
+        </div>
+        
         <div class="last-updated">🕐 Last updated: {{ last_updated }}</div>
         
         <div class="coupons-grid">
@@ -881,29 +1108,6 @@ def local_deals():
         category_counts={}
     )
 
-
-BASE_URL = "https://grabcoupon.onrender.com"
-
-# SEO: Sitemap
-@app.route('/sitemap.xml')
-def sitemap():
-    sitemap_xml = '''<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url><loc>''' + BASE_URL + '''/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-    <url><loc>''' + BASE_URL + '''/local</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    <url><loc>''' + BASE_URL + '''/?category=electronics</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-    <url><loc>''' + BASE_URL + '''/?category=fashion</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-    <url><loc>''' + BASE_URL + '''/?category=food</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-    <url><loc>''' + BASE_URL + '''/?category=mobiles</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-    <url><loc>''' + BASE_URL + '''/?category=beauty</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
-    <url><loc>''' + BASE_URL + '''/?category=grocery</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
-</urlset>'''
-    return sitemap_xml, 200, {'Content-Type': 'application/xml'}
-
-# SEO: Robots.txt
-@app.route('/robots.txt')
-def robots():
-    return "User-agent: *\nAllow: /\nSitemap: " + BASE_URL + "/sitemap.xml", 200, {'Content-Type': 'text/plain'}
 
 @app.route('/')
 def index():
