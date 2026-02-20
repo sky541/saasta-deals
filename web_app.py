@@ -58,8 +58,15 @@ DASHBOARD_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrabCoupon - Coupons & Offers</title>
-    <meta name="description" content="Find the best coupon codes and offers from top Indian retailers">
+    <title>GrabCoupon - Best Coupon Codes & Deals in India</title>
+    <meta name="description" content="Find verified coupon codes, deals and discounts from Amazon, Flipkart, Myntra, Ajio, Swiggy, Zomato and 100+ top Indian stores. Save big on every purchase!">
+    <meta name="keywords" content="coupon codes, deals, discounts, Amazon coupons, Flipkart offers, Myntra sale, Ajio discount, Swiggy coupons, Zomato offers, grocery deals, fashion discounts">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="GrabCoupon - Best Coupon Codes & Deals in India">
+    <meta property="og:description" content="Find verified coupon codes from 100+ top Indian stores. Save big on every purchase!">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://grabcoupon.onrender.com">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -183,6 +190,49 @@ DASHBOARD_TEMPLATE = """
         .hero-search {
             max-width: 400px;
             margin: 10px auto 0;
+        }
+        
+        .unified-search {
+            max-width: 700px;
+            margin: 10px auto 0;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .unified-search form {
+            display: flex;
+            width: 100%;
+            gap: 8px;
+        }
+        
+        .unified-search input {
+            flex: 1;
+            padding: 10px 16px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .unified-search select {
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            border: none;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            min-width: 120px;
+        }
+        
+        .unified-search button {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            background: #023E8A;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
         }
         
         .hero-search input {
@@ -528,7 +578,7 @@ DASHBOARD_TEMPLATE = """
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🎫 GrabCoupon - Best Coupons in India</div>
+            <div class="logo">🎫 GrabCoupon</div>
         </div>
     </header>
     
@@ -604,13 +654,25 @@ DASHBOARD_TEMPLATE = """
     <div class="hero">
         <p>Find working coupon codes from Amazon, Flipkart, Myntra, Ajio and more!</p>
         
-        <!-- Search in Hero -->
-        <div class="hero-search">
+        <!-- Unified Search & Filter -->
+        <div class="unified-search">
             <form method="get">
                 {% if request.args.get('category') %}
                 <input type="hidden" name="category" value="{{ request.args.get('category') }}">
                 {% endif %}
                 <input type="text" name="search" placeholder="🔍 Search coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
+                <select name="source">
+                    <option value="">All Stores</option>
+                    <option value="Amazon" {% if request.args.get('source')=='Amazon' %}selected{% endif %}>Amazon</option>
+                    <option value="Flipkart" {% if request.args.get('source')=='Flipkart' %}selected{% endif %}>Flipkart</option>
+                    <option value="Myntra" {% if request.args.get('source')=='Myntra' %}selected{% endif %}>Myntra</option>
+                    <option value="Ajio" {% if request.args.get('source')=='Ajio' %}selected{% endif %}>Ajio</option>
+                    <option value="Swiggy" {% if request.args.get('source')=='Swiggy' %}selected{% endif %}>Swiggy</option>
+                    <option value="Zomato" {% if request.args.get('source')=='Zomato' %}selected{% endif %}>Zomato</option>
+                    <option value="Meesho" {% if request.args.get('source')=='Meesho' %}selected{% endif %}>Meesho</option>
+                    <option value="Nykaa" {% if request.args.get('source')=='Nykaa' %}selected{% endif %}>Nykaa</option>
+                </select>
+                <button type="submit">Search</button>
             </form>
         </div>
         
@@ -622,15 +684,9 @@ DASHBOARD_TEMPLATE = """
     {% endif %}
     
     <div class="container">
-        <div class="filters">
-            <form class="filter-row" method="get">
-                {% if request.args.get('category') %}
-                <input type="hidden" name="category" value="{{ request.args.get('category') }}">
-                {% endif %}
-                {% if request.args.get('search') %}
-                <input type="hidden" name="search" value="{{ request.args.get('search') }}">
-                {% endif %}
-                <select name="source">
+        <div class="last-updated">🕐 Last updated: {{ last_updated }}</div>
+        
+        <div class="coupons-grid">
                     <option value="">All Stores</option>
                     <option value="Amazon">Amazon (6)</option>
                     <option value="Flipkart">Flipkart (6)</option>
@@ -825,6 +881,29 @@ def local_deals():
         category_counts={}
     )
 
+
+BASE_URL = "https://grabcoupon.onrender.com"
+
+# SEO: Sitemap
+@app.route('/sitemap.xml')
+def sitemap():
+    sitemap_xml = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url><loc>''' + BASE_URL + '''/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+    <url><loc>''' + BASE_URL + '''/local</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>''' + BASE_URL + '''/?category=electronics</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+    <url><loc>''' + BASE_URL + '''/?category=fashion</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+    <url><loc>''' + BASE_URL + '''/?category=food</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+    <url><loc>''' + BASE_URL + '''/?category=mobiles</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+    <url><loc>''' + BASE_URL + '''/?category=beauty</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+    <url><loc>''' + BASE_URL + '''/?category=grocery</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+</urlset>'''
+    return sitemap_xml, 200, {'Content-Type': 'application/xml'}
+
+# SEO: Robots.txt
+@app.route('/robots.txt')
+def robots():
+    return "User-agent: *\nAllow: /\nSitemap: " + BASE_URL + "/sitemap.xml", 200, {'Content-Type': 'text/plain'}
 
 @app.route('/')
 def index():
