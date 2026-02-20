@@ -181,18 +181,64 @@ DASHBOARD_TEMPLATE = """
         
         /* Search in Hero */
         .hero-search {
-            max-width: 600px;
+            max-width: 800px;
             margin: 20px auto 0;
         }
         
+        .hero-search form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
         .hero-search input {
-            width: 100%;
+            flex: 1;
+            min-width: 200px;
             padding: 14px 20px;
             font-size: 1rem;
             border: none;
             border-radius: 30px;
             outline: none;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .hero-search select {
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .hero-search button {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-search button[type="submit"] {
+            background: #023E8A;
+            color: white;
+        }
+        
+        .hero-search button[type="submit"]:hover {
+            background: #0369a1;
+        }
+        
+        .hero-search button[type="button"] {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+        
+        .hero-search button[type="button"]:hover {
+            background: rgba(255,255,255,0.5);
         }
         
         /* Mobile Responsive */
@@ -612,6 +658,19 @@ DASHBOARD_TEMPLATE = """
                 <input type="hidden" name="category" value="{{ request.args.get('category') }}">
                 {% endif %}
                 <input type="text" name="search" placeholder="🔍 Search for coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
+                <select name="source">
+                    <option value="">All Stores</option>
+                    <option value="Amazon" {% if request.args.get('source')=='Amazon' %}selected{% endif %}>Amazon</option>
+                    <option value="Flipkart" {% if request.args.get('source')=='Flipkart' %}selected{% endif %}>Flipkart</option>
+                    <option value="Myntra" {% if request.args.get('source')=='Myntra' %}selected{% endif %}>Myntra</option>
+                    <option value="Ajio" {% if request.args.get('source')=='Ajio' %}selected{% endif %}>Ajio</option>
+                    <option value="Swiggy" {% if request.args.get('source')=='Swiggy' %}selected{% endif %}>Swiggy</option>
+                    <option value="Zomato" {% if request.args.get('source')=='Zomato' %}selected{% endif %}>Zomato</option>
+                    <option value="Meesho" {% if request.args.get('source')=='Meesho' %}selected{% endif %}>Meesho</option>
+                    <option value="Nykaa" {% if request.args.get('source')=='Nykaa' %}selected{% endif %}>Nykaa</option>
+                </select>
+                <button type="submit">Apply</button>
+                <button type="button" onclick="window.location.href='/?category={{ request.args.get('category', '') }}'">Reset</button>
             </form>
         </div>
         
