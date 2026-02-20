@@ -2,8 +2,8 @@ services:
   - type: web
     name: grabcoupon
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python3 -c \"from web_app import app; app.run(host='0.0.0.0', port=$PORT)\""
+    buildCommand: "pip install -r deals_bot/requirements.txt"
+    startCommand: "cd deals_bot && python -m web_app"
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.0"
