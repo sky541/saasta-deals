@@ -8,10 +8,6 @@ import json
 import logging
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
-from urllib.parse import quote
-import io
-import base64
-import qrcode
 
 from flask import Flask, render_template_string, jsonify, request, make_response
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -117,7 +113,13 @@ DASHBOARD_TEMPLATE = """
         
         .tabs {
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .tabs::-webkit-scrollbar {
+            display: none;
         }
         
         .tab {
@@ -343,97 +345,27 @@ DASHBOARD_TEMPLATE = """
             color: white;
         }
         
-        /* QR Code Modal */
-        .qr-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .qr-modal.show {
-            display: flex;
-        }
-        
-        .qr-content {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            text-align: center;
-            max-width: 320px;
-        }
-        
-        .qr-content h3 {
-            margin-bottom: 15px;
-            color: #0ea5e9;
-        }
-        
-        .qr-content img {
-            border-radius: 10px;
-            margin: 15px 0;
-            width: 200px;
-            height: 200px;
-        }
-        
-        .qr-content p {
-            color: #64748b;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-        }
-        
-        .qr-close {
-            padding: 10px 25px;
-            background: #64748b;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-        
         /* Coupon Buttons */
         .coupon-buttons {
-            display: flex;
-            gap: 10px;
             margin-top: 12px;
         }
         
-        .btn-qr {
-            flex: 1;
-            padding: 10px 8px;
-            background: #7c3aed;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: background 0.2s;
-        }
-        
-        .btn-qr:hover { background: #6d28d9; }
-        
         .btn-visit {
-            flex: 1;
-            padding: 10px 8px;
-            background: #16a34a;
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #22c55e;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-decoration: none;
             text-align: center;
-            transition: background 0.2s;
         }
         
-        .btn-visit:hover { background: #15803d; }
+        .btn-visit:hover { background: #16a34a; }
         
         /* Coupon Header */
         .coupon-header {
@@ -596,23 +528,25 @@ DASHBOARD_TEMPLATE = """
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">🎫 GrabCoupon</div>
-            <nav class="tabs">
-                <a href="/" class="tab {% if request.path == '/' and not request.args.get('category') %}active{% endif %}">🏠 All Deals</a>
-                <a href="/?category=electronics" class="tab {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics</a>
-                <a href="/?category=mobiles" class="tab {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles</a>
-                <a href="/?category=fashion" class="tab {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion</a>
-                <a href="/?category=food" class="tab {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food</a>
-                <a href="/?category=beauty" class="tab {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty</a>
-                <a href="/?category=home" class="tab {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home</a>
-                <a href="/?category=grocery" class="tab {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery</a>
-                <a href="/?category=travel" class="tab {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel</a>
-                <a href="/?category=health" class="tab {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health</a>
-                <a href="/?category=recharge" class="tab {% if request.args.get('category') == 'recharge' %}active{% endif %}">💰 Recharge</a>
-                <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
-            </nav>
+            <div class="logo">🎫 GrabCoupon - Best Coupons in India</div>
         </div>
     </header>
+    
+    <!-- Navigation Tabs -->
+    <nav class="tabs" style="background:white;box-shadow:0 2px 4px rgba(0,0,0,0.1);padding:10px 20px;">
+        <a href="/" class="tab {% if request.path == '/' and not request.args.get('category') %}active{% endif %}">🏠 All Deals</a>
+        <a href="/?category=electronics" class="tab {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics</a>
+        <a href="/?category=mobiles" class="tab {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles</a>
+        <a href="/?category=fashion" class="tab {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion</a>
+        <a href="/?category=food" class="tab {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food</a>
+        <a href="/?category=beauty" class="tab {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty</a>
+        <a href="/?category=home" class="tab {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home</a>
+        <a href="/?category=grocery" class="tab {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery</a>
+        <a href="/?category=travel" class="tab {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel</a>
+        <a href="/?category=health" class="tab {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health</a>
+        <a href="/?category=recharge" class="tab {% if request.args.get('category') == 'recharge' %}active{% endif %}">💰 Recharge</a>
+        <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
+    </nav>
     
     {% if is_local %}
     <div class="hero">
@@ -794,32 +728,7 @@ DASHBOARD_TEMPLATE = """
         <div class="coupons-grid">
             {% for coupon in coupons %}
             <div class="coupon-card">
-                {% set cat = coupon.category or 'all' %}
-                {% if cat == 'electronics' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);">
-                {% elif cat == 'mobiles' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);">
-                {% elif cat == 'fashion' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #db2777 0%, #ec4899 100%);">
-                {% elif cat == 'food' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);">
-                {% elif cat == 'beauty' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);">
-                {% elif cat == 'home' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);">
-                {% elif cat == 'grocery' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
-                {% elif cat == 'travel' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);">
-                {% elif cat == 'health' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
-                {% elif cat == 'recharge' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);">
-                {% elif cat == 'entertainment' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);">
-                {% else %}
                 <div class="coupon-header">
-                {% endif %}
                     <span class="coupon-source">{{ coupon.source }}</span>
                     <span class="coupon-discount">{{ coupon.discount }}</span>
                 </div>
@@ -842,7 +751,6 @@ DASHBOARD_TEMPLATE = """
                         <div class="detail-item">Expires: <span>{{ coupon.expires }}</span></div>
                     </div>
                     <div class="coupon-buttons">
-                        <button class="btn-qr" onclick="showQR('{{ coupon.product_url }}', '{{ coupon.code or coupon.coupon_code }}')">📱 QR Code</button>
                         <a href="{{ coupon.product_url }}" target="_blank" class="btn-visit" onclick="trackVisit('{{ loop.index }}', '{{ coupon.source }}')">🌐 Visit Site</a>
                     </div>
                 </div>
@@ -860,30 +768,6 @@ DASHBOARD_TEMPLATE = """
             navigator.clipboard.writeText(code);
             alert('Coupon code ' + code + ' copied!');
         }
-    </script>
-    
-    <!-- QR Code Modal -->
-    <div class="qr-modal" id="qrModal" onclick="if(event.target === this) this.classList.remove('show')">
-        <div class="qr-content">
-            <h3>📱 Scan QR Code</h3>
-            <img id="qrImage" src="" alt="QR Code">
-            <p>Scan this QR code with your phone camera to open on mobile</p>
-            <button class="qr-close" onclick="document.getElementById('qrModal').classList.remove('show')">Close</button>
-        </div>
-    </div>
-    
-    <script>
-    function showQR(url, couponCode) {
-        document.getElementById('qrImage').src = '/api/qr?url=' + encodeURIComponent(url);
-        document.getElementById('qrModal').classList.add('show');
-    }
-    
-    // Track visit when clicking visit button
-    function trackVisit(couponId, source) {
-        fetch('/api/track_visit?id=' + couponId + '&source=' + encodeURIComponent(source))
-            .then(res => res.json())
-            .then(data => console.log('Visit tracked'));
-    }
     </script>
 </body>
 </html>
@@ -1034,17 +918,6 @@ def save_visitors_data(data):
     os.makedirs(os.path.dirname(VISITORS_FILE), exist_ok=True)
     with open(VISITORS_FILE, 'w') as f:
         json.dump(data, f, indent=2)
-
-@app.route('/api/qr')
-def api_qr():
-    """Generate QR code for a URL using external API"""
-    url = request.args.get('url', '')
-    if not url:
-        return "No URL provided", 400
-    
-    # Use goqr.me API to generate QR code
-    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={quote(url)}"
-    return f'<img src="{qr_url}" alt="QR Code">'
 
 @app.route('/api/track_visit')
 def api_track_visit():
