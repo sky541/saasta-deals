@@ -8,8 +8,11 @@ import json
 import logging
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
+import qrcode
+import io
+import base64
 
-from flask import Flask, render_template_string, jsonify, request
+from flask import Flask, render_template_string, jsonify, request, make_response
 from apscheduler.schedulers.background import BackgroundScheduler
 
 logging.basicConfig(
@@ -131,89 +134,62 @@ DASHBOARD_TEMPLATE = """
             color: #00B4D8;
         }
         
-        /* Category Cards with Images */
-        .category-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 15px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .category-card {
+        /* Category Pills - Clean Design like top coupon sites */
+        .category-pills {
+            background: white;
+            padding: 15px 20px;
             display: flex;
-            flex-direction: column;
+            gap: 8px;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            scrollbar-width: none;
+        }
+        
+        .category-pills::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-pill {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 20px 15px;
-            border-radius: 16px;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 25px;
             text-decoration: none;
-            color: #334155;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        
-        .category-card.active {
-            ring: 3px solid #0ea5e9;
-            box-shadow: 0 0 0 3px #0ea5e9;
-        }
-        
-        .cat-icon {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-        }
-        
-        .cat-name {
+            color: #475569;
+            font-weight: 500;
             font-size: 0.9rem;
-            text-align: center;
+            white-space: nowrap;
+            transition: all 0.2s;
+            background: #f1f5f9;
+            border: 1px solid transparent;
         }
         
-        .cat-count {
-            font-size: 0.75rem;
-            color: #64748b;
-            margin-top: 4px;
+        .category-pill:hover {
+            background: #0ea5e9;
+            color: white;
         }
         
-        /* Category colors */
-        .cat-electronics { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); }
-        .cat-mobiles { background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); }
-        .cat-fashion { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
-        .cat-food { background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); }
-        .cat-beauty { background: linear-gradient(135deg, #fce7f3 0%, #f9a8d4 100%); }
-        .cat-home { background: linear-gradient(135deg, #f3e8ff 0%, #ddd6fe 100%); }
-        .cat-grocery { background: linear-gradient(135deg, #dcfce7 0%, #86efac 100%); }
-        .cat-travel { background: linear-gradient(135deg, #cffafe 0%, #67e8f9 100%); }
-        .cat-health { background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%); }
-        .cat-all { background: linear-gradient(135deg, #f1f5f0 0%, #cbd5e1 100%); }
-        
-        /* Search Bar */
-        .search-bar {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 20px;
+        .category-pill.active {
+            background: #0ea5e9;
+            color: white;
+            border-color: #0284c7;
         }
         
-        .search-bar input {
+        /* Search in Hero */
+        .hero-search {
+            max-width: 600px;
+            margin: 20px auto 0;
+        }
+        
+        .hero-search input {
             width: 100%;
-            padding: 16px 24px;
-            font-size: 1.1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 50px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
             outline: none;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        
-        .search-bar input:focus {
-            border-color: #0ea5e9;
-            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
         
         /* Mobile Responsive */
@@ -358,6 +334,96 @@ DASHBOARD_TEMPLATE = """
             border-color: #0ea5e9;
             box-shadow: 0 12px 25px rgba(14, 165, 233, 0.15);
         }
+        
+        /* QR Code Modal */
+        .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .qr-modal.show {
+            display: flex;
+        }
+        
+        .qr-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 320px;
+        }
+        
+        .qr-content h3 {
+            margin-bottom: 15px;
+            color: #0ea5e9;
+        }
+        
+        .qr-content img {
+            border-radius: 10px;
+            margin: 15px 0;
+            width: 200px;
+            height: 200px;
+        }
+        
+        .qr-content p {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        
+        .qr-close {
+            padding: 10px 25px;
+            background: #64748b;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        /* Coupon Buttons */
+        .coupon-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .btn-qr {
+            flex: 1;
+            padding: 10px;
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        
+        .btn-qr:hover { background: #7c3aed; }
+        
+        .btn-visit {
+            flex: 1;
+            padding: 10px;
+            background: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .btn-visit:hover { background: #16a34a; }
         
         .coupon-header {
             background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
@@ -527,72 +593,19 @@ DASHBOARD_TEMPLATE = """
         </div>
     </header>
     
-    <!-- Category Cards (hide on local page) -->
+    <!-- Category Pills (hide on local page) -->
     {% if not is_local %}
-    <div class="category-cards">
-        <a href="/" class="category-card cat-all {% if not request.args.get('category') or request.args.get('category') == 'all' %}active{% endif %}">
-            <span class="cat-icon">🎯</span>
-            <span class="cat-name">All</span>
-            <span class="cat-count">{{ total_coupons }} deals</span>
-        </a>
-        <a href="/?category=electronics" class="category-card cat-electronics {% if request.args.get('category') == 'electronics' %}active{% endif %}">
-            <span class="cat-icon">📱</span>
-            <span class="cat-name">Electronics</span>
-            <span class="cat-count">{{ category_counts.get('electronics', 0) }} deals</span>
-        </a>
-        <a href="/?category=mobiles" class="category-card cat-mobiles {% if request.args.get('category') == 'mobiles' %}active{% endif %}">
-            <span class="cat-icon">📲</span>
-            <span class="cat-name">Mobiles</span>
-            <span class="cat-count">{{ category_counts.get('mobiles', 0) }} deals</span>
-        </a>
-        <a href="/?category=fashion" class="category-card cat-fashion {% if request.args.get('category') == 'fashion' %}active{% endif %}">
-            <span class="cat-icon">👕</span>
-            <span class="cat-name">Fashion</span>
-            <span class="cat-count">{{ category_counts.get('fashion', 0) }} deals</span>
-        </a>
-        <a href="/?category=food" class="category-card cat-food {% if request.args.get('category') == 'food' %}active{% endif %}">
-            <span class="cat-icon">🍔</span>
-            <span class="cat-name">Food</span>
-            <span class="cat-count">{{ category_counts.get('food', 0) }} deals</span>
-        </a>
-        <a href="/?category=beauty" class="category-card cat-beauty {% if request.args.get('category') == 'beauty' %}active{% endif %}">
-            <span class="cat-icon">💄</span>
-            <span class="cat-name">Beauty</span>
-            <span class="cat-count">{{ category_counts.get('beauty', 0) }} deals</span>
-        </a>
-        <a href="/?category=home" class="category-card cat-home {% if request.args.get('category') == 'home' %}active{% endif %}">
-            <span class="cat-icon">🏠</span>
-            <span class="cat-name">Home</span>
-            <span class="cat-count">{{ category_counts.get('home', 0) }} deals</span>
-        </a>
-        <a href="/?category=grocery" class="category-card cat-grocery {% if request.args.get('category') == 'grocery' %}active{% endif %}">
-            <span class="cat-icon">🛒</span>
-            <span class="cat-name">Grocery</span>
-            <span class="cat-count">{{ category_counts.get('grocery', 0) }} deals</span>
-        </a>
-        <a href="/?category=travel" class="category-card cat-travel {% if request.args.get('category') == 'travel' %}active{% endif %}">
-            <span class="cat-icon">✈️</span>
-            <span class="cat-name">Travel</span>
-            <span class="cat-count">{{ category_counts.get('travel', 0) }} deals</span>
-        </a>
-        <a href="/?category=health" class="category-card cat-health {% if request.args.get('category') == 'health' %}active{% endif %}">
-            <span class="cat-icon">💊</span>
-            <span class="cat-name">Health</span>
-            <span class="cat-count">{{ category_counts.get('health', 0) }} deals</span>
-        </a>
-    </div>
-    
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <form method="get">
-            {% if request.args.get('category') %}
-            <input type="hidden" name="category" value="{{ request.args.get('category') }}">
-            {% endif %}
-            {% if request.args.get('source') %}
-            <input type="hidden" name="source" value="{{ request.args.get('source') }}">
-            {% endif %}
-            <input type="text" name="search" placeholder="🔍 Search coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
-        </form>
+    <div class="category-pills">
+        <a href="/" class="category-pill {% if not request.args.get('category') or request.args.get('category') == 'all' %}active{% endif %}">All</a>
+        <a href="/?category=electronics" class="category-pill {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics</a>
+        <a href="/?category=mobiles" class="category-pill {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles</a>
+        <a href="/?category=fashion" class="category-pill {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion</a>
+        <a href="/?category=food" class="category-pill {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food</a>
+        <a href="/?category=beauty" class="category-pill {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty</a>
+        <a href="/?category=home" class="category-pill {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home</a>
+        <a href="/?category=grocery" class="category-pill {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery</a>
+        <a href="/?category=travel" class="category-pill {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel</a>
+        <a href="/?category=health" class="category-pill {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health</a>
     </div>
     {% endif %}
     
@@ -652,6 +665,17 @@ DASHBOARD_TEMPLATE = """
     <div class="hero">
         <h1>🎟️ Best Coupon Codes in India</h1>
         <p>Find working coupon codes from Amazon, Flipkart, Myntra, Ajio and more!</p>
+        
+        <!-- Search in Hero -->
+        <div class="hero-search">
+            <form method="get">
+                {% if request.args.get('category') %}
+                <input type="hidden" name="category" value="{{ request.args.get('category') }}">
+                {% endif %}
+                <input type="text" name="search" placeholder="🔍 Search for coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
+            </form>
+        </div>
+        
         <div class="stats-bar">
             <div class="stat"><div class="stat-number">{{ total_coupons }}</div><div class="stat-label">Active Coupons</div></div>
             <div class="stat"><div class="stat-number">{{ sources }}</div><div class="stat-label">Partner Stores</div></div>
@@ -787,7 +811,10 @@ DASHBOARD_TEMPLATE = """
                         <div class="detail-item">Min Order: <span>{{ coupon.min_order }}</span></div>
                         <div class="detail-item">Expires: <span>{{ coupon.expires }}</span></div>
                     </div>
-                    <a href="{{ coupon.product_url }}" target="_blank" class="coupon-btn">Apply Now →</a>
+                    <div class="coupon-buttons">
+                        <button class="btn-qr" onclick="showQR('{{ coupon.product_url }}', '{{ coupon.code or coupon.coupon_code }}')">📱 QR Code</button>
+                        <a href="{{ coupon.product_url }}" target="_blank" class="btn-visit" onclick="trackVisit('{{ loop.index }}', '{{ coupon.source }}')">🌐 Visit Site</a>
+                    </div>
                 </div>
             </div>
             {% endfor %}
@@ -803,6 +830,30 @@ DASHBOARD_TEMPLATE = """
             navigator.clipboard.writeText(code);
             alert('Coupon code ' + code + ' copied!');
         }
+    </script>
+    
+    <!-- QR Code Modal -->
+    <div class="qr-modal" id="qrModal" onclick="if(event.target === this) this.classList.remove('show')">
+        <div class="qr-content">
+            <h3>📱 Scan QR Code</h3>
+            <img id="qrImage" src="" alt="QR Code">
+            <p>Scan this QR code with your phone camera to open on mobile</p>
+            <button class="qr-close" onclick="document.getElementById('qrModal').classList.remove('show')">Close</button>
+        </div>
+    </div>
+    
+    <script>
+    function showQR(url, couponCode) {
+        document.getElementById('qrImage').src = '/api/qr?url=' + encodeURIComponent(url);
+        document.getElementById('qrModal').classList.add('show');
+    }
+    
+    // Track visit when clicking visit button
+    function trackVisit(couponId, source) {
+        fetch('/api/track_visit?id=' + couponId + '&source=' + encodeURIComponent(source))
+            .then(res => res.json())
+            .then(data => console.log('Visit tracked'));
+    }
     </script>
 </body>
 </html>
@@ -934,6 +985,85 @@ def api_coupons():
         "timestamp": datetime.now().isoformat()
     })
 
+
+# Visitor tracking data file
+VISITORS_FILE = os.path.join(os.path.dirname(__file__), 'data', 'visitors.json')
+
+def get_visitors_data():
+    """Load visitors data from JSON file"""
+    if os.path.exists(VISITORS_FILE):
+        try:
+            with open(VISITORS_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return {"visits": [], "stats": {"total": 0, "today": 0}}
+    return {"visits": [], "stats": {"total": 0, "today": 0}}
+
+def save_visitors_data(data):
+    """Save visitors data to JSON file"""
+    os.makedirs(os.path.dirname(VISITORS_FILE), exist_ok=True)
+    with open(VISITORS_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
+@app.route('/api/qr')
+def api_qr():
+    """Generate QR code for a URL"""
+    url = request.args.get('url', '')
+    if not url:
+        return "No URL provided", 400
+    
+    # Generate QR code
+    qr = qrcode.QRCode(version=1, box_size=10, border=4)
+    qr.add_data(url)
+    qr.make(fit=True)
+    
+    img = qr.make_image(fill_color="black", back_color="white")
+    
+    # Convert to base64
+    buffer = io.BytesIO()
+    img.save(buffer, format='PNG')
+    img_str = base64.b64encode(buffer.getvalue()).decode()
+    
+    return f'<img src="data:image/png;base64,{img_str}">'
+
+@app.route('/api/track_visit')
+def api_track_visit():
+    """Track a coupon visit"""
+    coupon_id = request.args.get('id', '')
+    source = request.args.get('source', 'unknown')
+    
+    data = get_visitors_data()
+    
+    # Add visit
+    visit = {
+        "id": coupon_id,
+        "source": source,
+        "timestamp": datetime.now().isoformat(),
+        "user_agent": request.headers.get('User-Agent', '')[:200]
+    }
+    data["visits"].append(visit)
+    
+    # Update stats
+    data["stats"]["total"] = data["stats"].get("total", 0) + 1
+    
+    # Count today's visits
+    today = datetime.now().date().isoformat()
+    today_visits = sum(1 for v in data["visits"] if v.get("timestamp", "").startswith(today))
+    data["stats"]["today"] = today_visits
+    
+    # Keep only last 1000 visits
+    if len(data["visits"]) > 1000:
+        data["visits"] = data["visits"][-1000:]
+    
+    save_visitors_data(data)
+    
+    return jsonify({"status": "success", "total_visits": data["stats"]["total"]})
+
+@app.route('/api/visitors')
+def api_visitors():
+    """Get visitor statistics"""
+    data = get_visitors_data()
+    return jsonify(data)
 
 def run_server(host='0.0.0.0', port=None):
     if port is None:
