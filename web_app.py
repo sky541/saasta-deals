@@ -131,6 +131,52 @@ DASHBOARD_TEMPLATE = """
             color: #00B4D8;
         }
         
+        /* Category Tabs */
+        .category-tabs {
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .category-tab {
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .category-tab:hover {
+            background: #0ea5e9;
+            color: white;
+            border-color: #0ea5e9;
+        }
+        
+        .category-tab.active {
+            background: #0ea5e9;
+            color: white;
+            border-color: #0ea5e9;
+        }
+        
+        /* Category icons */
+        .cat-electronics { background: #e0f2fe; }
+        .cat-mobiles { background: #fce7f3; }
+        .cat-fashion { background: #fef3c7; }
+        .cat-food { background: #dcfce7; }
+        .cat-beauty { background: #fce7f3; }
+        .cat-home { background: #f3e8ff; }
+        .cat-grocery { background: #dcfce7; }
+        .cat-travel { background: #cffafe; }
+        .cat-health { background: #fee2e2; }
+        .cat-all { background: #f1f5f9; }
+        
         /* Mobile Responsive */
         @media (max-width: 600px) {
             header {
@@ -442,6 +488,22 @@ DASHBOARD_TEMPLATE = """
         </div>
     </header>
     
+    <!-- Category Tabs (hide on local page) -->
+    {% if not is_local %}
+    <div class="category-tabs">
+        <a href="/" class="category-tab cat-all {% if not request.args.get('category') or request.args.get('category') == 'all' %}active{% endif %}">🔰 All <span style="font-size:0.8em;">({{ category_counts|length + 100 }})</span></a>
+        <a href="/?category=electronics" class="category-tab cat-electronics {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics <span style="font-size:0.8em;">({{ category_counts.get('electronics', 0) }})</span></a>
+        <a href="/?category=mobiles" class="category-tab cat-mobiles {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles <span style="font-size:0.8em;">({{ category_counts.get('mobiles', 0) }})</span></a>
+        <a href="/?category=fashion" class="category-tab cat-fashion {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion <span style="font-size:0.8em;">({{ category_counts.get('fashion', 0) }})</span></a>
+        <a href="/?category=food" class="category-tab cat-food {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food <span style="font-size:0.8em;">({{ category_counts.get('food', 0) }})</span></a>
+        <a href="/?category=beauty" class="category-tab cat-beauty {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty <span style="font-size:0.8em;">({{ category_counts.get('beauty', 0) }})</span></a>
+        <a href="/?category=home" class="category-tab cat-home {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home <span style="font-size:0.8em;">({{ category_counts.get('home', 0) }})</span></a>
+        <a href="/?category=grocery" class="category-tab cat-grocery {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery <span style="font-size:0.8em;">({{ category_counts.get('grocery', 0) }})</span></a>
+        <a href="/?category=travel" class="category-tab cat-travel {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel <span style="font-size:0.8em;">({{ category_counts.get('travel', 0) }})</span></a>
+        <a href="/?category=health" class="category-tab cat-health {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health <span style="font-size:0.8em;">({{ category_counts.get('health', 0) }})</span></a>
+    </div>
+    {% endif %}
+    
     {% if is_local %}
     <div class="hero">
         <h1>🍔 Local Food & Restaurant Deals</h1>
@@ -708,7 +770,8 @@ def local_deals():
         cities=all_cities,
         selected_city=city,
         last_updated=cache_updated.strftime('%Y-%m-%d %H:%M') if cache_updated else 'N/A',
-        is_local=True
+        is_local=True,
+        category_counts={}
     )
 
 
@@ -741,13 +804,22 @@ def index():
     sources = set(c.get('source') for c in all_coupons)
     cities = set(c.get('city') for c in all_coupons if c.get('city') != 'all')
     
+    # Get category counts for tabs
+    categories = {}
+    for c in all_coupons:
+        cat = c.get('category', 'all')
+        if cat == 'all':
+            continue
+        categories[cat] = categories.get(cat, 0) + 1
+    
     return render_template_string(
         DASHBOARD_TEMPLATE,
         coupons=filtered[:50],
         total_coupons=len(filtered),
         sources=len(sources),
         cities=sorted([c for c in cities if c]),
-        last_updated=datetime.now().strftime("%Y-%m-%d %H:%M")
+        last_updated=datetime.now().strftime("%Y-%m-%d %H:%M"),
+        category_counts=categories
     )
 
 
