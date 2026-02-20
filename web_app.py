@@ -8,9 +8,10 @@ import json
 import logging
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
-import qrcode
+from urllib.parse import quote
 import io
 import base64
+import qrcode
 
 from flask import Flask, render_template_string, jsonify, request, make_response
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -789,7 +790,28 @@ DASHBOARD_TEMPLATE = """
         <div class="coupons-grid">
             {% for coupon in coupons %}
             <div class="coupon-card">
+                {% set cat = coupon.category or 'all' %}
+                {% if cat == 'electronics' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);">
+                {% elif cat == 'mobiles' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);">
+                {% elif cat == 'fashion' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);">
+                {% elif cat == 'food' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);">
+                {% elif cat == 'beauty' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);">
+                {% elif cat == 'home' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);">
+                {% elif cat == 'grocery' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%);">
+                {% elif cat == 'travel' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%);">
+                {% elif cat == 'health' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);">
+                {% else %}
                 <div class="coupon-header">
+                {% endif %}
                     <span class="coupon-source">{{ coupon.source }}</span>
                     <span class="coupon-discount">{{ coupon.discount }}</span>
                 </div>
@@ -1007,24 +1029,14 @@ def save_visitors_data(data):
 
 @app.route('/api/qr')
 def api_qr():
-    """Generate QR code for a URL"""
+    """Generate QR code for a URL using external API"""
     url = request.args.get('url', '')
     if not url:
         return "No URL provided", 400
     
-    # Generate QR code
-    qr = qrcode.QRCode(version=1, box_size=10, border=4)
-    qr.add_data(url)
-    qr.make(fit=True)
-    
-    img = qr.make_image(fill_color="black", back_color="white")
-    
-    # Convert to base64
-    buffer = io.BytesIO()
-    img.save(buffer, format='PNG')
-    img_str = base64.b64encode(buffer.getvalue()).decode()
-    
-    return f'<img src="data:image/png;base64,{img_str}">'
+    # Use goqr.me API to generate QR code
+    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={quote(url)}"
+    return f'<img src="{qr_url}" alt="QR Code">'
 
 @app.route('/api/track_visit')
 def api_track_visit():
