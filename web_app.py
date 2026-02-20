@@ -131,51 +131,90 @@ DASHBOARD_TEMPLATE = """
             color: #00B4D8;
         }
         
-        /* Category Tabs */
-        .category-tabs {
-            background: white;
-            padding: 12px 20px;
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        /* Category Cards with Images */
+        .category-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
-        .category-tab {
-            padding: 8px 16px;
-            border-radius: 20px;
+        .category-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+            border-radius: 16px;
             text-decoration: none;
             color: #334155;
-            font-weight: 500;
-            font-size: 0.9rem;
-            white-space: nowrap;
+            font-weight: 600;
             transition: all 0.3s;
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         
-        .category-tab:hover {
-            background: #0ea5e9;
-            color: white;
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .category-card.active {
+            ring: 3px solid #0ea5e9;
+            box-shadow: 0 0 0 3px #0ea5e9;
+        }
+        
+        .cat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .cat-name {
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .cat-count {
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        
+        /* Category colors */
+        .cat-electronics { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); }
+        .cat-mobiles { background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); }
+        .cat-fashion { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
+        .cat-food { background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); }
+        .cat-beauty { background: linear-gradient(135deg, #fce7f3 0%, #f9a8d4 100%); }
+        .cat-home { background: linear-gradient(135deg, #f3e8ff 0%, #ddd6fe 100%); }
+        .cat-grocery { background: linear-gradient(135deg, #dcfce7 0%, #86efac 100%); }
+        .cat-travel { background: linear-gradient(135deg, #cffafe 0%, #67e8f9 100%); }
+        .cat-health { background: linear-gradient(135deg, #fee2e2 0%, #fca5a5 100%); }
+        .cat-all { background: linear-gradient(135deg, #f1f5f0 0%, #cbd5e1 100%); }
+        
+        /* Search Bar */
+        .search-bar {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 1.1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .search-bar input:focus {
             border-color: #0ea5e9;
+            box-shadow: 0 4px 20px rgba(14, 165, 233, 0.2);
         }
-        
-        .category-tab.active {
-            background: #0ea5e9;
-            color: white;
-            border-color: #0ea5e9;
-        }
-        
-        /* Category icons */
-        .cat-electronics { background: #e0f2fe; }
-        .cat-mobiles { background: #fce7f3; }
-        .cat-fashion { background: #fef3c7; }
-        .cat-food { background: #dcfce7; }
-        .cat-beauty { background: #fce7f3; }
-        .cat-home { background: #f3e8ff; }
-        .cat-grocery { background: #dcfce7; }
-        .cat-travel { background: #cffafe; }
-        .cat-health { background: #fee2e2; }
-        .cat-all { background: #f1f5f9; }
         
         /* Mobile Responsive */
         @media (max-width: 600px) {
@@ -488,19 +527,72 @@ DASHBOARD_TEMPLATE = """
         </div>
     </header>
     
-    <!-- Category Tabs (hide on local page) -->
+    <!-- Category Cards (hide on local page) -->
     {% if not is_local %}
-    <div class="category-tabs">
-        <a href="/" class="category-tab cat-all {% if not request.args.get('category') or request.args.get('category') == 'all' %}active{% endif %}">🔰 All <span style="font-size:0.8em;">({{ category_counts|length + 100 }})</span></a>
-        <a href="/?category=electronics" class="category-tab cat-electronics {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics <span style="font-size:0.8em;">({{ category_counts.get('electronics', 0) }})</span></a>
-        <a href="/?category=mobiles" class="category-tab cat-mobiles {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles <span style="font-size:0.8em;">({{ category_counts.get('mobiles', 0) }})</span></a>
-        <a href="/?category=fashion" class="category-tab cat-fashion {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion <span style="font-size:0.8em;">({{ category_counts.get('fashion', 0) }})</span></a>
-        <a href="/?category=food" class="category-tab cat-food {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food <span style="font-size:0.8em;">({{ category_counts.get('food', 0) }})</span></a>
-        <a href="/?category=beauty" class="category-tab cat-beauty {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty <span style="font-size:0.8em;">({{ category_counts.get('beauty', 0) }})</span></a>
-        <a href="/?category=home" class="category-tab cat-home {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home <span style="font-size:0.8em;">({{ category_counts.get('home', 0) }})</span></a>
-        <a href="/?category=grocery" class="category-tab cat-grocery {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery <span style="font-size:0.8em;">({{ category_counts.get('grocery', 0) }})</span></a>
-        <a href="/?category=travel" class="category-tab cat-travel {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel <span style="font-size:0.8em;">({{ category_counts.get('travel', 0) }})</span></a>
-        <a href="/?category=health" class="category-tab cat-health {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health <span style="font-size:0.8em;">({{ category_counts.get('health', 0) }})</span></a>
+    <div class="category-cards">
+        <a href="/" class="category-card cat-all {% if not request.args.get('category') or request.args.get('category') == 'all' %}active{% endif %}">
+            <span class="cat-icon">🎯</span>
+            <span class="cat-name">All</span>
+            <span class="cat-count">{{ total_coupons }} deals</span>
+        </a>
+        <a href="/?category=electronics" class="category-card cat-electronics {% if request.args.get('category') == 'electronics' %}active{% endif %}">
+            <span class="cat-icon">📱</span>
+            <span class="cat-name">Electronics</span>
+            <span class="cat-count">{{ category_counts.get('electronics', 0) }} deals</span>
+        </a>
+        <a href="/?category=mobiles" class="category-card cat-mobiles {% if request.args.get('category') == 'mobiles' %}active{% endif %}">
+            <span class="cat-icon">📲</span>
+            <span class="cat-name">Mobiles</span>
+            <span class="cat-count">{{ category_counts.get('mobiles', 0) }} deals</span>
+        </a>
+        <a href="/?category=fashion" class="category-card cat-fashion {% if request.args.get('category') == 'fashion' %}active{% endif %}">
+            <span class="cat-icon">👕</span>
+            <span class="cat-name">Fashion</span>
+            <span class="cat-count">{{ category_counts.get('fashion', 0) }} deals</span>
+        </a>
+        <a href="/?category=food" class="category-card cat-food {% if request.args.get('category') == 'food' %}active{% endif %}">
+            <span class="cat-icon">🍔</span>
+            <span class="cat-name">Food</span>
+            <span class="cat-count">{{ category_counts.get('food', 0) }} deals</span>
+        </a>
+        <a href="/?category=beauty" class="category-card cat-beauty {% if request.args.get('category') == 'beauty' %}active{% endif %}">
+            <span class="cat-icon">💄</span>
+            <span class="cat-name">Beauty</span>
+            <span class="cat-count">{{ category_counts.get('beauty', 0) }} deals</span>
+        </a>
+        <a href="/?category=home" class="category-card cat-home {% if request.args.get('category') == 'home' %}active{% endif %}">
+            <span class="cat-icon">🏠</span>
+            <span class="cat-name">Home</span>
+            <span class="cat-count">{{ category_counts.get('home', 0) }} deals</span>
+        </a>
+        <a href="/?category=grocery" class="category-card cat-grocery {% if request.args.get('category') == 'grocery' %}active{% endif %}">
+            <span class="cat-icon">🛒</span>
+            <span class="cat-name">Grocery</span>
+            <span class="cat-count">{{ category_counts.get('grocery', 0) }} deals</span>
+        </a>
+        <a href="/?category=travel" class="category-card cat-travel {% if request.args.get('category') == 'travel' %}active{% endif %}">
+            <span class="cat-icon">✈️</span>
+            <span class="cat-name">Travel</span>
+            <span class="cat-count">{{ category_counts.get('travel', 0) }} deals</span>
+        </a>
+        <a href="/?category=health" class="category-card cat-health {% if request.args.get('category') == 'health' %}active{% endif %}">
+            <span class="cat-icon">💊</span>
+            <span class="cat-name">Health</span>
+            <span class="cat-count">{{ category_counts.get('health', 0) }} deals</span>
+        </a>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <form method="get">
+            {% if request.args.get('category') %}
+            <input type="hidden" name="category" value="{{ request.args.get('category') }}">
+            {% endif %}
+            {% if request.args.get('source') %}
+            <input type="hidden" name="source" value="{{ request.args.get('source') }}">
+            {% endif %}
+            <input type="text" name="search" placeholder="🔍 Search coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
+        </form>
     </div>
     {% endif %}
     
@@ -570,6 +662,12 @@ DASHBOARD_TEMPLATE = """
     <div class="container">
         <div class="filters">
             <form class="filter-row" method="get">
+                {% if request.args.get('category') %}
+                <input type="hidden" name="category" value="{{ request.args.get('category') }}">
+                {% endif %}
+                {% if request.args.get('search') %}
+                <input type="hidden" name="search" value="{{ request.args.get('search') }}">
+                {% endif %}
                 <select name="source">
                     <option value="">All Stores</option>
                     <option value="Amazon">Amazon (6)</option>
@@ -657,18 +755,7 @@ DASHBOARD_TEMPLATE = """
                     <option value="Ahmedabad">Ahmedabad</option>
                     <option value="Jaipur">Jaipur</option>
                 </select>
-                <select name="category">
-                    <option value="">All Categories</option>
-                    <option value="all">All</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="fashion">Fashion</option>
-                    <option value="mobiles">Mobiles</option>
-                    <option value="food">🍔 Food & Restaurants</option>
-                    <option value="beauty">Beauty</option>
-                    <option value="home">Home</option>
-                </select>
-                <input type="text" name="search" placeholder="Search coupons...">
-                <button type="submit">Apply</button>
+                <button type="submit">Apply Filters</button>
                 <button type="button" onclick="window.location.href='/'">Reset</button>
             </form>
         </div>
