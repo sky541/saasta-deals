@@ -181,18 +181,18 @@ DASHBOARD_TEMPLATE = """
         
         /* Search in Hero */
         .hero-search {
-            max-width: 600px;
-            margin: 20px auto 0;
+            max-width: 400px;
+            margin: 10px auto 0;
         }
         
         .hero-search input {
             width: 100%;
-            padding: 14px 20px;
-            font-size: 1rem;
+            padding: 10px 16px;
+            font-size: 0.9rem;
             border: none;
-            border-radius: 30px;
+            border-radius: 20px;
             outline: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         /* Mobile Responsive */
@@ -222,25 +222,25 @@ DASHBOARD_TEMPLATE = """
         .hero {
             background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
             color: white;
-            padding: 2rem 20px;
+            padding: 0.75rem 20px;
             text-align: center;
         }
         
-        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-        .hero p { font-size: 1.1rem; opacity: 0.95; }
+        .hero h1 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+        .hero p { font-size: 0.9rem; opacity: 0.95; margin-bottom: 0.5rem; }
         
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 1.5rem;
+            gap: 15px;
+            margin-top: 0.5rem;
             flex-wrap: wrap;
         }
         
         .stat {
             background: rgba(255,255,255,0.2);
-            padding: 1rem 2rem;
-            border-radius: 12px;
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
             backdrop-filter: blur(10px);
         }
         
@@ -602,7 +602,6 @@ DASHBOARD_TEMPLATE = """
     </div>
     {% else %}
     <div class="hero">
-        <h1>🎟️ Best Coupon Codes in India</h1>
         <p>Find working coupon codes from Amazon, Flipkart, Myntra, Ajio and more!</p>
         
         <!-- Search in Hero -->
@@ -611,13 +610,13 @@ DASHBOARD_TEMPLATE = """
                 {% if request.args.get('category') %}
                 <input type="hidden" name="category" value="{{ request.args.get('category') }}">
                 {% endif %}
-                <input type="text" name="search" placeholder="🔍 Search for coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
+                <input type="text" name="search" placeholder="🔍 Search coupons, stores, codes..." value="{{ request.args.get('search', '') }}">
             </form>
         </div>
         
         <div class="stats-bar">
-            <div class="stat"><div class="stat-number">{{ total_coupons }}</div><div class="stat-label">Active Coupons</div></div>
-            <div class="stat"><div class="stat-number">{{ sources }}</div><div class="stat-label">Partner Stores</div></div>
+            <div class="stat"><div class="stat-number">{{ total_coupons }}</div><div class="stat-label">Coupons</div></div>
+            <div class="stat"><div class="stat-number">{{ sources }}</div><div class="stat-label">Stores</div></div>
         </div>
     </div>
     {% endif %}
