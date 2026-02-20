@@ -323,17 +323,24 @@ DASHBOARD_TEMPLATE = """
         
         .coupon-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.1);
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
+            border: 1px solid #e2e8f0;
         }
         
         .coupon-card:hover {
-            transform: translateY(-5px);
-            border-color: #0ea5e9;
-            box-shadow: 0 12px 25px rgba(14, 165, 233, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        
+        .coupon-header {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
         }
         
         /* QR Code Modal */
@@ -392,42 +399,45 @@ DASHBOARD_TEMPLATE = """
         /* Coupon Buttons */
         .coupon-buttons {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             margin-top: 12px;
         }
         
         .btn-qr {
             flex: 1;
-            padding: 10px;
-            background: #8b5cf6;
+            padding: 10px 8px;
+            background: #7c3aed;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: background 0.2s;
         }
         
-        .btn-qr:hover { background: #7c3aed; }
+        .btn-qr:hover { background: #6d28d9; }
         
         .btn-visit {
             flex: 1;
-            padding: 10px;
-            background: #22c55e;
+            padding: 10px 8px;
+            background: #16a34a;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 500;
-            font-size: 0.85rem;
+            font-weight: 600;
+            font-size: 0.8rem;
             text-decoration: none;
             text-align: center;
+            transition: background 0.2s;
         }
         
-        .btn-visit:hover { background: #16a34a; }
+        .btn-visit:hover { background: #15803d; }
         
+        /* Coupon Header */
         .coupon-header {
-            background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
             color: white;
             padding: 1rem;
             display: flex;
@@ -588,27 +598,21 @@ DASHBOARD_TEMPLATE = """
         <div class="header-content">
             <div class="logo">🎫 GrabCoupon</div>
             <nav class="tabs">
-                <a href="/" class="tab {% if request.path == '/' %}active{% endif %}">🏠 All Deals</a>
+                <a href="/" class="tab {% if request.path == '/' and not request.args.get('category') %}active{% endif %}">🏠 All Deals</a>
+                <a href="/?category=electronics" class="tab {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics</a>
+                <a href="/?category=mobiles" class="tab {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles</a>
+                <a href="/?category=fashion" class="tab {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion</a>
+                <a href="/?category=food" class="tab {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food</a>
+                <a href="/?category=beauty" class="tab {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty</a>
+                <a href="/?category=home" class="tab {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home</a>
+                <a href="/?category=grocery" class="tab {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery</a>
+                <a href="/?category=travel" class="tab {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel</a>
+                <a href="/?category=health" class="tab {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health</a>
+                <a href="/?category=recharge" class="tab {% if request.args.get('category') == 'recharge' %}active{% endif %}">💰 Recharge</a>
                 <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
             </nav>
         </div>
     </header>
-    
-    <!-- Category Pills (hide on local page) -->
-    {% if not is_local %}
-    <div class="category-pills">
-        <a href="/" class="category-pill {% if not request.args.get('category') or request.args.get('category') == 'all' %}active{% endif %}">All</a>
-        <a href="/?category=electronics" class="category-pill {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics</a>
-        <a href="/?category=mobiles" class="category-pill {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles</a>
-        <a href="/?category=fashion" class="category-pill {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion</a>
-        <a href="/?category=food" class="category-pill {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food</a>
-        <a href="/?category=beauty" class="category-pill {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty</a>
-        <a href="/?category=home" class="category-pill {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home</a>
-        <a href="/?category=grocery" class="category-pill {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery</a>
-        <a href="/?category=travel" class="category-pill {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel</a>
-        <a href="/?category=health" class="category-pill {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health</a>
-    </div>
-    {% endif %}
     
     {% if is_local %}
     <div class="hero">
@@ -792,23 +796,27 @@ DASHBOARD_TEMPLATE = """
             <div class="coupon-card">
                 {% set cat = coupon.category or 'all' %}
                 {% if cat == 'electronics' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);">
                 {% elif cat == 'mobiles' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);">
                 {% elif cat == 'fashion' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #db2777 0%, #ec4899 100%);">
                 {% elif cat == 'food' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);">
                 {% elif cat == 'beauty' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%);">
                 {% elif cat == 'home' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);">
                 {% elif cat == 'grocery' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
                 {% elif cat == 'travel' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);">
                 {% elif cat == 'health' %}
-                <div class="coupon-header" style="background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);">
+                <div class="coupon-header" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
+                {% elif cat == 'recharge' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);">
+                {% elif cat == 'entertainment' %}
+                <div class="coupon-header" style="background: linear-gradient(135deg, #9333ea 0%, #a855f7 100%);">
                 {% else %}
                 <div class="coupon-header">
                 {% endif %}
