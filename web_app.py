@@ -1321,14 +1321,6 @@ DASHBOARD_TEMPLATE = """
                 </a>
             </div>
             
-            <!-- Navigation Links -->
-            <nav class="hero-nav" style="margin-bottom: 25px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <a href="/" class="hero-nav-link {% if request.path == '/' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Home</a>
-                <a href="/local" class="hero-nav-link {% if request.path == '/local' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Local Food Deals</a>
-                <a href="/about" class="hero-nav-link {% if request.path == '/about' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">About Us</a>
-                <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Contact Us</a>
-            </nav>
-            
             <!-- Combined Search and Filters -->
             <form class="combined-search-form" method="get">
                 <div class="search-bar-row">
@@ -1520,19 +1512,6 @@ DASHBOARD_TEMPLATE = """
             </h2>
         </div>
         
-        <!-- Product Search Results Section -->
-        <div id="productResults" class="product-search-section" style="display: none;">
-            <div class="product-results-header">
-                <h3>🛍️ Product Price Comparison</h3>
-                <p>Best deals from trusted stores</p>
-            </div>
-            <div id="productResultsGrid" class="product-grid"></div>
-            <div id="productLoading" class="product-loading" style="display: none;">
-                <div class="loading-spinner"></div>
-                <p>Searching for best prices...</p>
-            </div>
-        </div>
-        
         <div class="coupons-grid">
             {% for coupon in coupons %}
             <div class="coupon-card {% if coupon.is_hot %}hot-deal-card{% endif %}">
@@ -1667,69 +1646,6 @@ DASHBOARD_TEMPLATE = """
     </footer>
     
     <script>
-        // Product Search Functionality
-        async function searchProducts(query) {
-            const productResultsSection = document.getElementById('productResults');
-            const productResultsGrid = document.getElementById('productResultsGrid');
-            const productLoading = document.getElementById('productLoading');
-            
-            if (!productResultsSection || !query || query.length < 2) {
-                if (productResultsSection) productResultsSection.style.display = 'none';
-                return;
-            }
-            
-            // Show product results section
-            productResultsSection.style.display = 'block';
-            productLoading.style.display = 'block';
-            productResultsGrid.innerHTML = '';
-            
-            try {
-                const response = await fetch(`/api/search-products?q=${encodeURIComponent(query)}`);
-                const data = await response.json();
-                
-                productLoading.style.display = 'none';
-                
-                if (data.products && data.products.length > 0) {
-                    productResultsGrid.innerHTML = data.products.map(product => `
-                        <div class="product-card">
-                            <div class="product-card-header">
-                                ${product.image ? `<img src="${product.image}" alt="${product.title}" class="product-image">` : '<div class="product-image" style="display:flex;align-items:center;justify-content:center;font-size:2rem;">${product.source_icon}</div>'}
-                                <div class="product-info">
-                                    <div class="product-title">${product.title}</div>
-                                    ${product.rating ? `<div class="product-rating">⭐ ${product.rating}</div>` : ''}
-                                </div>
-                            </div>
-                            <div class="product-price-row">
-                                <div>
-                                    <div class="product-price">${product.price}</div>
-                                    ${product.original_price ? `<div class="product-original-price">${product.original_price}</div>` : ''}
-                                </div>
-                                <span class="product-source ${product.source.toLowerCase()}">${product.source_icon} ${product.source}</span>
-                            </div>
-                            <a href="${product.url}" target="_blank" rel="noopener noreferrer" class="product-link">
-                                View Deal →
-                            </a>
-                        </div>
-                    `).join('');
-                } else {
-                    productResultsGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#64748b;">No products found. Try a different search term.</p>';
-                }
-                
-            } catch (error) {
-                console.error('Product search error:', error);
-                productLoading.style.display = 'none';
-                productResultsGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#ef4444;">Unable to search products. Please try again.</p>';
-            }
-        }
-        
-        // Check if we have a search query and trigger product search
-        const urlParams = new URLSearchParams(window.location.search);
-        const searchQuery = urlParams.get('search');
-        if (searchQuery) {
-            // Delay slightly to ensure page loads
-            setTimeout(() => searchProducts(searchQuery), 500);
-        }
-        
         // Search Autocomplete - Like GrabOn & CouponDunia
         const searchInput = document.getElementById('searchInput');
         const suggestionsBox = document.getElementById('searchSuggestions');
@@ -1891,16 +1807,27 @@ def local_deals():
     if city and city != 'all':
         food_coupons = [c for c in food_coupons if c.get('city') == city or c.get('city') == 'all']
     
+    # Pagination
+    per_page = 12
+    page = int(request.args.get('page', 1))
+    total_coupons = len(food_coupons)
+    total_pages = (total_coupons + per_page - 1) // per_page
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    paginated_coupons = food_coupons[start_idx:end_idx]
+    
     return render_template_string(
         DASHBOARD_TEMPLATE,
-        coupons=food_coupons[:50],
+        coupons=paginated_coupons,
         total_coupons=len(food_coupons),
         sources=[],  # Empty - hide source filter on local page
         cities=all_cities,
         selected_city=city,
         last_updated=cache_updated.strftime('%Y-%m-%d %H:%M') if cache_updated else 'N/A',
         is_local=True,
-        category_counts={}
+        category_counts={},
+        current_page=page,
+        total_pages=total_pages
     )
 
 
@@ -1952,16 +1879,6 @@ def about():
         </style>
     </head>
     <body>
-        <header class="header">
-            <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
-            <nav class="nav-links">
-                <a href="/">Home</a>
-                <a href="/local">Local Food Deals</a>
-                <a href="/about">About Us</a>
-                <a href="/contact">Contact Us</a>
-            </nav>
-        </header>
-        
         <div class="container">
             <div class="page-title">
                 <h1>About GrabCoupon</h1>
@@ -2092,16 +2009,6 @@ def contact():
         </style>
     </head>
     <body>
-        <header class="header">
-            <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
-            <nav class="nav-links">
-                <a href="/">Home</a>
-                <a href="/local">Local Food Deals</a>
-                <a href="/about">About Us</a>
-                <a href="/contact">Contact Us</a>
-            </nav>
-        </header>
-        
         <div class="container">
             <div class="page-title">
                 <h1>Contact Us</h1>
