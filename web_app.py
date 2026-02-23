@@ -1240,11 +1240,6 @@ DASHBOARD_TEMPLATE = """
     <!-- Hero Section with Search - Like GrabOn & CouponDunia -->
     <div class="hero-section">
         <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="hero-icon">🎫</span> GrabCoupon
-            </h1>
-            <p class="hero-subtitle">Save Big on Every Purchase! | Find verified coupon codes & deals from 50+ top Indian stores</p>
-            
             <!-- Search Box with Autocomplete -->
             <div class="search-container">
                 <div class="search-box">
