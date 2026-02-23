@@ -1339,6 +1339,21 @@ DASHBOARD_TEMPLATE = """
                         <option value="Myntra" {% if request.args.get('source')=='Myntra' %}selected{% endif %}>Myntra</option>
                         <option value="Swiggy" {% if request.args.get('source')=='Swiggy' %}selected{% endif %}>Swiggy</option>
                         <option value="Zomato" {% if request.args.get('source')=='Zomato' %}selected{% endif %}>Zomato</option>
+                        <option value="Ajio" {% if request.args.get('source')=='Ajio' %}selected{% endif %}>Ajio</option>
+                        <option value="Tata Cliq" {% if request.args.get('source')=='Tata Cliq' %}selected{% endif %}>Tata Cliq</option>
+                        <option value="Nykaa" {% if request.args.get('source')=='Nykaa' %}selected{% endif %}>Nykaa</option>
+                        <option value="Pepperfry" {% if request.args.get('source')=='Pepperfry' %}selected{% endif %}>Pepperfry</option>
+                        <option value="Paytm Mall" {% if request.args.get('source')=='Paytm Mall' %}selected{% endif %}>Paytm Mall</option>
+                        <option value="Shopclues" {% if request.args.get('source')=='Shopclues' %}selected{% endif %}>Shopclues</option>
+                        <option value="Snapdeal" {% if request.args.get('source')=='Snapdeal' %}selected{% endif %}>Snapdeal</option>
+                        <option value="Croma" {% if request.args.get('source')=='Croma' %}selected{% endif %}>Croma</option>
+                        <option value="Reliance Digital" {% if request.args.get('source')=='Reliance Digital' %}selected{% endif %}>Reliance Digital</option>
+                        <option value="Bewakoof" {% if request.args.get('source')=='Bewakoof' %}selected{% endif %}>Bewakoof</option>
+                        <option value="FabAlley" {% if request.args.get('source')=='FabAlley' %}selected{% endif %}>FabAlley</option>
+                        <option value="Bata" {% if request.args.get('source')=='Bata' %}selected{% endif %}>Bata</option>
+                        <option value="Puma" {% if request.args.get('source')=='Puma' %}selected{% endif %}>Puma</option>
+                        <option value="Nike" {% if request.args.get('source')=='Nike' %}selected{% endif %}>Nike</option>
+                        <option value="Adidas" {% if request.args.get('source')=='Adidas' %}selected{% endif %}>Adidas</option>
                     </select>
                     
                     <select name="city" class="filter-select">
@@ -1363,6 +1378,10 @@ DASHBOARD_TEMPLATE = """
                 <a href="/?search=Myntra" class="popular-tag">Myntra</a>
                 <a href="/?search=Swiggy" class="popular-tag">Swiggy</a>
                 <a href="/?search=Zomato" class="popular-tag">Zomato</a>
+                <a href="/?search=Ajio" class="popular-tag">Ajio</a>
+                <a href="/?search=Nykaa" class="popular-tag">Nykaa</a>
+                <a href="/?search=Tata Cliq" class="popular-tag">Tata Cliq</a>
+                <a href="/?search=Pepperfry" class="popular-tag">Pepperfry</a>
             </div>
         </div>
         
@@ -2125,7 +2144,7 @@ def index():
         # Show coupons for specific city or all (non-city specific)
         filtered = [c for c in filtered if c.get('city') == city or c.get('city') == 'all']
     if search:
-        filtered = [c for c in filtered if search in c.get('description', '').lower() or search in (c.get('code') or c.get('coupon_code') or '').lower()]
+        filtered = [c for c in filtered if search in c.get('description', '').lower() or search in (c.get('code') or c.get('coupon_code') or '').lower() or search in c.get('source', '').lower()]
     if product_search:
         # Search for products like TV, fridge, mobile, etc. in description and title
         filtered = [c for c in filtered if product_search in c.get('description', '').lower() or product_search in c.get('title', '').lower() or product_search in (c.get('code') or c.get('coupon_code') or '').lower()]
