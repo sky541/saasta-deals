@@ -258,6 +258,61 @@ DASHBOARD_TEMPLATE = """
             color: #00B4D8;
         }
         
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropbtn {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+            text-decoration: none;
+            color: #023E8A;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: inherit;
+            font-family: inherit;
+        }
+        
+        .dropbtn:hover, .dropbtn.active {
+            background: white;
+            color: #00B4D8;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 180px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            z-index: 1000;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background 0.2s;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown-content a:hover {
+            background: #0ea5e9;
+            color: white;
+        }
+        
         /* Product Search Section */
         .product-search-section {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -400,6 +455,19 @@ DASHBOARD_TEMPLATE = """
             .category-label {
                 min-width: 100%;
                 margin-bottom: 5px;
+            }
+        }
+        
+        /* Mobile Dropdown Styles */
+        @media (max-width: 768px) {
+            .dropdown-content {
+                position: relative;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .tabs {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
         
@@ -965,19 +1033,43 @@ DASHBOARD_TEMPLATE = """
         </div>
     </header>
     
-    <!-- Navigation Tabs -->
+    <!-- Navigation Tabs with Dropdown -->
     <nav class="tabs" style="background:white;box-shadow:0 2px 4px rgba(0,0,0,0.1);padding:10px 20px;">
         <a href="/" class="tab {% if request.path == '/' and not request.args.get('category') %}active{% endif %}">🏠 All Deals</a>
-        <a href="/?category=electronics" class="tab {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics</a>
-        <a href="/?category=mobiles" class="tab {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles</a>
-        <a href="/?category=fashion" class="tab {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion</a>
-        <a href="/?category=food" class="tab {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food</a>
-        <a href="/?category=beauty" class="tab {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty</a>
-        <a href="/?category=home" class="tab {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home</a>
-        <a href="/?category=grocery" class="tab {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery</a>
-        <a href="/?category=travel" class="tab {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel</a>
-        <a href="/?category=health" class="tab {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health</a>
-        <a href="/?category=recharge" class="tab {% if request.args.get('category') == 'recharge' %}active{% endif %}">💰 Recharge</a>
+        
+        <!-- Categories Dropdown -->
+        <div class="dropdown">
+            <button class="tab dropbtn {% if request.args.get('category') %}active{% endif %}">📁 Categories ▾</button>
+            <div class="dropdown-content">
+                <a href="/?category=electronics">📱 Electronics</a>
+                <a href="/?category=mobiles">📲 Mobiles</a>
+                <a href="/?category=fashion">👕 Fashion</a>
+                <a href="/?category=food">🍔 Food & Dining</a>
+                <a href="/?category=beauty">💄 Beauty</a>
+                <a href="/?category=home">🏠 Home & Living</a>
+                <a href="/?category=grocery">🛒 Grocery</a>
+                <a href="/?category=travel">✈️ Travel</a>
+                <a href="/?category=health">💊 Health</a>
+                <a href="/?category=recharge">💰 Recharge</a>
+            </div>
+        </div>
+        
+        <!-- Top Stores Dropdown -->
+        <div class="dropdown">
+            <button class="tab dropbtn">🏪 Top Stores ▾</button>
+            <div class="dropdown-content">
+                <a href="/?source=Amazon">🛒 Amazon</a>
+                <a href="/?source=Flipkart">🛒 Flipkart</a>
+                <a href="/?source=Myntra">👕 Myntra</a>
+                <a href="/?source=Swiggy">🍔 Swiggy</a>
+                <a href="/?source=Zomato">🍔 Zomato</a>
+                <a href="/?source=Ajio">👕 Ajio</a>
+                <a href="/?source=Nykaa">💄 Nykaa</a>
+                <a href="/?source=Croma">📱 Croma</a>
+                <a href="/?source=Meesho">🛒 Meesho</a>
+            </div>
+        </div>
+        
         <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
     </nav>
     
