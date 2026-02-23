@@ -158,6 +158,76 @@ DASHBOARD_TEMPLATE = """
             min-height: 100vh;
         }
         
+        /* Main Header Navigation */
+        .main-header {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            padding: 0.75rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .main-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .main-header .logo-icon {
+            font-size: 1.3rem;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .main-nav .nav-link {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .main-nav .nav-link:hover,
+        .main-nav .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .header-cta .cta-button {
+            background: white;
+            color: #22c55e;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        
+        .header-cta .cta-button:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav { display: none; }
+        }
+        
         /* Hero Section - Like GrabOn & CouponDunia */
         .hero-section {
             background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
@@ -981,6 +1051,24 @@ DASHBOARD_TEMPLATE = """
     </style>
 </head>
 <body>
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <span class="logo-icon">🎫</span> GrabCoupon
+            </a>
+            <nav class="main-nav">
+                <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
+                <a href="/local" class="nav-link {% if request.path == '/local' %}active{% endif %}">Local Deals</a>
+                <a href="/about" class="nav-link {% if request.path == '/about' %}active{% endif %}">About Us</a>
+                <a href="/contact" class="nav-link {% if request.path == '/contact' %}active{% endif %}">Contact Us</a>
+            </nav>
+            <div class="header-cta">
+                <a href="https://grabcoupon.in" class="cta-button">Save Now</a>
+            </div>
+        </div>
+    </header>
+    
     <!-- Hero Section with Search - Like GrabOn & CouponDunia -->
     <div class="hero-section">
         <div class="hero-content">
@@ -1434,6 +1522,276 @@ def local_deals():
         is_local=True,
         category_counts={}
     )
+
+
+@app.route('/about')
+def about():
+    """About Us page"""
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us - GrabCoupon | Best Deals & Coupons in India</title>
+        <meta name="description" content="Learn about GrabCoupon - your trusted destination for the best deals, discounts, and coupon codes in India.">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
+            .header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+            .logo { font-size: 1.8rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+            .logo i { font-size: 1.5rem; }
+            .nav-links { display: flex; gap: 2rem; }
+            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
+            .nav-links a:hover { opacity: 0.8; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+            .page-title { text-align: center; margin-bottom: 3rem; }
+            .page-title h1 { font-size: 2.5rem; color: #11998e; margin-bottom: 1rem; }
+            .page-title p { font-size: 1.2rem; color: #666; }
+            .content-section { background: white; border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+            .content-section h2 { color: #11998e; margin-bottom: 1.5rem; font-size: 1.8rem; }
+            .content-section p { margin-bottom: 1rem; color: #555; }
+            .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
+            .feature-card { background: #f8f9fa; padding: 2rem; border-radius: 12px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+            .feature-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+            .feature-card i { font-size: 3rem; color: #11998e; margin-bottom: 1rem; }
+            .feature-card h3 { margin-bottom: 0.8rem; color: #333; }
+            .feature-card p { color: #666; margin: 0; }
+            .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; margin: 3rem 0; text-align: center; }
+            .stat-item h3 { font-size: 2.5rem; color: #11998e; }
+            .stat-item p { color: #666; font-weight: 500; }
+            .cta-section { text-align: center; padding: 3rem; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 15px; color: white; }
+            .cta-section h2 { color: white; margin-bottom: 1rem; }
+            .cta-section p { margin-bottom: 1.5rem; opacity: 0.9; }
+            .cta-btn { display: inline-block; padding: 1rem 2.5rem; background: white; color: #11998e; text-decoration: none; border-radius: 30px; font-weight: bold; transition: transform 0.3s; }
+            .cta-btn:hover { transform: scale(1.05); }
+            .footer { background: #1a1a2e; color: white; padding: 2rem; text-align: center; margin-top: 3rem; }
+            .footer a { color: #38ef7d; text-decoration: none; }
+            @media (max-width: 768px) { .nav-links { display: none; } .page-title h1 { font-size: 2rem; } }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/local">Local Deals</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+            </nav>
+        </header>
+        
+        <div class="container">
+            <div class="page-title">
+                <h1>About GrabCoupon</h1>
+                <p>Your Trusted Destination for the Best Deals & Discounts in India</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>Who We Are</h2>
+                <p>GrabCoupon is India's leading coupon and deal aggregation platform, dedicated to helping shoppers save money on their online purchases. We partner with top e-commerce brands to bring you the latest and verified coupon codes, deals, and discounts.</p>
+                <p>Our mission is simple: to make saving money effortless for every Indian shopper. Whether you're shopping on Amazon, Flipkart, Myntra, or any other popular platform, we've got you covered with exclusive deals and verified coupons.</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Active Coupons</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Partner Stores</p>
+                </div>
+                <div class="stat-item">
+                    <h3>₹1Cr+</h3>
+                    <p>Savings Verified</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1Lakh+</h3>
+                    <p>Happy Users</p>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>Why Choose GrabCoupon?</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Verified Codes</h3>
+                        <p>Every coupon is manually tested and verified before publishing</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Instant Updates</h3>
+                        <p>Real-time deal updates from all major e-commerce platforms</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-rupee-sign"></i>
+                        <h3>Maximum Savings</h3>
+                        <p>We find the best deals so you save more on every purchase</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Easy to Use</h3>
+                        <p>Simple and intuitive interface for hassle-free shopping</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>How It Works</h2>
+                <p><strong>1. Browse Deals:</strong> Explore thousands of verified coupons and deals from your favorite stores.</p>
+                <p><strong>2. Copy Code:</strong> Click on any coupon to copy the code instantly to your clipboard.</p>
+                <p><strong>3. Save Money:</strong> Apply the code at checkout and watch your savings grow!</p>
+            </div>
+            
+            <div class="cta-section">
+                <h2>Start Saving Today!</h2>
+                <p>Join thousands of smart shoppers who are already saving big on every purchase.</p>
+                <a href="/" class="cta-btn">Browse All Deals</a>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>&copy; 2026 GrabCoupon. All rights reserved. | <a href="/">Home</a> | <a href="/contact">Contact</a></p>
+        </footer>
+    </body>
+    </html>
+    '''
+
+
+@app.route('/contact')
+def contact():
+    """Contact Us page"""
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Us - GrabCoupon | Get in Touch</title>
+        <meta name="description" content="Contact GrabCoupon - We'd love to hear from you! Reach out for partnerships, support, or general inquiries.">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
+            .header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+            .logo { font-size: 1.8rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+            .logo i { font-size: 1.5rem; }
+            .nav-links { display: flex; gap: 2rem; }
+            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
+            .nav-links a:hover { opacity: 0.8; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+            .page-title { text-align: center; margin-bottom: 3rem; }
+            .page-title h1 { font-size: 2.5rem; color: #11998e; margin-bottom: 1rem; }
+            .page-title p { font-size: 1.2rem; color: #666; }
+            .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+            .contact-card { background: white; border-radius: 15px; padding: 2.5rem; text-align: center; box-shadow: 0 2px 15px rgba(0,0,0,0.05); transition: transform 0.3s; }
+            .contact-card:hover { transform: translateY(-5px); }
+            .contact-card i { font-size: 3rem; color: #11998e; margin-bottom: 1rem; }
+            .contact-card h3 { margin-bottom: 0.8rem; color: #333; }
+            .contact-card p { color: #666; margin: 0; }
+            .contact-card a { color: #11998e; text-decoration: none; font-weight: 500; }
+            .contact-card a:hover { text-decoration: underline; }
+            .form-section { background: white; border-radius: 15px; padding: 2.5rem; margin-top: 2rem; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+            .form-section h2 { color: #11998e; margin-bottom: 1.5rem; text-align: center; }
+            .form-group { margin-bottom: 1.5rem; }
+            .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333; }
+            .form-group input, .form-group textarea { width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; transition: border-color 0.3s; font-family: inherit; }
+            .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #11998e; }
+            .form-group textarea { min-height: 150px; resize: vertical; }
+            .submit-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+            .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(17, 153, 142, 0.3); }
+            .response-message { display: none; padding: 1rem; border-radius: 10px; margin-top: 1rem; text-align: center; }
+            .response-message.success { background: #d4edda; color: #155724; }
+            .response-message.error { background: #f8d7da; color: #721c24; }
+            .footer { background: #1a1a2e; color: white; padding: 2rem; text-align: center; margin-top: 3rem; }
+            .footer a { color: #38ef7d; text-decoration: none; }
+            @media (max-width: 768px) { .nav-links { display: none; } .page-title h1 { font-size: 2rem; } }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/local">Local Deals</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+            </nav>
+        </header>
+        
+        <div class="container">
+            <div class="page-title">
+                <h1>Contact Us</h1>
+                <p>We'd love to hear from you! Get in touch with us for any queries or suggestions.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>For general inquiries:</p>
+                    <a href="mailto:support@grabcoupon.in">support@grabcoupon.in</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Partner With Us</h3>
+                    <p>For business partnerships:</p>
+                    <a href="mailto:partners@grabcoupon.in">partners@grabcoupon.in</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-ad"></i>
+                    <h3>Advertising</h3>
+                    <p>For advertising opportunities:</p>
+                    <a href="mailto:ads@grabcoupon.in">ads@grabcoupon.in</a>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Send us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="What is this about?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+                <div id="responseMessage" class="response-message"></div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>&copy; 2026 GrabCoupon. All rights reserved. | <a href="/">Home</a> | <a href="/about">About</a></p>
+        </footer>
+        
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const messageDiv = document.getElementById('responseMessage');
+                messageDiv.style.display = 'block';
+                messageDiv.className = 'response-message success';
+                messageDiv.innerHTML = '<i class="fas fa-check-circle"></i> Thank you for your message! We will get back to you soon.';
+                this.reset();
+                setTimeout(() => { messageDiv.style.display = 'none'; }, 5000);
+            });
+        </script>
+    </body>
+    </html>
+    '''
 
 
 @app.route('/')
