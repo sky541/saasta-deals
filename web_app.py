@@ -187,28 +187,20 @@ DASHBOARD_TEMPLATE = """
         
         .hero-title {
             color: white;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
         }
         
-        .hero-icon {
-            font-size: 3rem;
-        }
-        
-        .hero-tagline {
-            font-weight: 400;
-            opacity: 0.9;
+        .hero-title span {
+            display: inline;
         }
         
         .hero-subtitle {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255,255,255,0.95);
             font-size: 1.1rem;
             margin-bottom: 25px;
+            font-weight: 500;
         }
         
         /* Search Box */
@@ -657,7 +649,7 @@ DASHBOARD_TEMPLATE = """
         .coupon-card {
             background: white;
             border-radius: 16px;
-            overflow: hidden;
+            overflow: visible;
             box-shadow: 0 2px 15px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
@@ -677,13 +669,14 @@ DASHBOARD_TEMPLATE = """
         .trust-badge {
             position: absolute;
             top: 10px;
-            right: 10px;
-            padding: 4px 10px;
-            border-radius: 12px;
+            left: 10px;
+            padding: 5px 12px;
+            border-radius: 15px;
             font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         
         .trust-badge.verified {
@@ -804,7 +797,10 @@ DASHBOARD_TEMPLATE = """
             100% { transform: scale(1); }
         }
         
-        .coupon-body { padding: 1.2rem; }
+        .coupon-body { 
+            padding: 1.2rem; 
+            padding-top: 1.5rem;
+        }
         
         .coupon-code {
             display: flex;
@@ -989,11 +985,9 @@ DASHBOARD_TEMPLATE = """
     <div class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">
-                <span class="hero-icon">🎫</span> 
-                GrabCoupon
-                <span class="hero-tagline">- Save Big on Every Purchase!</span>
+                <span class="hero-icon">🎫</span> GrabCoupon
             </h1>
-            <p class="hero-subtitle">Find verified coupon codes & deals from 50+ top Indian stores</p>
+            <p class="hero-subtitle">Save Big on Every Purchase! | Find verified coupon codes & deals from 50+ top Indian stores</p>
             
             <!-- Search Box with Autocomplete -->
             <div class="search-container">
