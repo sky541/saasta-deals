@@ -654,7 +654,6 @@ DASHBOARD_TEMPLATE = """
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
             position: relative;
-            margin-top: 8px;
         }
         
         .coupon-card:hover {
@@ -666,18 +665,18 @@ DASHBOARD_TEMPLATE = """
             border: 2px solid #ef4444;
         }
         
-        /* Trust Badge - Top Bar Style */
+        /* Trust Badge - Vertical Ribbon Style */
         .trust-badge {
             position: absolute;
-            top: -8px;
-            left: 15px;
-            padding: 4px 12px;
+            top: 20px;
+            right: -30px;
+            padding: 5px 30px;
             font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
-            z-index: 10;
+            z-index: 2;
             color: white;
-            border-radius: 0 0 8px 8px;
+            transform: rotate(45deg);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
@@ -689,16 +688,8 @@ DASHBOARD_TEMPLATE = """
             background: #f97316;
         }
         
-        .coupon-header {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            color: white;
-            padding: 1rem;
-            padding-top: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 1;
+        .trust-badge.verified {
+            background: #22c55e;
         }
         
         .trust-badge.verified {
@@ -706,9 +697,28 @@ DASHBOARD_TEMPLATE = """
             color: white;
         }
         
+        .trust-badge.exclusive {
+            background: #f97316;
+            color: white;
+        }
+        
+        .trust-badge.hot {
+            background: #ef4444;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+        
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
+        }
+        
+        .coupon-header {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
         }
         
         /* Coupon Buttons */
