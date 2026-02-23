@@ -232,7 +232,17 @@ DASHBOARD_TEMPLATE = """
         }
         
         @media (max-width: 768px) {
-            .main-nav { display: none; }
+            .main-nav { 
+                overflow-x: auto;
+                gap: 1rem;
+                padding: 10px;
+            }
+            .main-content-wrapper {
+                flex-direction: column !important;
+            }
+            .sidebar {
+                display: none;
+            }
         }
         
         /* Combined Search Form */
@@ -1528,7 +1538,35 @@ DASHBOARD_TEMPLATE = """
             </div>
         </div>
         
-        <div class="coupons-grid">
+        <!-- Main Content with Sidebar -->
+        <div class="main-content-wrapper" style="display: flex; gap: 30px; margin-top: 30px;">
+        
+        <!-- Left Sidebar -->
+        <aside class="sidebar" style="width: 250px; flex-shrink: 0;">
+            <div class="sidebar-section" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px;">
+                <h3 style="font-size: 1.1rem; color: #1e293b; margin-bottom: 15px; border-bottom: 2px solid #22c55e; padding-bottom: 10px;">🔗 Quick Links</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 10px;"><a href="/" style="color: #64748b; text-decoration: none; transition: color 0.3s;">All Deals</a></li>
+                    <li style="margin-bottom: 10px;"><a href="/?category=electronics" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Electronics</a></li>
+                    <li style="margin-bottom: 10px;"><a href="/?category=fashion" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Fashion</a></li>
+                    <li style="margin-bottom: 10px;"><a href="/?category=food" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Food & Dining</a></li>
+                    <li style="margin-bottom: 10px;"><a href="/?category=travel" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Travel</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-section" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <h3 style="font-size: 1.1rem; color: #1e293b; margin-bottom: 15px; border-bottom: 2px solid #22c55e; padding-bottom: 10px;">🏪 Top Stores</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 10px;"><a href="/?source=Amazon" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Amazon Coupons</a></li>
+                    <li style="margin-bottom: 10px;"><a href="/?source=Flipkart" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Flipkart Deals</a></li>
+                    <li style="margin-bottom: 10px;"><a href="/?source=Myntra" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Myntra Offers</a></li>
+                    <li style="margin-bottom: 10px;"><a href="/?source=Swiggy" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Swiggy Coupons</a></li>
+                    <li style="margin-bottom: 10px;"><a href="/?source=Zomato" style="color: #64748b; text-decoration: none; transition: color 0.3s;">Zomato Discounts</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- Coupons Grid -->
+        <div class="coupons-grid" style="flex: 1;">
             {% for coupon in coupons %}
             <div class="coupon-card {% if coupon.is_hot %}hot-deal-card{% endif %}">
                 <!-- Trust Badge -->
@@ -1583,6 +1621,7 @@ DASHBOARD_TEMPLATE = """
                 </div>
             </div>
             {% endfor %}
+        </div>
         </div>
     </div>
     
