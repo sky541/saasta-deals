@@ -1321,6 +1321,14 @@ DASHBOARD_TEMPLATE = """
                 </a>
             </div>
             
+            <!-- Navigation Links -->
+            <nav class="hero-nav" style="margin-bottom: 25px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="/" class="hero-nav-link {% if request.path == '/' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Home</a>
+                <a href="/local" class="hero-nav-link {% if request.path == '/local' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Local Food Deals</a>
+                <a href="/about" class="hero-nav-link {% if request.path == '/about' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">About Us</a>
+                <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Contact Us</a>
+            </nav>
+            
             <!-- Combined Search and Filters -->
             <form class="combined-search-form" method="get">
                 <div class="search-bar-row">
@@ -1879,6 +1887,16 @@ def about():
         </style>
     </head>
     <body>
+        <header class="header">
+            <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/local">Local Food Deals</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+            </nav>
+        </header>
+        
         <div class="container">
             <div class="page-title">
                 <h1>About GrabCoupon</h1>
@@ -2009,6 +2027,16 @@ def contact():
         </style>
     </head>
     <body>
+        <header class="header">
+            <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/local">Local Food Deals</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+            </nav>
+        </header>
+        
         <div class="container">
             <div class="page-title">
                 <h1>Contact Us</h1>
