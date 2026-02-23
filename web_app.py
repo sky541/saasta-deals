@@ -234,26 +234,28 @@ DASHBOARD_TEMPLATE = """
         /* Combined Search Form */
         .combined-search-form {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         
         .search-bar-row {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            align-items: center;
             justify-content: center;
+            gap: 15px;
+            flex-wrap: nowrap;
         }
         
         .main-search-input {
             flex: 1;
-            min-width: 250px;
-            padding: 14px 20px;
-            border: 2px solid white;
-            border-radius: 30px;
+            min-width: 300px;
+            max-width: 400px;
+            padding: 14px 22px;
+            border: 3px solid white;
+            border-radius: 50px;
             font-size: 1rem;
             background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
         
         .main-search-input:focus {
@@ -262,13 +264,14 @@ DASHBOARD_TEMPLATE = """
         }
         
         .filter-select {
-            padding: 12px 16px;
-            border: 2px solid white;
-            border-radius: 25px;
+            padding: 12px 18px;
+            border: 3px solid white;
+            border-radius: 50px;
             font-size: 0.9rem;
             background: white;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            min-width: 130px;
         }
         
         .filter-select:focus {
@@ -277,16 +280,17 @@ DASHBOARD_TEMPLATE = """
         }
         
         .search-bar-row .search-btn {
-            padding: 12px 30px;
+            padding: 14px 35px;
             background: #22c55e;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 50px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             transition: all 0.3s;
+            white-space: nowrap;
         }
         
         .search-bar-row .search-btn:hover {
@@ -294,12 +298,18 @@ DASHBOARD_TEMPLATE = """
             transform: translateY(-2px);
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .search-bar-row {
-                flex-direction: column;
+                flex-wrap: wrap;
+                gap: 12px;
             }
-            .main-search-input, .filter-select {
+            .main-search-input {
                 width: 100%;
+                max-width: 100%;
+            }
+            .filter-select {
+                flex: 1;
+                min-width: 120px;
             }
         }
         
@@ -1299,7 +1309,7 @@ DASHBOARD_TEMPLATE = """
             </a>
             <nav class="main-nav">
                 <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
-                <a href="/local" class="nav-link {% if request.path == '/local' %}active{% endif %}">Local Deals</a>
+                <a href="/local" class="nav-link {% if request.path == '/local' %}active{% endif %}">Local Food Deals</a>
                 <a href="/about" class="nav-link {% if request.path == '/about' %}active{% endif %}">About Us</a>
                 <a href="/contact" class="nav-link {% if request.path == '/contact' %}active{% endif %}">Contact Us</a>
             </nav>
@@ -1481,8 +1491,6 @@ DASHBOARD_TEMPLATE = """
             </form>
         </div>
         
-        <div class="last-updated">🕐 Last updated: {{ last_updated }}</div>
-        
         <!-- Section Title -->
         <div class="section-title">
             <h2>
@@ -1498,7 +1506,6 @@ DASHBOARD_TEMPLATE = """
                 💰 All Coupons & Deals
                 {% endif %}
             </h2>
-            <p>Showing {{ coupons|length }} verified coupons</p>
         </div>
         
         <!-- Product Search Results Section -->
@@ -1914,7 +1921,7 @@ def about():
             <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
             <nav class="nav-links">
                 <a href="/">Home</a>
-                <a href="/local">Local Deals</a>
+                <a href="/local">Local Food Deals</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
             </nav>
@@ -2054,7 +2061,7 @@ def contact():
             <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
             <nav class="nav-links">
                 <a href="/">Home</a>
-                <a href="/local">Local Deals</a>
+                <a href="/local">Local Food Deals</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
             </nav>
