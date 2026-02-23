@@ -953,8 +953,8 @@ DASHBOARD_TEMPLATE = """
         
         .coupons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
         
         /* Section Title */
@@ -977,13 +977,14 @@ DASHBOARD_TEMPLATE = """
         /* Coupon Card - Like CouponDunia */
         .coupon-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: visible;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
             position: relative;
-            margin-top: 8px;
+            margin-top: 5px;
+            padding: 15px;
         }
         
         .coupon-card:hover {
@@ -1310,21 +1311,6 @@ DASHBOARD_TEMPLATE = """
     </style>
 </head>
 <body>
-    <!-- Header Navigation -->
-    <header class="main-header">
-        <div class="header-container">
-            <a href="/" class="logo">
-                <span class="logo-icon">🎫</span> GrabCoupon
-            </a>
-            <nav class="main-nav">
-                <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
-                <a href="/local" class="nav-link {% if request.path == '/local' %}active{% endif %}">Local Food Deals</a>
-                <a href="/about" class="nav-link {% if request.path == '/about' %}active{% endif %}">About Us</a>
-                <a href="/contact" class="nav-link {% if request.path == '/contact' %}active{% endif %}">Contact Us</a>
-            </nav>
-        </div>
-    </header>
-    
     <!-- Hero Section with Search - Like GrabOn & CouponDunia -->
     <div class="hero-section">
         <div class="hero-content">
@@ -1371,6 +1357,14 @@ DASHBOARD_TEMPLATE = """
                 <a href="/?search=Swiggy" class="popular-tag">Swiggy</a>
                 <a href="/?search=Zomato" class="popular-tag">Zomato</a>
             </div>
+            
+            <!-- Navigation Links -->
+            <nav class="hero-nav" style="margin-top: 25px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="/" class="hero-nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
+                <a href="/local" class="hero-nav-link {% if request.path == '/local' %}active{% endif %}">Local Food Deals</a>
+                <a href="/about" class="hero-nav-link {% if request.path == '/about' %}active{% endif %}">About Us</a>
+                <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}">Contact Us</a>
+            </nav>
         </div>
         
         <!-- Trust Badges -->
@@ -1588,6 +1582,29 @@ DASHBOARD_TEMPLATE = """
             </div>
             {% endfor %}
         </div>
+        
+        <!-- Pagination -->
+        {% if total_pages > 1 %}
+        <div class="pagination" style="display: flex; justify-content: center; gap: 10px; margin: 40px 0; flex-wrap: wrap;">
+            {% if current_page > 1 %}
+            <a href="?page={{ current_page - 1 }}{% if request.args.get('source') %}&source={{ request.args.get('source') }}{% endif %}{% if request.args.get('search') %}&search={{ request.args.get('search') }}{% endif %}" style="padding: 10px 15px; background: white; color: #1e293b; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">← Prev</a>
+            {% endif %}
+            
+            {% for p in range(1, total_pages + 1) %}
+                {% if p == current_page %}
+                <span style="padding: 10px 15px; background: #22c55e; color: white; border-radius: 8px;">{{ p }}</span>
+                {% elif p <= 3 or p > total_pages - 3 or (p >= current_page - 1 and p <= current_page + 1) %}
+                <a href="?page={{ p }}{% if request.args.get('source') %}&source={{ request.args.get('source') }}{% endif %}{% if request.args.get('search') %}&search={{ request.args.get('search') }}{% endif %}" style="padding: 10px 15px; background: white; color: #1e293b; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">{{ p }}</a>
+                {% elif p == 4 or p == total_pages - 3 %}
+                <span style="padding: 10px; color: #64748b;">...</span>
+                {% endif %}
+            {% endfor %}
+            
+            {% if current_page < total_pages %}
+            <a href="?page={{ current_page + 1 }}{% if request.args.get('source') %}&source={{ request.args.get('source') }}{% endif %}{% if request.args.get('search') %}&search={{ request.args.get('search') }}{% endif %}" style="padding: 10px 15px; background: white; color: #1e293b; text-decoration: none; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">Next →</a>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
     
     <footer>
@@ -2179,6 +2196,15 @@ def index():
         # Search for products like TV, fridge, mobile, etc. in description and title
         filtered = [c for c in filtered if product_search in c.get('description', '').lower() or product_search in c.get('title', '').lower() or product_search in (c.get('code') or c.get('coupon_code') or '').lower()]
     
+    # Pagination
+    per_page = 12
+    page = int(request.args.get('page', 1))
+    total_coupons = len(filtered)
+    total_pages = (total_coupons + per_page - 1) // per_page
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    paginated_coupons = filtered[start_idx:end_idx]
+    
     # Get stats
     sources = set(c.get('source') for c in all_coupons)
     cities = set(c.get('city') for c in all_coupons if c.get('city') != 'all')
@@ -2193,12 +2219,14 @@ def index():
     
     return render_template_string(
         DASHBOARD_TEMPLATE,
-        coupons=filtered[:50],
-        total_coupons=len(filtered),
+        coupons=paginated_coupons,
+        total_coupons=total_coupons,
         sources=len(sources),
         cities=sorted([c for c in cities if c]),
         last_updated=datetime.now().strftime("%Y-%m-%d %H:%M"),
-        category_counts=categories
+        category_counts=categories,
+        current_page=page,
+        total_pages=total_pages
     )
 
 
