@@ -6,8 +6,11 @@ Show live coupons from Indian e-commerce websites
 import os
 import json
 import logging
+import re
+import requests
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
+from bs4 import BeautifulSoup
 
 from flask import Flask, render_template_string, jsonify, request, make_response
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -692,6 +695,161 @@ DASHBOARD_TEMPLATE = """
             }
         }
         
+        /* Product Search Results */
+        .product-search-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        .product-results-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .product-results-header h3 {
+            color: #1e293b;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .product-results-header p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .product-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .product-card:hover {
+            border-color: #22c55e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.15);
+        }
+        
+        .product-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .product-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-title {
+            font-size: 0.95rem;
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-rating {
+            font-size: 0.85rem;
+            color: #f59e0b;
+        }
+        
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 12px 0;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #22c55e;
+        }
+        
+        .product-original-price {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            text-decoration: line-through;
+        }
+        
+        .product-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .product-source.amazon {
+            background: #ff990020;
+            color: #ff9900;
+        }
+        
+        .product-source.flipkart {
+            background: #2874f020;
+            color: #2874f0;
+        }
+        
+        .product-link {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .product-link:hover {
+            transform: scale(1.02);
+        }
+        
+        .product-loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top-color: #22c55e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
         .coupons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -1239,6 +1397,19 @@ DASHBOARD_TEMPLATE = """
             <p>Showing {{ coupons|length }} verified coupons</p>
         </div>
         
+        <!-- Product Search Results Section -->
+        <div id="productResults" class="product-search-section" style="display: none;">
+            <div class="product-results-header">
+                <h3>🛍️ Product Price Comparison</h3>
+                <p>Best deals from trusted stores</p>
+            </div>
+            <div id="productResultsGrid" class="product-grid"></div>
+            <div id="productLoading" class="product-loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Searching for best prices...</p>
+            </div>
+        </div>
+        
         <div class="coupons-grid">
             {% for coupon in coupons %}
             <div class="coupon-card {% if coupon.is_hot %}hot-deal-card{% endif %}">
@@ -1350,6 +1521,69 @@ DASHBOARD_TEMPLATE = """
     </footer>
     
     <script>
+        // Product Search Functionality
+        async function searchProducts(query) {
+            const productResultsSection = document.getElementById('productResults');
+            const productResultsGrid = document.getElementById('productResultsGrid');
+            const productLoading = document.getElementById('productLoading');
+            
+            if (!productResultsSection || !query || query.length < 2) {
+                if (productResultsSection) productResultsSection.style.display = 'none';
+                return;
+            }
+            
+            // Show product results section
+            productResultsSection.style.display = 'block';
+            productLoading.style.display = 'block';
+            productResultsGrid.innerHTML = '';
+            
+            try {
+                const response = await fetch(`/api/search-products?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                productLoading.style.display = 'none';
+                
+                if (data.products && data.products.length > 0) {
+                    productResultsGrid.innerHTML = data.products.map(product => `
+                        <div class="product-card">
+                            <div class="product-card-header">
+                                ${product.image ? `<img src="${product.image}" alt="${product.title}" class="product-image">` : '<div class="product-image" style="display:flex;align-items:center;justify-content:center;font-size:2rem;">${product.source_icon}</div>'}
+                                <div class="product-info">
+                                    <div class="product-title">${product.title}</div>
+                                    ${product.rating ? `<div class="product-rating">⭐ ${product.rating}</div>` : ''}
+                                </div>
+                            </div>
+                            <div class="product-price-row">
+                                <div>
+                                    <div class="product-price">${product.price}</div>
+                                    ${product.original_price ? `<div class="product-original-price">${product.original_price}</div>` : ''}
+                                </div>
+                                <span class="product-source ${product.source.toLowerCase()}">${product.source_icon} ${product.source}</span>
+                            </div>
+                            <a href="${product.url}" target="_blank" rel="noopener noreferrer" class="product-link">
+                                View Deal →
+                            </a>
+                        </div>
+                    `).join('');
+                } else {
+                    productResultsGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#64748b;">No products found. Try a different search term.</p>';
+                }
+                
+            } catch (error) {
+                console.error('Product search error:', error);
+                productLoading.style.display = 'none';
+                productResultsGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#ef4444;">Unable to search products. Please try again.</p>';
+            }
+        }
+        
+        // Check if we have a search query and trigger product search
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('search');
+        if (searchQuery) {
+            // Delay slightly to ensure page loads
+            setTimeout(() => searchProducts(searchQuery), 500);
+        }
+        
         // Search Autocomplete - Like GrabOn & CouponDunia
         const searchInput = document.getElementById('searchInput');
         const suggestionsBox = document.getElementById('searchSuggestions');
@@ -1924,6 +2158,179 @@ def api_visitors():
     """Get visitor statistics"""
     data = get_visitors_data()
     return jsonify(data)
+
+
+@app.route('/api/search-products')
+def api_search_products():
+    """Search for products across e-commerce sites and return price comparisons"""
+    query = request.args.get('q', '').strip()
+    if not query or len(query) < 2:
+        return jsonify({'error': 'Please enter a valid search term', 'products': []})
+    
+    products = []
+    
+    try:
+        # Search Amazon
+        amazon_results = search_amazon_products(query)
+        products.extend(amazon_results)
+        
+        # Search Flipkart
+        flipkart_results = search_flipkart_products(query)
+        products.extend(flipkart_results)
+        
+        # Sort by price (lowest first)
+        products.sort(key=lambda x: x.get('price_numeric', 999999))
+        
+        # Return top 20 results
+        return jsonify({
+            'query': query,
+            'products': products[:20],
+            'count': len(products)
+        })
+        
+    except Exception as e:
+        logger.error(f"Product search error: {e}")
+        return jsonify({'error': 'Search temporarily unavailable', 'products': []})
+
+
+def search_amazon_products(query):
+    """Search Amazon India for products"""
+    products = []
+    try:
+        search_url = f"https://www.amazon.in/s?k={query.replace(' ', '+')}"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        }
+        
+        response = requests.get(search_url, headers=headers, timeout=10)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Find product cards
+            for item in soup.select('.sg-col-4-of-12, .s-result-item')[:10]:
+                try:
+                    # Get title
+                    title_elem = item.select_one('h2 a span, .a-text-normal, .a-size-medium')
+                    if not title_elem:
+                        continue
+                    title = title_elem.get_text(strip=True)
+                    if not title or len(title) < 5:
+                        continue
+                    
+                    # Get URL
+                    link_elem = item.select_one('h2 a, a.a-link-normal')
+                    if not link_elem:
+                        continue
+                    url = 'https://www.amazon.in' + link_elem.get('href', '')
+                    if 'amazon.in/dp' not in url and 'amazon.in/gp/product' not in url:
+                        continue
+                    
+                    # Get price
+                    price_elem = item.select_one('.a-price-whole, .a-offscreen, [data-a-color="price"] .a-offscreen')
+                    price_text = price_elem.get_text(strip=True) if price_elem else ''
+                    price_numeric = int(re.sub(r'[^0-9]', '', price_text)) if price_text else 0
+                    
+                    # Get rating
+                    rating_elem = item.select_one('.a-icon-alt, .a-popover-preload')
+                    rating = rating_elem.get_text(strip=True) if rating_elem else ''
+                    
+                    # Get image
+                    img_elem = item.select_one('img.s-image')
+                    image = img_elem.get('src', '') if img_elem else ''
+                    
+                    if price_numeric > 0:
+                        products.append({
+                            'title': title[:100],
+                            'url': url,
+                            'price': f'₹{price_numeric:,}',
+                            'price_numeric': price_numeric,
+                            'rating': rating[:20],
+                            'source': 'Amazon',
+                            'source_icon': '🛒',
+                            'image': image,
+                            'verified': True
+                        })
+                except Exception:
+                    continue
+                    
+    except Exception as e:
+        logger.error(f"Amazon search error: {e}")
+    
+    return products
+
+
+def search_flipkart_products(query):
+    """Search Flipkart for products"""
+    products = []
+    try:
+        search_url = f"https://www.flipkart.com/search?q={query.replace(' ', '%20')}"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        }
+        
+        response = requests.get(search_url, headers=headers, timeout=10)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Find product cards
+            for item in soup.select('._1AtVbE, ._13oc-S')[:10]:
+                try:
+                    # Get title
+                    title_elem = item.select_one('._4rR01T, ._2B099h, a[title]')
+                    if not title_elem:
+                        continue
+                    title = title_elem.get_text(strip=True)
+                    if not title or len(title) < 5:
+                        continue
+                    
+                    # Get URL
+                    link_elem = item.select_one('a._1fQZEK')
+                    if not link_elem:
+                        continue
+                    url = 'https://www.flipkart.com' + link_elem.get('href', '')
+                    
+                    # Get price
+                    price_elem = item.select_one('._30jeq3._1_WB1e, ._1_WB1e')
+                    price_text = price_elem.get_text(strip=True) if price_elem else ''
+                    price_numeric = int(re.sub(r'[^0-9]', '', price_text)) if price_text else 0
+                    
+                    # Get original price (if discounted)
+                    orig_price_elem = item.select_one('._1_WB1e + span, ._2I5kjh')
+                    orig_price_text = orig_price_elem.get_text(strip=True) if orig_price_elem else ''
+                    
+                    # Get rating
+                    rating_elem = item.select_one('._2_R_DZ span, ._3LWZlK')
+                    rating = rating_elem.get_text(strip=True) if rating_elem else ''
+                    
+                    # Get image
+                    img_elem = item.select_one('img._396y4z')
+                    image = img_elem.get('src', '') if img_elem else ''
+                    
+                    if price_numeric > 0:
+                        product = {
+                            'title': title[:100],
+                            'url': url,
+                            'price': f'₹{price_numeric:,}',
+                            'price_numeric': price_numeric,
+                            'rating': rating,
+                            'source': 'Flipkart',
+                            'source_icon': '🛍️',
+                            'image': image,
+                            'verified': True
+                        }
+                        if orig_price_text:
+                            product['original_price'] = orig_price_text
+                        products.append(product)
+                except Exception:
+                    continue
+                    
+    except Exception as e:
+        logger.error(f"Flipkart search error: {e}")
+    
+    return products
+
 
 def run_server(host='0.0.0.0', port=None):
     if port is None:
