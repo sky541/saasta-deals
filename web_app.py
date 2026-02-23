@@ -547,7 +547,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
         
         .filters {
             background: rgba(255,255,255,0.9);
@@ -654,6 +654,7 @@ DASHBOARD_TEMPLATE = """
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
             position: relative;
+            margin-top: 8px;
         }
         
         .coupon-card:hover {
@@ -665,18 +666,39 @@ DASHBOARD_TEMPLATE = """
             border: 2px solid #ef4444;
         }
         
-        /* Trust Badge on Card */
+        /* Trust Badge - Top Bar Style */
         .trust-badge {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.7rem;
+            top: -8px;
+            left: 15px;
+            padding: 4px 12px;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
-            z-index: 2;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 10;
+            color: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .trust-badge.hot {
+            background: #ef4444;
+        }
+        
+        .trust-badge.exclusive {
+            background: #f97316;
+        }
+        
+        .coupon-header {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            padding: 1rem;
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
         }
         
         .trust-badge.verified {
@@ -684,28 +706,9 @@ DASHBOARD_TEMPLATE = """
             color: white;
         }
         
-        .trust-badge.exclusive {
-            background: #f97316;
-            color: white;
-        }
-        
-        .trust-badge.hot {
-            background: #ef4444;
-            color: white;
-            animation: pulse 2s infinite;
-        }
-        
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
-        }
-        
-        .coupon-header {
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
         }
         
         /* Coupon Buttons */
@@ -797,10 +800,7 @@ DASHBOARD_TEMPLATE = """
             100% { transform: scale(1); }
         }
         
-        .coupon-body { 
-            padding: 1.2rem; 
-            padding-top: 1.5rem;
-        }
+        .coupon-body { padding: 1.2rem; }
         
         .coupon-code {
             display: flex;
@@ -1030,31 +1030,6 @@ DASHBOARD_TEMPLATE = """
                 <span class="badge-text">Daily Updated</span>
             </div>
         </div>
-    </div>
-    
-    <!-- Category Pills -->
-    <div class="category-bar">
-        <a href="/" class="category-pill {% if not request.args.get('category') %}active{% endif %}">
-            <span>🏠</span> All
-        </a>
-        <a href="/?category=electronics" class="category-pill {% if request.args.get('category') == 'electronics' %}active{% endif %}">
-            <span>📱</span> Electronics
-        </a>
-        <a href="/?category=fashion" class="category-pill {% if request.args.get('category') == 'fashion' %}active{% endif %}">
-            <span>👕</span> Fashion
-        </a>
-        <a href="/?category=food" class="category-pill {% if request.args.get('category') == 'food' %}active{% endif %}">
-            <span>🍔</span> Food
-        </a>
-        <a href="/?category=beauty" class="category-pill {% if request.args.get('category') == 'beauty' %}active{% endif %}">
-            <span>💄</span> Beauty
-        </a>
-        <a href="/?category=travel" class="category-pill {% if request.args.get('category') == 'travel' %}active{% endif %}">
-            <span>✈️</span> Travel
-        </a>
-        <a href="/?category=recharge" class="category-pill {% if request.args.get('category') == 'recharge' %}active{% endif %}">
-            <span>💰</span> Recharge
-        </a>
     </div>
     
     <div class="container">
