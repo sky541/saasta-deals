@@ -175,8 +175,9 @@ DASHBOARD_TEMPLATE = """
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            gap: 15px;
         }
         
         .main-header .logo {
@@ -195,7 +196,9 @@ DASHBOARD_TEMPLATE = """
         
         .main-nav {
             display: flex;
-            gap: 2rem;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
         }
         
         .main-nav .nav-link {
@@ -443,6 +446,7 @@ DASHBOARD_TEMPLATE = """
             justify-content: center;
             gap: 10px;
             align-items: center;
+            margin-top: 25px;
         }
         
         .popular-label {
@@ -1492,9 +1496,11 @@ DASHBOARD_TEMPLATE = """
         </div>
         
         <!-- Section Title -->
-        <div class="section-title">
-            <h2>
-                {% if request.args.get('product_search') %}
+        <div class="section-title" style="margin: 30px 0; text-align: center;">
+            <h2 style="font-size: 1.8rem; color: #1e293b; margin-bottom: 8px;">
+                {% if request.path == '/local' %}
+                🍔 Local Food Deals
+                {% elif request.args.get('product_search') %}
                 📦 Deals for "{{ request.args.get('product_search') }}"
                 {% elif request.args.get('search') %}
                 🔍 Results for "{{ request.args.get('search') }}"
