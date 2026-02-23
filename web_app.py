@@ -175,9 +175,10 @@ DASHBOARD_TEMPLATE = """
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .main-header .logo {
@@ -196,9 +197,9 @@ DASHBOARD_TEMPLATE = """
         
         .main-nav {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            text-align: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
         .main-nav .nav-link {
