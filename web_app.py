@@ -133,270 +133,24 @@ DASHBOARD_TEMPLATE = """
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            /* Trust + Savings Theme - Based on CouponDunia & GrabOn */
-            --primary: #22c55e;      /* Green - trust/money */
-            --primary-dark: #16a34a;
-            --secondary: #f97316;    /* Orange - excitement */
-            --accent: #ef4444;       /* Red - urgency */
-            --dark: #1e293b;         /* Slate - premium feel */
-            --light: #f8fafc;
+            --primary: #0ea5e9;
+            --secondary: #38bdf8;
+            --dark: #0284c7;
+            --light: #f0f9ff;
             --white: #ffffff;
             --success: #22c55e;
-            --warning: #f59e0b;
             --danger: #ef4444;
+            --orange: #f97316;
             --text: #334155;
-            --text-light: #64748b;
             --gray: #94a3b8;
             --bg: #f8fafc;
-            --border: #e2e8f0;
         }
         
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f8fafc;
             color: #334155;
             min-height: 100vh;
-        }
-        
-        /* Hero Section - Like GrabOn & CouponDunia */
-        .hero-section {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
-            padding: 40px 20px 50px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .hero-title {
-            color: white;
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-        
-        .hero-title span {
-            display: inline;
-        }
-        
-        .hero-subtitle {
-            color: rgba(255,255,255,0.95);
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
-        
-        /* Search Box */
-        .search-container {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto 20px;
-        }
-        
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: white;
-            border-radius: 50px;
-            padding: 8px 8px 8px 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
-        
-        .search-icon {
-            font-size: 1.2rem;
-            margin-right: 10px;
-        }
-        
-        .search-box input {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            padding: 10px;
-        }
-        
-        .search-btn {
-            background: #22c55e;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .search-btn:hover {
-            background: #16a34a;
-            transform: scale(1.02);
-        }
-        
-        .search-suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            margin-top: 5px;
-            display: none;
-            z-index: 100;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .search-suggestions.show {
-            display: block;
-        }
-        
-        .suggestion-item {
-            padding: 12px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.2s;
-        }
-        
-        .suggestion-item:hover {
-            background: #f0fdf4;
-        }
-        
-        /* Popular Searches */
-        .popular-searches {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .popular-label {
-            color: rgba(255,255,255,0.8);
-            font-weight: 500;
-        }
-        
-        .popular-tag {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            padding: 6px 15px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        
-        .popular-tag:hover {
-            background: white;
-            color: #22c55e;
-        }
-        
-        /* Trust Badges Hero */
-        .trust-badges-hero {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .badge-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-        }
-        
-        .badge-icon {
-            font-size: 1.5rem;
-        }
-        
-        .badge-text {
-            font-size: 0.95rem;
-        }
-        
-        /* Category Bar */
-        .category-bar {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            padding: 15px 20px;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            flex-wrap: wrap;
-            overflow-x: auto;
-        }
-        
-        .category-pill {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
-            background: #f1f5f9;
-            border-radius: 25px;
-            text-decoration: none;
-            color: #475569;
-            font-weight: 500;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-        
-        .category-pill:hover, .category-pill.active {
-            background: #22c55e;
-            color: white;
-        }
-        
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 1.8rem;
-                flex-direction: column;
-            }
-            .hero-icon {
-                font-size: 2.5rem;
-            }
-            .search-box {
-                flex-direction: column;
-                border-radius: 20px;
-                padding: 15px;
-            }
-            .search-box input {
-                width: 100%;
-                text-align: center;
-                margin-bottom: 10px;
-            }
-            .search-btn {
-                width: 100%;
-            }
-            .trust-badges-hero {
-                gap: 20px;
-            }
-            .badge-item {
-                font-size: 0.85rem;
-            }
-            .category-bar {
-                justify-content: flex-start;
-                padding: 10px;
-            }
         }
         
         header {
@@ -547,7 +301,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 20px; }
         
         .filters {
             background: rgba(255,255,255,0.9);
@@ -625,92 +379,31 @@ DASHBOARD_TEMPLATE = """
         .coupons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 25px;
+            gap: 20px;
         }
         
-        /* Section Title */
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .section-title h2 {
-            font-size: 1.8rem;
-            color: #1e293b;
-            margin-bottom: 8px;
-        }
-        
-        .section-title p {
-            color: #64748b;
-            font-size: 0.95rem;
-        }
-        
-        /* Coupon Card - Like CouponDunia */
         .coupon-card {
             background: white;
-            border-radius: 16px;
-            overflow: visible;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.25s ease;
             border: 1px solid #e2e8f0;
-            position: relative;
         }
         
         .coupon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
         }
         
         .coupon-card.hot-deal-card {
             border: 2px solid #ef4444;
+            animation: hotDealGlow 2s ease-in-out infinite;
         }
         
-        /* Trust Badge - Vertical Ribbon Style */
-        .trust-badge {
-            position: absolute;
-            top: 20px;
-            right: -30px;
-            padding: 5px 30px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            z-index: 2;
-            color: white;
-            transform: rotate(45deg);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .trust-badge.hot {
-            background: #ef4444;
-        }
-        
-        .trust-badge.exclusive {
-            background: #f97316;
-        }
-        
-        .trust-badge.verified {
-            background: #22c55e;
-        }
-        
-        .trust-badge.verified {
-            background: #22c55e;
-            color: white;
-        }
-        
-        .trust-badge.exclusive {
-            background: #f97316;
-            color: white;
-        }
-        
-        .trust-badge.hot {
-            background: #ef4444;
-            color: white;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes hotDealGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
         }
         
         .coupon-header {
@@ -761,7 +454,7 @@ DASHBOARD_TEMPLATE = """
         
         /* Coupon Header */
         .coupon-header {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
             color: white;
             padding: 1rem;
             display: flex;
@@ -991,56 +684,34 @@ DASHBOARD_TEMPLATE = """
     </style>
 </head>
 <body>
-    <!-- Hero Section with Search - Like GrabOn & CouponDunia -->
-    <div class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="hero-icon">🎫</span> GrabCoupon
-            </h1>
-            <p class="hero-subtitle">Save Big on Every Purchase! | Find verified coupon codes & deals from 50+ top Indian stores</p>
-            
-            <!-- Search Box with Autocomplete -->
-            <div class="search-container">
-                <div class="search-box">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" 
-                           id="searchInput"
-                           name="search" 
-                           placeholder="Search for coupons, stores, products..." 
-                           value="{{ request.args.get('search', '') }}"
-                           autocomplete="off">
-                    <button type="submit" class="search-btn">Search</button>
-                </div>
-                <div id="searchSuggestions" class="search-suggestions"></div>
-            </div>
-            
-            <!-- Popular Searches -->
-            <div class="popular-searches">
-                <span class="popular-label">Popular:</span>
-                <a href="/?search=Amazon" class="popular-tag">Amazon</a>
-                <a href="/?search=Flipkart" class="popular-tag">Flipkart</a>
-                <a href="/?search=Myntra" class="popular-tag">Myntra</a>
-                <a href="/?search=Swiggy" class="popular-tag">Swiggy</a>
-                <a href="/?search=Zomato" class="popular-tag">Zomato</a>
-            </div>
-        </div>
-        
-        <!-- Trust Badges -->
-        <div class="trust-badges-hero">
-            <div class="badge-item">
-                <span class="badge-icon">✅</span>
-                <span class="badge-text"><strong>{{ total_coupons }}+</strong> Verified Coupons</span>
-            </div>
-            <div class="badge-item">
-                <span class="badge-icon">🛡️</span>
-                <span class="badge-text">100% Authentic Deals</span>
-            </div>
-            <div class="badge-item">
-                <span class="badge-icon">⚡</span>
-                <span class="badge-text">Daily Updated</span>
-            </div>
-        </div>
+    <!-- Trust Signals Bar -->
+    <div class="trust-bar">
+        <span>✅ <strong>{{ total_coupons }}+</strong> Verified Coupons</span>
+        <span>🕐 Updated <strong>Today</strong></span>
+        <span>💰 Avg. Savings: <strong>₹500+</strong></span>
     </div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">🎫 GrabCoupon</div>
+        </div>
+    </header>
+    
+    <!-- Navigation Tabs -->
+    <nav class="tabs" style="background:white;box-shadow:0 2px 4px rgba(0,0,0,0.1);padding:10px 20px;">
+        <a href="/" class="tab {% if request.path == '/' and not request.args.get('category') %}active{% endif %}">🏠 All Deals</a>
+        <a href="/?category=electronics" class="tab {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics</a>
+        <a href="/?category=mobiles" class="tab {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles</a>
+        <a href="/?category=fashion" class="tab {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion</a>
+        <a href="/?category=food" class="tab {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food</a>
+        <a href="/?category=beauty" class="tab {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty</a>
+        <a href="/?category=home" class="tab {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home</a>
+        <a href="/?category=grocery" class="tab {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery</a>
+        <a href="/?category=travel" class="tab {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel</a>
+        <a href="/?category=health" class="tab {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health</a>
+        <a href="/?category=recharge" class="tab {% if request.args.get('category') == 'recharge' %}active{% endif %}">💰 Recharge</a>
+        <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
+    </nav>
     
     <div class="container">
         <div class="filters">
@@ -1145,34 +816,9 @@ DASHBOARD_TEMPLATE = """
         
         <div class="last-updated">🕐 Last updated: {{ last_updated }}</div>
         
-        <!-- Section Title -->
-        <div class="section-title">
-            <h2>
-                {% if request.args.get('search') %}
-                🔍 Results for "{{ request.args.get('search') }}"
-                {% elif request.args.get('category') %}
-                {{ request.args.get('category')|title }} Deals & Coupons
-                {% elif request.args.get('source') %}
-                {{ request.args.get('source') }} Coupons & Deals
-                {% else %}
-                💰 All Coupons & Deals
-                {% endif %}
-            </h2>
-            <p>Showing {{ coupons|length }} verified coupons</p>
-        </div>
-        
         <div class="coupons-grid">
             {% for coupon in coupons %}
             <div class="coupon-card {% if coupon.is_hot %}hot-deal-card{% endif %}">
-                <!-- Trust Badge -->
-                {% if coupon.is_hot %}
-                <div class="trust-badge hot">🔥 HOT</div>
-                {% elif coupon.is_featured %}
-                <div class="trust-badge exclusive">⭐ EXCLUSIVE</div>
-                {% else %}
-                <div class="trust-badge verified">✓ VERIFIED</div>
-                {% endif %}
-                
                 <div class="coupon-header">
                     <span class="coupon-source">{{ coupon.source }}</span>
                     <span class="coupon-discount">{{ coupon.discount }}</span>
@@ -1272,120 +918,9 @@ DASHBOARD_TEMPLATE = """
     </footer>
     
     <script>
-        // Search Autocomplete - Like GrabOn & CouponDunia
-        const searchInput = document.getElementById('searchInput');
-        const suggestionsBox = document.getElementById('searchSuggestions');
-        
-        // Popular search suggestions
-        const popularSearches = [
-            { text: 'Amazon', icon: '🛒' },
-            { text: 'Flipkart', icon: '🛒' },
-            { text: 'Myntra', icon: '👕' },
-            { text: 'Swiggy', icon: '🍔' },
-            { text: 'Zomato', icon: '🍔' },
-            { text: 'Ajio', icon: '👕' },
-            { text: 'Nykaa', icon: '💄' },
-            { text: 'Croma', icon: '📱' },
-            { text: 'Meesho', icon: '🛒' },
-            { text: 'Electronics', icon: '📱' },
-            { text: 'Fashion', icon: '👕' },
-            { text: 'Food', icon: '🍔' }
-        ];
-        
-        if (searchInput) {
-            searchInput.addEventListener('input', function(e) {
-                const value = e.target.value.toLowerCase();
-                if (value.length < 1) {
-                    suggestionsBox.classList.remove('show');
-                    return;
-                }
-                
-                const filtered = popularSearches.filter(s => 
-                    s.text.toLowerCase().includes(value)
-                );
-                
-                if (filtered.length > 0) {
-                    suggestionsBox.innerHTML = filtered.map(s => 
-                        `<div class="suggestion-item" onclick="window.location.href='/?search=${s.text}'">
-                            <span>${s.icon}</span>
-                            <span>${s.text}</span>
-                        </div>`
-                    ).join('');
-                    suggestionsBox.classList.add('show');
-                } else {
-                    suggestionsBox.classList.remove('show');
-                }
-            });
-            
-            // Hide suggestions on click outside
-            document.addEventListener('click', function(e) {
-                if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
-                    suggestionsBox.classList.remove('show');
-                }
-            });
-        }
-        
-        // Improved Copy Code with Toast Notification
         function copyCode(code) {
-            if (!code || code === 'No Code Needed') return;
-            
-            navigator.clipboard.writeText(code).then(() => {
-                showToast('✅ Coupon code "' + code + '" copied!');
-            }).catch(() => {
-                // Fallback
-                const textarea = document.createElement('textarea');
-                textarea.value = code;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                showToast('✅ Coupon code "' + code + '" copied!');
-            });
-        }
-        
-        // Toast Notification Function
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.style.cssText = `
-                position: fixed;
-                bottom: 30px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: #22c55e;
-                color: white;
-                padding: 15px 30px;
-                border-radius: 30px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-                z-index: 10000;
-                font-weight: 600;
-                animation: slideUp 0.3s ease;
-            `;
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.animation = 'slideDown 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 2500);
-        }
-        
-        // Add toast animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideUp {
-                from { transform: translateX(-50%) translateY(20px); opacity: 0; }
-                to { transform: translateX(-50%) translateY(0); opacity: 1; }
-            }
-            @keyframes slideDown {
-                from { transform: translateX(-50%) translateY(0); opacity: 1; }
-                to { transform: translateX(-50%) translateY(20px); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Track deal clicks
-        function trackDealClick(dealId, source) {
-            console.log('Deal clicked:', dealId, 'Source:', source);
+            navigator.clipboard.writeText(code);
+            alert('Coupon code ' + code + ' copied!');
         }
     </script>
 </body>
