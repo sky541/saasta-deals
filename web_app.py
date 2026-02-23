@@ -1314,6 +1314,21 @@ DASHBOARD_TEMPLATE = """
     <!-- Hero Section with Search - Like GrabOn & CouponDunia -->
     <div class="hero-section">
         <div class="hero-content">
+            <!-- Logo -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="/" style="color: white; text-decoration: none;">
+                    <span style="font-size: 2.5rem; font-weight: 800;">🎫 GrabCoupon</span>
+                </a>
+            </div>
+            
+            <!-- Navigation Links -->
+            <nav class="hero-nav" style="margin-bottom: 25px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="/" class="hero-nav-link {% if request.path == '/' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Home</a>
+                <a href="/local" class="hero-nav-link {% if request.path == '/local' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Local Food Deals</a>
+                <a href="/about" class="hero-nav-link {% if request.path == '/about' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">About Us</a>
+                <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Contact Us</a>
+            </nav>
+            
             <!-- Combined Search and Filters -->
             <form class="combined-search-form" method="get">
                 <div class="search-bar-row">
@@ -1357,14 +1372,6 @@ DASHBOARD_TEMPLATE = """
                 <a href="/?search=Swiggy" class="popular-tag">Swiggy</a>
                 <a href="/?search=Zomato" class="popular-tag">Zomato</a>
             </div>
-            
-            <!-- Navigation Links -->
-            <nav class="hero-nav" style="margin-top: 25px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <a href="/" class="hero-nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
-                <a href="/local" class="hero-nav-link {% if request.path == '/local' %}active{% endif %}">Local Food Deals</a>
-                <a href="/about" class="hero-nav-link {% if request.path == '/about' %}active{% endif %}">About Us</a>
-                <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}">Contact Us</a>
-            </nav>
         </div>
         
         <!-- Trust Badges -->
