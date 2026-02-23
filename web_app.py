@@ -6,8 +6,11 @@ Show live coupons from Indian e-commerce websites
 import os
 import json
 import logging
+import re
+import requests
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
+from bs4 import BeautifulSoup
 
 from flask import Flask, render_template_string, jsonify, request, make_response
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -133,24 +136,340 @@ DASHBOARD_TEMPLATE = """
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #0ea5e9;
-            --secondary: #38bdf8;
-            --dark: #0284c7;
-            --light: #f0f9ff;
+            /* Trust + Savings Theme - Based on CouponDunia & GrabOn */
+            --primary: #22c55e;      /* Green - trust/money */
+            --primary-dark: #16a34a;
+            --secondary: #f97316;    /* Orange - excitement */
+            --accent: #ef4444;       /* Red - urgency */
+            --dark: #1e293b;         /* Slate - premium feel */
+            --light: #f8fafc;
             --white: #ffffff;
             --success: #22c55e;
+            --warning: #f59e0b;
             --danger: #ef4444;
-            --orange: #f97316;
             --text: #334155;
+            --text-light: #64748b;
             --gray: #94a3b8;
             --bg: #f8fafc;
+            --border: #e2e8f0;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #f8fafc;
             color: #334155;
             min-height: 100vh;
+        }
+        
+        /* Main Header Navigation */
+        .main-header {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            padding: 0.75rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .main-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .main-header .logo-icon {
+            font-size: 1.3rem;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .main-nav .nav-link {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .main-nav .nav-link:hover,
+        .main-nav .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .header-cta .cta-button {
+            background: white;
+            color: #22c55e;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        
+        .header-cta .cta-button:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .main-nav { display: none; }
+        }
+        
+        /* Hero Section - Like GrabOn & CouponDunia */
+        .hero-section {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+            padding: 40px 20px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            color: white;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .hero-title span {
+            display: inline;
+        }
+        
+        .hero-subtitle {
+            color: rgba(255,255,255,0.95);
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+        
+        /* Search Box */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 50px;
+            padding: 8px 8px 8px 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .search-icon {
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            padding: 10px;
+        }
+        
+        .search-btn {
+            background: #22c55e;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #16a34a;
+            transform: scale(1.02);
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin-top: 5px;
+            display: none;
+            z-index: 100;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .search-suggestions.show {
+            display: block;
+        }
+        
+        .suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+        
+        .suggestion-item:hover {
+            background: #f0fdf4;
+        }
+        
+        /* Popular Searches */
+        .popular-searches {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .popular-label {
+            color: rgba(255,255,255,0.8);
+            font-weight: 500;
+        }
+        
+        .popular-tag {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .popular-tag:hover {
+            background: white;
+            color: #22c55e;
+        }
+        
+        /* Trust Badges Hero */
+        .trust-badges-hero {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+        
+        .badge-icon {
+            font-size: 1.5rem;
+        }
+        
+        .badge-text {
+            font-size: 0.95rem;
+        }
+        
+        /* Category Bar */
+        .category-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            overflow-x: auto;
+        }
+        
+        .category-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: #f1f5f9;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #475569;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .category-pill:hover, .category-pill.active {
+            background: #22c55e;
+            color: white;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+                flex-direction: column;
+            }
+            .hero-icon {
+                font-size: 2.5rem;
+            }
+            .search-box {
+                flex-direction: column;
+                border-radius: 20px;
+                padding: 15px;
+            }
+            .search-box input {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            .search-btn {
+                width: 100%;
+            }
+            .trust-badges-hero {
+                gap: 20px;
+            }
+            .badge-item {
+                font-size: 0.85rem;
+            }
+            .category-bar {
+                justify-content: flex-start;
+                padding: 10px;
+            }
         }
         
         header {
@@ -301,7 +620,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 20px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
         
         .filters {
             background: rgba(255,255,255,0.9);
@@ -316,6 +635,16 @@ DASHBOARD_TEMPLATE = """
             gap: 12px;
             flex-wrap: wrap;
             align-items: center;
+        }
+        
+        .product-search-input {
+            flex: 2;
+            min-width: 200px;
+            padding: 10px 16px;
+            border: 2px solid #22c55e;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            background: white;
         }
         
         .filter-row select, .filter-row input {
@@ -376,42 +705,248 @@ DASHBOARD_TEMPLATE = """
             }
         }
         
-        .coupons-grid {
+        /* Product Search Results */
+        .product-search-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        .product-results-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .product-results-header h3 {
+            color: #1e293b;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .product-results-header p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
         
+        .product-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .product-card:hover {
+            border-color: #22c55e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.15);
+        }
+        
+        .product-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .product-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-title {
+            font-size: 0.95rem;
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-rating {
+            font-size: 0.85rem;
+            color: #f59e0b;
+        }
+        
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 12px 0;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #22c55e;
+        }
+        
+        .product-original-price {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            text-decoration: line-through;
+        }
+        
+        .product-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .product-source.amazon {
+            background: #ff990020;
+            color: #ff9900;
+        }
+        
+        .product-source.flipkart {
+            background: #2874f020;
+            color: #2874f0;
+        }
+        
+        .product-link {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .product-link:hover {
+            transform: scale(1.02);
+        }
+        
+        .product-loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top-color: #22c55e;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .coupons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 25px;
+        }
+        
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .section-title p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        /* Coupon Card - Like CouponDunia */
         .coupon-card {
             background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: all 0.25s ease;
+            border-radius: 16px;
+            overflow: visible;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
+            position: relative;
+            margin-top: 8px;
         }
         
         .coupon-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
         }
         
         .coupon-card.hot-deal-card {
             border: 2px solid #ef4444;
-            animation: hotDealGlow 2s ease-in-out infinite;
         }
         
-        @keyframes hotDealGlow {
-            0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
-            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+        /* Trust Badge - Top Bar Style */
+        .trust-badge {
+            position: absolute;
+            top: -8px;
+            left: 15px;
+            padding: 4px 12px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            z-index: 10;
+            color: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .trust-badge.hot {
+            background: #ef4444;
+        }
+        
+        .trust-badge.exclusive {
+            background: #f97316;
         }
         
         .coupon-header {
-            padding: 12px 16px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            padding: 1rem;
+            padding-top: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .trust-badge.verified {
+            background: #22c55e;
             color: white;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         /* Coupon Buttons */
@@ -454,7 +989,7 @@ DASHBOARD_TEMPLATE = """
         
         /* Coupon Header */
         .coupon-header {
-            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
             color: white;
             padding: 1rem;
             display: flex;
@@ -684,34 +1219,74 @@ DASHBOARD_TEMPLATE = """
     </style>
 </head>
 <body>
-    <!-- Trust Signals Bar -->
-    <div class="trust-bar">
-        <span>✅ <strong>{{ total_coupons }}+</strong> Verified Coupons</span>
-        <span>🕐 Updated <strong>Today</strong></span>
-        <span>💰 Avg. Savings: <strong>₹500+</strong></span>
-    </div>
-    
-    <header>
-        <div class="header-content">
-            <div class="logo">🎫 GrabCoupon</div>
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <span class="logo-icon">🎫</span> GrabCoupon
+            </a>
+            <nav class="main-nav">
+                <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
+                <a href="/local" class="nav-link {% if request.path == '/local' %}active{% endif %}">Local Deals</a>
+                <a href="/about" class="nav-link {% if request.path == '/about' %}active{% endif %}">About Us</a>
+                <a href="/contact" class="nav-link {% if request.path == '/contact' %}active{% endif %}">Contact Us</a>
+            </nav>
+            <div class="header-cta">
+                <a href="https://grabcoupon.in" class="cta-button">Save Now</a>
+            </div>
         </div>
     </header>
     
-    <!-- Navigation Tabs -->
-    <nav class="tabs" style="background:white;box-shadow:0 2px 4px rgba(0,0,0,0.1);padding:10px 20px;">
-        <a href="/" class="tab {% if request.path == '/' and not request.args.get('category') %}active{% endif %}">🏠 All Deals</a>
-        <a href="/?category=electronics" class="tab {% if request.args.get('category') == 'electronics' %}active{% endif %}">📱 Electronics</a>
-        <a href="/?category=mobiles" class="tab {% if request.args.get('category') == 'mobiles' %}active{% endif %}">📲 Mobiles</a>
-        <a href="/?category=fashion" class="tab {% if request.args.get('category') == 'fashion' %}active{% endif %}">👕 Fashion</a>
-        <a href="/?category=food" class="tab {% if request.args.get('category') == 'food' %}active{% endif %}">🍔 Food</a>
-        <a href="/?category=beauty" class="tab {% if request.args.get('category') == 'beauty' %}active{% endif %}">💄 Beauty</a>
-        <a href="/?category=home" class="tab {% if request.args.get('category') == 'home' %}active{% endif %}">🏠 Home</a>
-        <a href="/?category=grocery" class="tab {% if request.args.get('category') == 'grocery' %}active{% endif %}">🛒 Grocery</a>
-        <a href="/?category=travel" class="tab {% if request.args.get('category') == 'travel' %}active{% endif %}">✈️ Travel</a>
-        <a href="/?category=health" class="tab {% if request.args.get('category') == 'health' %}active{% endif %}">💊 Health</a>
-        <a href="/?category=recharge" class="tab {% if request.args.get('category') == 'recharge' %}active{% endif %}">💰 Recharge</a>
-        <a href="/local" class="tab {% if request.path == '/local' %}active{% endif %}">🍔 Local Food</a>
-    </nav>
+    <!-- Hero Section with Search - Like GrabOn & CouponDunia -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="hero-icon">🎫</span> GrabCoupon
+            </h1>
+            <p class="hero-subtitle">Save Big on Every Purchase! | Find verified coupon codes & deals from 50+ top Indian stores</p>
+            
+            <!-- Search Box with Autocomplete -->
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" 
+                           id="searchInput"
+                           name="search" 
+                           placeholder="Search for coupons, stores, products..." 
+                           value="{{ request.args.get('search', '') }}"
+                           autocomplete="off">
+                    <button type="submit" class="search-btn">Search</button>
+                </div>
+                <div id="searchSuggestions" class="search-suggestions"></div>
+            </div>
+            
+            <!-- Popular Searches -->
+            <div class="popular-searches">
+                <span class="popular-label">Popular:</span>
+                <a href="/?search=Amazon" class="popular-tag">Amazon</a>
+                <a href="/?search=Flipkart" class="popular-tag">Flipkart</a>
+                <a href="/?search=Myntra" class="popular-tag">Myntra</a>
+                <a href="/?search=Swiggy" class="popular-tag">Swiggy</a>
+                <a href="/?search=Zomato" class="popular-tag">Zomato</a>
+            </div>
+        </div>
+        
+        <!-- Trust Badges -->
+        <div class="trust-badges-hero">
+            <div class="badge-item">
+                <span class="badge-icon">✅</span>
+                <span class="badge-text"><strong>{{ total_coupons }}+</strong> Verified Coupons</span>
+            </div>
+            <div class="badge-item">
+                <span class="badge-icon">🛡️</span>
+                <span class="badge-text">100% Authentic Deals</span>
+            </div>
+            <div class="badge-item">
+                <span class="badge-icon">⚡</span>
+                <span class="badge-text">Daily Updated</span>
+            </div>
+        </div>
+    </div>
     
     <div class="container">
         <div class="filters">
@@ -722,6 +1297,15 @@ DASHBOARD_TEMPLATE = """
                 {% if request.args.get('search') %}
                 <input type="hidden" name="search" value="{{ request.args.get('search') }}">
                 {% endif %}
+                
+                <!-- Product Search Bar -->
+                <input type="text" 
+                       name="product_search" 
+                       placeholder="🔍 Search products (TV, fridge, mobile...)" 
+                       value="{{ request.args.get('product_search', '') }}"
+                       class="product-search-input"
+                       style="flex: 2; min-width: 200px;">
+                
                 <select name="source">
                     <option value="">All Stores</option>
                     <option value="Amazon">Amazon (6)</option>
@@ -816,9 +1400,49 @@ DASHBOARD_TEMPLATE = """
         
         <div class="last-updated">🕐 Last updated: {{ last_updated }}</div>
         
+        <!-- Section Title -->
+        <div class="section-title">
+            <h2>
+                {% if request.args.get('product_search') %}
+                📦 Deals for "{{ request.args.get('product_search') }}"
+                {% elif request.args.get('search') %}
+                🔍 Results for "{{ request.args.get('search') }}"
+                {% elif request.args.get('category') %}
+                {{ request.args.get('category')|title }} Deals & Coupons
+                {% elif request.args.get('source') %}
+                {{ request.args.get('source') }} Coupons & Deals
+                {% else %}
+                💰 All Coupons & Deals
+                {% endif %}
+            </h2>
+            <p>Showing {{ coupons|length }} verified coupons</p>
+        </div>
+        
+        <!-- Product Search Results Section -->
+        <div id="productResults" class="product-search-section" style="display: none;">
+            <div class="product-results-header">
+                <h3>🛍️ Product Price Comparison</h3>
+                <p>Best deals from trusted stores</p>
+            </div>
+            <div id="productResultsGrid" class="product-grid"></div>
+            <div id="productLoading" class="product-loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <p>Searching for best prices...</p>
+            </div>
+        </div>
+        
         <div class="coupons-grid">
             {% for coupon in coupons %}
             <div class="coupon-card {% if coupon.is_hot %}hot-deal-card{% endif %}">
+                <!-- Trust Badge -->
+                {% if coupon.is_hot %}
+                <div class="trust-badge hot">🔥 HOT</div>
+                {% elif coupon.is_featured %}
+                <div class="trust-badge exclusive">⭐ EXCLUSIVE</div>
+                {% else %}
+                <div class="trust-badge verified">✓ VERIFIED</div>
+                {% endif %}
+                
                 <div class="coupon-header">
                     <span class="coupon-source">{{ coupon.source }}</span>
                     <span class="coupon-discount">{{ coupon.discount }}</span>
@@ -918,9 +1542,183 @@ DASHBOARD_TEMPLATE = """
     </footer>
     
     <script>
+        // Product Search Functionality
+        async function searchProducts(query) {
+            const productResultsSection = document.getElementById('productResults');
+            const productResultsGrid = document.getElementById('productResultsGrid');
+            const productLoading = document.getElementById('productLoading');
+            
+            if (!productResultsSection || !query || query.length < 2) {
+                if (productResultsSection) productResultsSection.style.display = 'none';
+                return;
+            }
+            
+            // Show product results section
+            productResultsSection.style.display = 'block';
+            productLoading.style.display = 'block';
+            productResultsGrid.innerHTML = '';
+            
+            try {
+                const response = await fetch(`/api/search-products?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                productLoading.style.display = 'none';
+                
+                if (data.products && data.products.length > 0) {
+                    productResultsGrid.innerHTML = data.products.map(product => `
+                        <div class="product-card">
+                            <div class="product-card-header">
+                                ${product.image ? `<img src="${product.image}" alt="${product.title}" class="product-image">` : '<div class="product-image" style="display:flex;align-items:center;justify-content:center;font-size:2rem;">${product.source_icon}</div>'}
+                                <div class="product-info">
+                                    <div class="product-title">${product.title}</div>
+                                    ${product.rating ? `<div class="product-rating">⭐ ${product.rating}</div>` : ''}
+                                </div>
+                            </div>
+                            <div class="product-price-row">
+                                <div>
+                                    <div class="product-price">${product.price}</div>
+                                    ${product.original_price ? `<div class="product-original-price">${product.original_price}</div>` : ''}
+                                </div>
+                                <span class="product-source ${product.source.toLowerCase()}">${product.source_icon} ${product.source}</span>
+                            </div>
+                            <a href="${product.url}" target="_blank" rel="noopener noreferrer" class="product-link">
+                                View Deal →
+                            </a>
+                        </div>
+                    `).join('');
+                } else {
+                    productResultsGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#64748b;">No products found. Try a different search term.</p>';
+                }
+                
+            } catch (error) {
+                console.error('Product search error:', error);
+                productLoading.style.display = 'none';
+                productResultsGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#ef4444;">Unable to search products. Please try again.</p>';
+            }
+        }
+        
+        // Check if we have a search query and trigger product search
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('search');
+        if (searchQuery) {
+            // Delay slightly to ensure page loads
+            setTimeout(() => searchProducts(searchQuery), 500);
+        }
+        
+        // Search Autocomplete - Like GrabOn & CouponDunia
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsBox = document.getElementById('searchSuggestions');
+        
+        // Popular search suggestions
+        const popularSearches = [
+            { text: 'Amazon', icon: '🛒' },
+            { text: 'Flipkart', icon: '🛒' },
+            { text: 'Myntra', icon: '👕' },
+            { text: 'Swiggy', icon: '🍔' },
+            { text: 'Zomato', icon: '🍔' },
+            { text: 'Ajio', icon: '👕' },
+            { text: 'Nykaa', icon: '💄' },
+            { text: 'Croma', icon: '📱' },
+            { text: 'Meesho', icon: '🛒' },
+            { text: 'Electronics', icon: '📱' },
+            { text: 'Fashion', icon: '👕' },
+            { text: 'Food', icon: '🍔' }
+        ];
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                const value = e.target.value.toLowerCase();
+                if (value.length < 1) {
+                    suggestionsBox.classList.remove('show');
+                    return;
+                }
+                
+                const filtered = popularSearches.filter(s => 
+                    s.text.toLowerCase().includes(value)
+                );
+                
+                if (filtered.length > 0) {
+                    suggestionsBox.innerHTML = filtered.map(s => 
+                        `<div class="suggestion-item" onclick="window.location.href='/?search=${s.text}'">
+                            <span>${s.icon}</span>
+                            <span>${s.text}</span>
+                        </div>`
+                    ).join('');
+                    suggestionsBox.classList.add('show');
+                } else {
+                    suggestionsBox.classList.remove('show');
+                }
+            });
+            
+            // Hide suggestions on click outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+                    suggestionsBox.classList.remove('show');
+                }
+            });
+        }
+        
+        // Improved Copy Code with Toast Notification
         function copyCode(code) {
-            navigator.clipboard.writeText(code);
-            alert('Coupon code ' + code + ' copied!');
+            if (!code || code === 'No Code Needed') return;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('✅ Coupon code "' + code + '" copied!');
+            }).catch(() => {
+                // Fallback
+                const textarea = document.createElement('textarea');
+                textarea.value = code;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('✅ Coupon code "' + code + '" copied!');
+            });
+        }
+        
+        // Toast Notification Function
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #22c55e;
+                color: white;
+                padding: 15px 30px;
+                border-radius: 30px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                z-index: 10000;
+                font-weight: 600;
+                animation: slideUp 0.3s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideDown 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+        
+        // Add toast animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideUp {
+                from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+            @keyframes slideDown {
+                from { transform: translateX(-50%) translateY(0); opacity: 1; }
+                to { transform: translateX(-50%) translateY(20px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Track deal clicks
+        function trackDealClick(dealId, source) {
+            console.log('Deal clicked:', dealId, 'Source:', source);
         }
     </script>
 </body>
@@ -981,6 +1779,276 @@ def local_deals():
     )
 
 
+@app.route('/about')
+def about():
+    """About Us page"""
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Us - GrabCoupon | Best Deals & Coupons in India</title>
+        <meta name="description" content="Learn about GrabCoupon - your trusted destination for the best deals, discounts, and coupon codes in India.">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
+            .header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+            .logo { font-size: 1.8rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+            .logo i { font-size: 1.5rem; }
+            .nav-links { display: flex; gap: 2rem; }
+            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
+            .nav-links a:hover { opacity: 0.8; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+            .page-title { text-align: center; margin-bottom: 3rem; }
+            .page-title h1 { font-size: 2.5rem; color: #11998e; margin-bottom: 1rem; }
+            .page-title p { font-size: 1.2rem; color: #666; }
+            .content-section { background: white; border-radius: 15px; padding: 2.5rem; margin-bottom: 2rem; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+            .content-section h2 { color: #11998e; margin-bottom: 1.5rem; font-size: 1.8rem; }
+            .content-section p { margin-bottom: 1rem; color: #555; }
+            .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
+            .feature-card { background: #f8f9fa; padding: 2rem; border-radius: 12px; text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
+            .feature-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+            .feature-card i { font-size: 3rem; color: #11998e; margin-bottom: 1rem; }
+            .feature-card h3 { margin-bottom: 0.8rem; color: #333; }
+            .feature-card p { color: #666; margin: 0; }
+            .stats { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; margin: 3rem 0; text-align: center; }
+            .stat-item h3 { font-size: 2.5rem; color: #11998e; }
+            .stat-item p { color: #666; font-weight: 500; }
+            .cta-section { text-align: center; padding: 3rem; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 15px; color: white; }
+            .cta-section h2 { color: white; margin-bottom: 1rem; }
+            .cta-section p { margin-bottom: 1.5rem; opacity: 0.9; }
+            .cta-btn { display: inline-block; padding: 1rem 2.5rem; background: white; color: #11998e; text-decoration: none; border-radius: 30px; font-weight: bold; transition: transform 0.3s; }
+            .cta-btn:hover { transform: scale(1.05); }
+            .footer { background: #1a1a2e; color: white; padding: 2rem; text-align: center; margin-top: 3rem; }
+            .footer a { color: #38ef7d; text-decoration: none; }
+            @media (max-width: 768px) { .nav-links { display: none; } .page-title h1 { font-size: 2rem; } }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/local">Local Deals</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+            </nav>
+        </header>
+        
+        <div class="container">
+            <div class="page-title">
+                <h1>About GrabCoupon</h1>
+                <p>Your Trusted Destination for the Best Deals & Discounts in India</p>
+            </div>
+            
+            <div class="content-section">
+                <h2>Who We Are</h2>
+                <p>GrabCoupon is India's leading coupon and deal aggregation platform, dedicated to helping shoppers save money on their online purchases. We partner with top e-commerce brands to bring you the latest and verified coupon codes, deals, and discounts.</p>
+                <p>Our mission is simple: to make saving money effortless for every Indian shopper. Whether you're shopping on Amazon, Flipkart, Myntra, or any other popular platform, we've got you covered with exclusive deals and verified coupons.</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Active Coupons</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Partner Stores</p>
+                </div>
+                <div class="stat-item">
+                    <h3>₹1Cr+</h3>
+                    <p>Savings Verified</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1Lakh+</h3>
+                    <p>Happy Users</p>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>Why Choose GrabCoupon?</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Verified Codes</h3>
+                        <p>Every coupon is manually tested and verified before publishing</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Instant Updates</h3>
+                        <p>Real-time deal updates from all major e-commerce platforms</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-rupee-sign"></i>
+                        <h3>Maximum Savings</h3>
+                        <p>We find the best deals so you save more on every purchase</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Easy to Use</h3>
+                        <p>Simple and intuitive interface for hassle-free shopping</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2>How It Works</h2>
+                <p><strong>1. Browse Deals:</strong> Explore thousands of verified coupons and deals from your favorite stores.</p>
+                <p><strong>2. Copy Code:</strong> Click on any coupon to copy the code instantly to your clipboard.</p>
+                <p><strong>3. Save Money:</strong> Apply the code at checkout and watch your savings grow!</p>
+            </div>
+            
+            <div class="cta-section">
+                <h2>Start Saving Today!</h2>
+                <p>Join thousands of smart shoppers who are already saving big on every purchase.</p>
+                <a href="/" class="cta-btn">Browse All Deals</a>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>&copy; 2026 GrabCoupon. All rights reserved. | <a href="/">Home</a> | <a href="/contact">Contact</a></p>
+        </footer>
+    </body>
+    </html>
+    '''
+
+
+@app.route('/contact')
+def contact():
+    """Contact Us page"""
+    return '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact Us - GrabCoupon | Get in Touch</title>
+        <meta name="description" content="Contact GrabCoupon - We'd love to hear from you! Reach out for partnerships, support, or general inquiries.">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
+            .header { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+            .logo { font-size: 1.8rem; font-weight: bold; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+            .logo i { font-size: 1.5rem; }
+            .nav-links { display: flex; gap: 2rem; }
+            .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
+            .nav-links a:hover { opacity: 0.8; }
+            .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+            .page-title { text-align: center; margin-bottom: 3rem; }
+            .page-title h1 { font-size: 2.5rem; color: #11998e; margin-bottom: 1rem; }
+            .page-title p { font-size: 1.2rem; color: #666; }
+            .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+            .contact-card { background: white; border-radius: 15px; padding: 2.5rem; text-align: center; box-shadow: 0 2px 15px rgba(0,0,0,0.05); transition: transform 0.3s; }
+            .contact-card:hover { transform: translateY(-5px); }
+            .contact-card i { font-size: 3rem; color: #11998e; margin-bottom: 1rem; }
+            .contact-card h3 { margin-bottom: 0.8rem; color: #333; }
+            .contact-card p { color: #666; margin: 0; }
+            .contact-card a { color: #11998e; text-decoration: none; font-weight: 500; }
+            .contact-card a:hover { text-decoration: underline; }
+            .form-section { background: white; border-radius: 15px; padding: 2.5rem; margin-top: 2rem; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+            .form-section h2 { color: #11998e; margin-bottom: 1.5rem; text-align: center; }
+            .form-group { margin-bottom: 1.5rem; }
+            .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #333; }
+            .form-group input, .form-group textarea { width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; transition: border-color 0.3s; font-family: inherit; }
+            .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #11998e; }
+            .form-group textarea { min-height: 150px; resize: vertical; }
+            .submit-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+            .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(17, 153, 142, 0.3); }
+            .response-message { display: none; padding: 1rem; border-radius: 10px; margin-top: 1rem; text-align: center; }
+            .response-message.success { background: #d4edda; color: #155724; }
+            .response-message.error { background: #f8d7da; color: #721c24; }
+            .footer { background: #1a1a2e; color: white; padding: 2rem; text-align: center; margin-top: 3rem; }
+            .footer a { color: #38ef7d; text-decoration: none; }
+            @media (max-width: 768px) { .nav-links { display: none; } .page-title h1 { font-size: 2rem; } }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/local">Local Deals</a>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+            </nav>
+        </header>
+        
+        <div class="container">
+            <div class="page-title">
+                <h1>Contact Us</h1>
+                <p>We'd love to hear from you! Get in touch with us for any queries or suggestions.</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>For general inquiries:</p>
+                    <a href="mailto:support@grabcoupon.in">support@grabcoupon.in</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Partner With Us</h3>
+                    <p>For business partnerships:</p>
+                    <a href="mailto:partners@grabcoupon.in">partners@grabcoupon.in</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-ad"></i>
+                    <h3>Advertising</h3>
+                    <p>For advertising opportunities:</p>
+                    <a href="mailto:ads@grabcoupon.in">ads@grabcoupon.in</a>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2>Send us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="What is this about?" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+                <div id="responseMessage" class="response-message"></div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>&copy; 2026 GrabCoupon. All rights reserved. | <a href="/">Home</a> | <a href="/about">About</a></p>
+        </footer>
+        
+        <script>
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const messageDiv = document.getElementById('responseMessage');
+                messageDiv.style.display = 'block';
+                messageDiv.className = 'response-message success';
+                messageDiv.innerHTML = '<i class="fas fa-check-circle"></i> Thank you for your message! We will get back to you soon.';
+                this.reset();
+                setTimeout(() => { messageDiv.style.display = 'none'; }, 5000);
+            });
+        </script>
+    </body>
+    </html>
+    '''
+
+
 @app.route('/')
 def index():
     """Main dashboard page"""
@@ -994,6 +2062,7 @@ def index():
     category = request.args.get('category', '')
     city = request.args.get('city', '')
     search = request.args.get('search', '').lower()
+    product_search = request.args.get('product_search', '').lower()
     
     filtered = all_coupons
     if source:
@@ -1005,6 +2074,9 @@ def index():
         filtered = [c for c in filtered if c.get('city') == city or c.get('city') == 'all']
     if search:
         filtered = [c for c in filtered if search in c.get('description', '').lower() or search in (c.get('code') or c.get('coupon_code') or '').lower()]
+    if product_search:
+        # Search for products like TV, fridge, mobile, etc. in description and title
+        filtered = [c for c in filtered if product_search in c.get('description', '').lower() or product_search in c.get('title', '').lower() or product_search in (c.get('code') or c.get('coupon_code') or '').lower()]
     
     # Get stats
     sources = set(c.get('source') for c in all_coupons)
@@ -1111,6 +2183,179 @@ def api_visitors():
     """Get visitor statistics"""
     data = get_visitors_data()
     return jsonify(data)
+
+
+@app.route('/api/search-products')
+def api_search_products():
+    """Search for products across e-commerce sites and return price comparisons"""
+    query = request.args.get('q', '').strip()
+    if not query or len(query) < 2:
+        return jsonify({'error': 'Please enter a valid search term', 'products': []})
+    
+    products = []
+    
+    try:
+        # Search Amazon
+        amazon_results = search_amazon_products(query)
+        products.extend(amazon_results)
+        
+        # Search Flipkart
+        flipkart_results = search_flipkart_products(query)
+        products.extend(flipkart_results)
+        
+        # Sort by price (lowest first)
+        products.sort(key=lambda x: x.get('price_numeric', 999999))
+        
+        # Return top 20 results
+        return jsonify({
+            'query': query,
+            'products': products[:20],
+            'count': len(products)
+        })
+        
+    except Exception as e:
+        logger.error(f"Product search error: {e}")
+        return jsonify({'error': 'Search temporarily unavailable', 'products': []})
+
+
+def search_amazon_products(query):
+    """Search Amazon India for products"""
+    products = []
+    try:
+        search_url = f"https://www.amazon.in/s?k={query.replace(' ', '+')}"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        }
+        
+        response = requests.get(search_url, headers=headers, timeout=10)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Find product cards
+            for item in soup.select('.sg-col-4-of-12, .s-result-item')[:10]:
+                try:
+                    # Get title
+                    title_elem = item.select_one('h2 a span, .a-text-normal, .a-size-medium')
+                    if not title_elem:
+                        continue
+                    title = title_elem.get_text(strip=True)
+                    if not title or len(title) < 5:
+                        continue
+                    
+                    # Get URL
+                    link_elem = item.select_one('h2 a, a.a-link-normal')
+                    if not link_elem:
+                        continue
+                    url = 'https://www.amazon.in' + link_elem.get('href', '')
+                    if 'amazon.in/dp' not in url and 'amazon.in/gp/product' not in url:
+                        continue
+                    
+                    # Get price
+                    price_elem = item.select_one('.a-price-whole, .a-offscreen, [data-a-color="price"] .a-offscreen')
+                    price_text = price_elem.get_text(strip=True) if price_elem else ''
+                    price_numeric = int(re.sub(r'[^0-9]', '', price_text)) if price_text else 0
+                    
+                    # Get rating
+                    rating_elem = item.select_one('.a-icon-alt, .a-popover-preload')
+                    rating = rating_elem.get_text(strip=True) if rating_elem else ''
+                    
+                    # Get image
+                    img_elem = item.select_one('img.s-image')
+                    image = img_elem.get('src', '') if img_elem else ''
+                    
+                    if price_numeric > 0:
+                        products.append({
+                            'title': title[:100],
+                            'url': url,
+                            'price': f'₹{price_numeric:,}',
+                            'price_numeric': price_numeric,
+                            'rating': rating[:20],
+                            'source': 'Amazon',
+                            'source_icon': '🛒',
+                            'image': image,
+                            'verified': True
+                        })
+                except Exception:
+                    continue
+                    
+    except Exception as e:
+        logger.error(f"Amazon search error: {e}")
+    
+    return products
+
+
+def search_flipkart_products(query):
+    """Search Flipkart for products"""
+    products = []
+    try:
+        search_url = f"https://www.flipkart.com/search?q={query.replace(' ', '%20')}"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        }
+        
+        response = requests.get(search_url, headers=headers, timeout=10)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Find product cards
+            for item in soup.select('._1AtVbE, ._13oc-S')[:10]:
+                try:
+                    # Get title
+                    title_elem = item.select_one('._4rR01T, ._2B099h, a[title]')
+                    if not title_elem:
+                        continue
+                    title = title_elem.get_text(strip=True)
+                    if not title or len(title) < 5:
+                        continue
+                    
+                    # Get URL
+                    link_elem = item.select_one('a._1fQZEK')
+                    if not link_elem:
+                        continue
+                    url = 'https://www.flipkart.com' + link_elem.get('href', '')
+                    
+                    # Get price
+                    price_elem = item.select_one('._30jeq3._1_WB1e, ._1_WB1e')
+                    price_text = price_elem.get_text(strip=True) if price_elem else ''
+                    price_numeric = int(re.sub(r'[^0-9]', '', price_text)) if price_text else 0
+                    
+                    # Get original price (if discounted)
+                    orig_price_elem = item.select_one('._1_WB1e + span, ._2I5kjh')
+                    orig_price_text = orig_price_elem.get_text(strip=True) if orig_price_elem else ''
+                    
+                    # Get rating
+                    rating_elem = item.select_one('._2_R_DZ span, ._3LWZlK')
+                    rating = rating_elem.get_text(strip=True) if rating_elem else ''
+                    
+                    # Get image
+                    img_elem = item.select_one('img._396y4z')
+                    image = img_elem.get('src', '') if img_elem else ''
+                    
+                    if price_numeric > 0:
+                        product = {
+                            'title': title[:100],
+                            'url': url,
+                            'price': f'₹{price_numeric:,}',
+                            'price_numeric': price_numeric,
+                            'rating': rating,
+                            'source': 'Flipkart',
+                            'source_icon': '🛍️',
+                            'image': image,
+                            'verified': True
+                        }
+                        if orig_price_text:
+                            product['original_price'] = orig_price_text
+                        products.append(product)
+                except Exception:
+                    continue
+                    
+    except Exception as e:
+        logger.error(f"Flipkart search error: {e}")
+    
+    return products
+
 
 def run_server(host='0.0.0.0', port=None):
     if port is None:
