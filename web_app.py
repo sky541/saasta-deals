@@ -231,6 +231,78 @@ DASHBOARD_TEMPLATE = """
             .main-nav { display: none; }
         }
         
+        /* Combined Search Form */
+        .combined-search-form {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .search-bar-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .main-search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 14px 20px;
+            border: 2px solid white;
+            border-radius: 30px;
+            font-size: 1rem;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .main-search-input:focus {
+            outline: none;
+            border-color: #22c55e;
+        }
+        
+        .filter-select {
+            padding: 12px 16px;
+            border: 2px solid white;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #22c55e;
+        }
+        
+        .search-bar-row .search-btn {
+            padding: 12px 30px;
+            background: #22c55e;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .search-bar-row .search-btn:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .search-bar-row {
+                flex-direction: column;
+            }
+            .main-search-input, .filter-select {
+                width: 100%;
+            }
+        }
+        
         /* Hero Section - Like GrabOn & CouponDunia */
         .hero-section {
             background: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
@@ -1231,29 +1303,45 @@ DASHBOARD_TEMPLATE = """
                 <a href="/about" class="nav-link {% if request.path == '/about' %}active{% endif %}">About Us</a>
                 <a href="/contact" class="nav-link {% if request.path == '/contact' %}active{% endif %}">Contact Us</a>
             </nav>
-            <div class="header-cta">
-                <a href="https://grabcoupon.in" class="cta-button">Save Now</a>
-            </div>
         </div>
     </header>
     
     <!-- Hero Section with Search - Like GrabOn & CouponDunia -->
     <div class="hero-section">
         <div class="hero-content">
-            <!-- Search Box with Autocomplete -->
-            <div class="search-container">
-                <div class="search-box">
-                    <span class="search-icon">🔍</span>
+            <!-- Combined Search and Filters -->
+            <form class="combined-search-form" method="get">
+                <div class="search-bar-row">
                     <input type="text" 
                            id="searchInput"
                            name="search" 
-                           placeholder="Search for coupons, stores, products..." 
+                           placeholder="Search coupons, products (TV, fridge, mobile...)" 
                            value="{{ request.args.get('search', '') }}"
-                           autocomplete="off">
+                           autocomplete="off"
+                           class="main-search-input">
+                    
+                    <select name="source" class="filter-select">
+                        <option value="">All Stores</option>
+                        <option value="Amazon" {% if request.args.get('source')=='Amazon' %}selected{% endif %}>Amazon</option>
+                        <option value="Flipkart" {% if request.args.get('source')=='Flipkart' %}selected{% endif %}>Flipkart</option>
+                        <option value="Myntra" {% if request.args.get('source')=='Myntra' %}selected{% endif %}>Myntra</option>
+                        <option value="Swiggy" {% if request.args.get('source')=='Swiggy' %}selected{% endif %}>Swiggy</option>
+                        <option value="Zomato" {% if request.args.get('source')=='Zomato' %}selected{% endif %}>Zomato</option>
+                    </select>
+                    
+                    <select name="city" class="filter-select">
+                        <option value="">All Cities</option>
+                        <option value="all" {% if request.args.get('city')=='all' %}selected{% endif %}>All India</option>
+                        <option value="Hyderabad" {% if request.args.get('city')=='Hyderabad' %}selected{% endif %}>Hyderabad</option>
+                        <option value="Bangalore" {% if request.args.get('city')=='Bangalore' %}selected{% endif %}>Bangalore</option>
+                        <option value="Mumbai" {% if request.args.get('city')=='Mumbai' %}selected{% endif %}>Mumbai</option>
+                        <option value="Delhi" {% if request.args.get('city')=='Delhi' %}selected{% endif %}>Delhi</option>
+                        <option value="Chennai" {% if request.args.get('city')=='Chennai' %}selected{% endif %}>Chennai</option>
+                    </select>
+                    
                     <button type="submit" class="search-btn">Search</button>
                 </div>
-                <div id="searchSuggestions" class="search-suggestions"></div>
-            </div>
+            </form>
             
             <!-- Popular Searches -->
             <div class="popular-searches">
@@ -1284,7 +1372,7 @@ DASHBOARD_TEMPLATE = """
     </div>
     
     <div class="container">
-        <div class="filters">
+        <div class="filters" style="display: none;">
             <form class="filter-row" method="get">
                 {% if request.args.get('category') %}
                 <input type="hidden" name="category" value="{{ request.args.get('category') }}">
