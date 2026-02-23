@@ -1329,6 +1329,32 @@ DASHBOARD_TEMPLATE = """
                 <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Contact Us</a>
             </nav>
             
+            <!-- Combined Search and Filters -->
+            <form class="combined-search-form" method="get">
+                <div class="search-bar-row">
+                    <select name="source" class="filter-select">
+                        <option value="">All Stores</option>
+                        <option value="Amazon" {% if request.args.get('source')=='Amazon' %}selected{% endif %}>Amazon</option>
+                        <option value="Flipkart" {% if request.args.get('source')=='Flipkart' %}selected{% endif %}>Flipkart</option>
+                        <option value="Myntra" {% if request.args.get('source')=='Myntra' %}selected{% endif %}>Myntra</option>
+                        <option value="Swiggy" {% if request.args.get('source')=='Swiggy' %}selected{% endif %}>Swiggy</option>
+                        <option value="Zomato" {% if request.args.get('source')=='Zomato' %}selected{% endif %}>Zomato</option>
+                    </select>
+                    
+                    <select name="city" class="filter-select">
+                        <option value="">All Cities</option>
+                        <option value="all" {% if request.args.get('city')=='all' %}selected{% endif %}>All India</option>
+                        <option value="Hyderabad" {% if request.args.get('city')=='Hyderabad' %}selected{% endif %}>Hyderabad</option>
+                        <option value="Bangalore" {% if request.args.get('city')=='Bangalore' %}selected{% endif %}>Bangalore</option>
+                        <option value="Mumbai" {% if request.args.get('city')=='Mumbai' %}selected{% endif %}>Mumbai</option>
+                        <option value="Delhi" {% if request.args.get('city')=='Delhi' %}selected{% endif %}>Delhi</option>
+                        <option value="Chennai" {% if request.args.get('city')=='Chennai' %}selected{% endif %}>Chennai</option>
+                    </select>
+                    
+                    <button type="submit" class="search-btn">Search</button>
+                </div>
+            </form>
+            
             <!-- Popular Searches -->
             <div class="popular-searches">
                 <span class="popular-label">Popular:</span>
