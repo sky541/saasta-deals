@@ -58,8 +58,77 @@ DASHBOARD_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GrabCoupon - Coupons & Offers</title>
-    <meta name="description" content="Find the best coupon codes and offers from top Indian retailers">
+    <title>GrabCoupon - Best Coupon Codes & Deals in India {{ '| ' + request.args.get('category')|title if request.args.get('category') else '' }}</title>
+    <meta name="description" content="Find verified coupon codes, discounts & deals from Amazon, Flipkart, Myntra, Swiggy, Zomato & 50+ top Indian stores. Save big on every purchase!">
+    <meta name="keywords" content="coupon codes, discount codes, deals, offers, Amazon coupons, Flipkart deals, Myntra discount, Swiggy coupon, Zomato offers, India shopping deals, promo codes">
+    <meta name="author" content="GrabCoupon">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="1 day">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://grabcoupon.in/">
+    <meta property="og:title" content="GrabCoupon - Best Coupon Codes & Deals in India">
+    <meta property="og:description" content="Find verified coupon codes & discounts from 50+ top Indian stores. Save big on every purchase!">
+    <meta property="og:image" content="/static/og-image.png">
+    <meta property="og:site_name" content="GrabCoupon">
+    <meta property="og:locale" content="en_IN">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://grabcoupon.in/">
+    <meta property="twitter:title" content="GrabCoupon - Best Coupon Codes & Deals in India">
+    <meta property="twitter:description" content="Find verified coupon codes & discounts from 50+ top Indian stores. Save big on every purchase!">
+    <meta property="twitter:image" content="/static/og-image.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://grabcoupon.in/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎫</text></svg>">
+    
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "GrabCoupon",
+        "url": "https://grabcoupon.in",
+        "description": "Find verified coupon codes and discounts from top Indian retailers",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://grabcoupon.in/?search={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        },
+        "sameAs": [
+            "https://facebook.com/grabcoupon",
+            "https://twitter.com/grabcoupon",
+            "https://instagram.com/grabcoupon"
+        ]
+    }
+    </script>
+    
+    <!-- JSON-LD Organization Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "GrabCoupon",
+        "url": "https://grabcoupon.in",
+        "logo": "https://grabcoupon.in/logo.png",
+        "description": "Your trusted source for coupon codes and deals in India",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+91-XXXXXXXXXX",
+            "contactType": "Customer Service"
+        }
+    }
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -120,6 +189,58 @@ DASHBOARD_TEMPLATE = """
         
         .tabs::-webkit-scrollbar {
             display: none;
+        }
+        
+        .trust-bar {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #92400e;
+            font-weight: 500;
+        }
+        
+        .trust-bar span {
+            margin: 0 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .trust-bar {
+                font-size: 0.8rem;
+                padding: 10px 10px;
+            }
+            .trust-bar span {
+                display: block;
+                margin: 5px 0;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .coupons-grid { grid-template-columns: 1fr; }
+            .logo { font-size: 1.5rem; }
+            .tab { padding: 6px 10px; font-size: 0.8rem; }
+        }
+        
+        /* Skip to content link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #0ea5e9;
+            color: white;
+            padding: 8px;
+            z-index: 1001;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Focus styles for accessibility */
+        a:focus, button:focus, input:focus, select:focus {
+            outline: 3px solid #f97316;
+            outline-offset: 2px;
         }
         
         .tab {
@@ -275,6 +396,16 @@ DASHBOARD_TEMPLATE = """
             box-shadow: 0 12px 24px rgba(0,0,0,0.12);
         }
         
+        .coupon-card.hot-deal-card {
+            border: 2px solid #ef4444;
+            animation: hotDealGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes hotDealGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.4); }
+        }
+        
         .coupon-header {
             padding: 12px 16px;
             display: flex;
@@ -291,19 +422,35 @@ DASHBOARD_TEMPLATE = """
         .btn-visit {
             display: block;
             width: 100%;
-            padding: 12px;
-            background: #22c55e;
+            padding: 14px;
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 1rem;
             text-decoration: none;
             text-align: center;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
-        .btn-visit:hover { background: #16a34a; }
+        .btn-visit:hover {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+        }
+        
+        .btn-visit.hot-deal {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        
+        .btn-visit.hot-deal:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
         
         /* Coupon Header */
         .coupon-header {
@@ -328,12 +475,8 @@ DASHBOARD_TEMPLATE = """
             font-weight: bold;
             font-size: 0.9rem;
         }
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 1rem;
-        }
         
-        .city-badge {
+        .coupon-badge {
             display: inline-block;
             background: #E63946;
             color: white;
@@ -343,6 +486,21 @@ DASHBOARD_TEMPLATE = """
             font-weight: bold;
             margin-bottom: 10px;
             text-transform: uppercase;
+        }
+        
+        .coupon-badge.hot {
+            background: #ef4444;
+            animation: pulse 2s infinite;
+        }
+        
+        .coupon-badge.featured {
+            background: #f59e0b;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         .coupon-body { padding: 1.2rem; }
@@ -443,11 +601,73 @@ DASHBOARD_TEMPLATE = """
         }
         
         footer {
-            background: linear-gradient(135deg, #0077B6 0%, #023E8A 100%);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white;
-            padding: 2rem 20px;
+            padding: 3rem 20px;
             text-align: center;
             margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: #f97316;
+        }
+        
+        .footer-section a {
+            display: block;
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 5px 0;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #38bdf8;
+        }
+        
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+        
+        .social-links {
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 1.5rem;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badges span {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
         }
         
         .last-updated {
@@ -464,6 +684,13 @@ DASHBOARD_TEMPLATE = """
     </style>
 </head>
 <body>
+    <!-- Trust Signals Bar -->
+    <div class="trust-bar">
+        <span>✅ <strong>{{ total_coupons }}+</strong> Verified Coupons</span>
+        <span>🕐 Updated <strong>Today</strong></span>
+        <span>💰 Avg. Savings: <strong>₹500+</strong></span>
+    </div>
+    
     <header>
         <div class="header-content">
             <div class="logo">🎫 GrabCoupon</div>
@@ -591,31 +818,46 @@ DASHBOARD_TEMPLATE = """
         
         <div class="coupons-grid">
             {% for coupon in coupons %}
-            <div class="coupon-card">
+            <div class="coupon-card {% if coupon.is_hot %}hot-deal-card{% endif %}">
                 <div class="coupon-header">
                     <span class="coupon-source">{{ coupon.source }}</span>
                     <span class="coupon-discount">{{ coupon.discount }}</span>
                 </div>
                 <div class="coupon-body">
+                    {% if coupon.is_hot %}
+                    <div class="coupon-badge hot">🔥 Hot Deal</div>
+                    {% elif coupon.is_featured %}
+                    <div class="coupon-badge featured">⭐ Featured</div>
+                    {% endif %}
                     {% if coupon.city and coupon.city != 'all' %}
                     <div class="city-badge">{{ coupon.city }}</div>
                     {% endif %}
                     <div class="coupon-code">
                         {% set coupon_code = coupon.code or coupon.coupon_code %}
                         {% if coupon_code %}
-                        <div class="code-box" style="background:#22c55e;color:white;">{{ coupon_code }}</div>
+                        <div class="code-box">{{ coupon_code }}</div>
                         <button class="copy-btn" onclick="copyCode('{{ coupon_code }}')">Copy</button>
                         {% else %}
-                        <div class="code-box" style="background:#06b6d4;color:white;">Coupon Not Required</div>
+                        <div class="code-box" style="background:#06b6d4;color:white;">No Code Needed</div>
                         {% endif %}
                     </div>
                     <p class="coupon-desc">{{ coupon.description }}</p>
                     <div class="coupon-details">
-                        <div class="detail-item">Min Order: <span>{{ coupon.min_order }}</span></div>
+                        {% if coupon.min_order %}
+                        <div class="detail-item">Min Order: <span>₹{{ coupon.min_order }}</span></div>
+                        {% endif %}
+                        {% if coupon.expires %}
                         <div class="detail-item">Expires: <span>{{ coupon.expires }}</span></div>
+                        {% endif %}
                     </div>
                     <div class="coupon-buttons">
-                        <a href="{{ coupon.product_url }}" target="_blank" class="btn-visit" onclick="trackVisit('{{ loop.index }}', '{{ coupon.source }}')">🌐 Visit Site</a>
+                        <a href="{{ coupon.product_url or coupon.url }}" target="_blank" class="btn-visit {% if coupon.is_hot %}hot-deal{% endif %}" onclick="trackVisit('{{ loop.index }}', '{{ coupon.source }}')">
+                            {% if coupon.is_hot %}
+                            🔥 Get Deal Now
+                            {% else %}
+                            🚀 Visit Store
+                            {% endif %}
+                        </a>
                     </div>
                 </div>
             </div>
@@ -624,7 +866,55 @@ DASHBOARD_TEMPLATE = """
     </div>
     
     <footer>
-        <p>© 2026 GrabCoupon</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🔗 Quick Links</h3>
+                <a href="/">All Deals</a>
+                <a href="/?category=electronics">Electronics</a>
+                <a href="/?category=fashion">Fashion</a>
+                <a href="/?category=food">Food & Dining</a>
+                <a href="/?category=travel">Travel</a>
+            </div>
+            <div class="footer-section">
+                <h3>🏪 Top Stores</h3>
+                <a href="/?source=Amazon">Amazon Coupons</a>
+                <a href="/?source=Flipkart">Flipkart Deals</a>
+                <a href="/?source=Myntra">Myntra Offers</a>
+                <a href="/?source=Swiggy">Swiggy Coupons</a>
+                <a href="/?source=Zomato">Zomato Discounts</a>
+            </div>
+            <div class="footer-section">
+                <h3>📄 Information</h3>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact Us</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms & Conditions</a>
+                <a href="/disclaimer">Disclaimer</a>
+            </div>
+            <div class="footer-section">
+                <h3>📱 Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">📘</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Telegram">✈️</a>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #cbd5e1;">
+                    Get latest deals delivered to your inbox!
+                </p>
+            </div>
+        </div>
+        <div class="trust-badges">
+            <span>🔒 Secure Payments</span>
+            <span>✅ Verified Coupons</span>
+            <span>⚡ Daily Updates</span>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 GrabCoupon - All Rights Reserved</p>
+            <p style="margin-top: 5px; font-size: 0.8rem;">
+                We may earn commission when you click or buy through links on our site.
+            </p>
+        </div>
     </footer>
     
     <script>
