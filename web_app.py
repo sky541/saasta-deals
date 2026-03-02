@@ -16,8 +16,7 @@ from flask import Flask, render_template_string, jsonify, request, make_response
 from apscheduler.schedulers.background import BackgroundScheduler
 
 logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -28,6 +27,7 @@ coupons_cache = None
 cache_updated = None
 REFRESH_INTERVAL_HOURS = 1  # Refresh every hour for fresh deals
 
+
 def refresh_coupons():
     """Refresh coupons from data file"""
     global coupons_cache, cache_updated
@@ -36,13 +36,19 @@ def refresh_coupons():
     if coupons_cache:
         coupons_cache = filter_valid_coupons(coupons_cache)
     cache_updated = datetime.now()
-    logger.info(f"Coupons refreshed: {len(coupons_cache)} valid coupons at {cache_updated}")
+    logger.info(
+        f"Coupons refreshed: {len(coupons_cache)} valid coupons at {cache_updated}"
+    )
+
 
 def check_and_refresh():
     """Check if refresh needed and refresh if needed"""
     global cache_updated
-    if cache_updated is None or (datetime.now() - cache_updated) > timedelta(hours=REFRESH_INTERVAL_HOURS):
+    if cache_updated is None or (datetime.now() - cache_updated) > timedelta(
+        hours=REFRESH_INTERVAL_HOURS
+    ):
         refresh_coupons()
+
 
 # Initialize background scheduler for automatic refresh (after refresh_coupons is defined)
 scheduler = BackgroundScheduler()
@@ -52,7 +58,7 @@ scheduler.add_job(
     hours=REFRESH_INTERVAL_HOURS,
     id="coupon_refresh_job",
     name="Refresh coupons from file",
-    replace_existing=True
+    replace_existing=True,
 )
 
 # Don't call refresh_coupons() here - load_coupons not defined yet
@@ -1870,16 +1876,17 @@ def load_coupons() -> List[Dict[str, Any]]:
     for filepath in paths_to_try:
         if os.path.exists(filepath):
             try:
-                with open(filepath, 'r') as f:
+                with open(filepath, "r") as f:
                     data = json.load(f)
                     return data.get("coupons", [])
             except:
                 pass
     return []
 
+
 def is_coupon_expired(coupon: Dict[str, Any]) -> bool:
     """Check if a coupon has expired"""
-    expires = coupon.get('expires', '')
+    expires = coupon.get("expires", "")
     if not expires:
         return False
     try:
@@ -1889,9 +1896,10 @@ def is_coupon_expired(coupon: Dict[str, Any]) -> bool:
     except:
         return False
 
+
 def is_expiring_soon(coupon: Dict[str, Any], days: int = 7) -> bool:
     """Check if a coupon is expiring within given days"""
-    expires = coupon.get('expires', '')
+    expires = coupon.get("expires", "")
     if not expires:
         return False
     try:
@@ -1901,41 +1909,56 @@ def is_expiring_soon(coupon: Dict[str, Any], days: int = 7) -> bool:
     except:
         return False
 
+
 def filter_valid_coupons(coupons: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Filter out expired coupons"""
     return [c for c in coupons if not is_coupon_expired(c)]
+
 
 # Initial load after load_coupons is defined
 refresh_coupons()
 
 
-@app.route('/local')
+@app.route("/local")
 def local_deals():
     """Local restaurants and food deals page"""
     global coupons_cache
     check_and_refresh()
     all_coupons = coupons_cache if coupons_cache else load_coupons()
-    
+
     # Filter only food/restaurants
-    food_coupons = [c for c in all_coupons if c.get('category') == 'food']
-    
+    food_coupons = [c for c in all_coupons if c.get("category") == "food"]
+
     # Get unique cities from food deals - proper cities only
-    all_cities = ['Hyderabad', 'Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Pune', 'Kolkata', 'Chandigarh', 'Ahmedabad', 'Jaipur']
-    
+    all_cities = [
+        "Hyderabad",
+        "Bangalore",
+        "Mumbai",
+        "Delhi",
+        "Chennai",
+        "Pune",
+        "Kolkata",
+        "Chandigarh",
+        "Ahmedabad",
+        "Jaipur",
+    ]
+
     # Apply city filter
-    city = request.args.get('city', '')
-    if city and city != 'all':
-        food_coupons = [c for c in food_coupons if c.get('city') == city or c.get('city') == 'all']
-    
+    city = request.args.get("city", "")
+    if city and city != "all":
+        food_coupons = [
+            c for c in food_coupons if c.get("city") == city or c.get("city") == "all"
+        ]
+
     # Pagination
     per_page = 12
-    page = int(request.args.get('page', 1))
+    page = int(request.args.get("page", 1))
     total_coupons = len(food_coupons)
     total_pages = (total_coupons + per_page - 1) // per_page
     start_idx = (page - 1) * per_page
     end_idx = start_idx + per_page
     paginated_coupons = food_coupons[start_idx:end_idx]
-    
+
     return render_template_string(
         DASHBOARD_TEMPLATE,
         coupons=paginated_coupons,
@@ -1943,18 +1966,20 @@ def local_deals():
         sources=[],  # Empty - hide source filter on local page
         cities=all_cities,
         selected_city=city,
-        last_updated=cache_updated.strftime('%Y-%m-%d %H:%M') if cache_updated else 'N/A',
+        last_updated=(
+            cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else "N/A"
+        ),
         is_local=True,
         category_counts={},
         current_page=page,
-        total_pages=total_pages
+        total_pages=total_pages,
     )
 
 
-@app.route('/about')
+@app.route("/about")
 def about():
     """About Us page"""
-    return '''
+    return """
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -2085,13 +2110,13 @@ def about():
         </footer>
     </body>
     </html>
-    '''
+    """
 
 
-@app.route('/contact')
+@app.route("/contact")
 def contact():
     """Contact Us page"""
-    return '''
+    return """
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -2218,190 +2243,214 @@ def contact():
         </script>
     </body>
     </html>
-    '''
+    """
 
 
-@app.route('/')
+@app.route("/")
 def index():
     """Main dashboard page"""
     global coupons_cache
     # Check if refresh needed on each request
     check_and_refresh()
     all_coupons = coupons_cache if coupons_cache else load_coupons()
-    
+
     # Filter out expired coupons
     all_coupons = filter_valid_coupons(all_coupons)
-    
+
     # Apply filters
-    source = request.args.get('source', '')
-    category = request.args.get('category', '')
-    city = request.args.get('city', '')
-    search = request.args.get('search', '').lower()
-    product_search = request.args.get('product_search', '').lower()
-    
+    source = request.args.get("source", "")
+    category = request.args.get("category", "")
+    city = request.args.get("city", "")
+    search = request.args.get("search", "").lower()
+    product_search = request.args.get("product_search", "").lower()
+
     filtered = all_coupons
     if source:
-        filtered = [c for c in filtered if c.get('source') == source]
-    if category and category != 'all':
-        filtered = [c for c in filtered if c.get('category') == category]
-    if city and city != 'all':
+        filtered = [c for c in filtered if c.get("source") == source]
+    if category and category != "all":
+        filtered = [c for c in filtered if c.get("category") == category]
+    if city and city != "all":
         # Show coupons for specific city or all (non-city specific)
-        filtered = [c for c in filtered if c.get('city') == city or c.get('city') == 'all']
+        filtered = [
+            c for c in filtered if c.get("city") == city or c.get("city") == "all"
+        ]
     if search:
-        filtered = [c for c in filtered if search in c.get('description', '').lower() or search in (c.get('code') or c.get('coupon_code') or '').lower() or search in c.get('source', '').lower()]
+        filtered = [
+            c
+            for c in filtered
+            if search in c.get("description", "").lower()
+            or search in (c.get("code") or c.get("coupon_code") or "").lower()
+            or search in c.get("source", "").lower()
+        ]
     if product_search:
         # Search for products like TV, fridge, mobile, etc. in description and title
-        filtered = [c for c in filtered if product_search in c.get('description', '').lower() or product_search in c.get('title', '').lower() or product_search in (c.get('code') or c.get('coupon_code') or '').lower()]
-    
+        filtered = [
+            c
+            for c in filtered
+            if product_search in c.get("description", "").lower()
+            or product_search in c.get("title", "").lower()
+            or product_search in (c.get("code") or c.get("coupon_code") or "").lower()
+        ]
+
     # Pagination
     per_page = 12
-    page = int(request.args.get('page', 1))
+    page = int(request.args.get("page", 1))
     total_coupons = len(filtered)
     total_pages = (total_coupons + per_page - 1) // per_page
     start_idx = (page - 1) * per_page
     end_idx = start_idx + per_page
     paginated_coupons = filtered[start_idx:end_idx]
-    
+
     # Get stats
-    sources = set(c.get('source') for c in all_coupons)
-    cities = set(c.get('city') for c in all_coupons if c.get('city') != 'all')
-    
+    sources = set(c.get("source") for c in all_coupons)
+    cities = set(c.get("city") for c in all_coupons if c.get("city") != "all")
+
     # Get category counts for tabs
     categories = {}
     for c in all_coupons:
-        cat = c.get('category', 'all')
-        if cat == 'all':
+        cat = c.get("category", "all")
+        if cat == "all":
             continue
         categories[cat] = categories.get(cat, 0) + 1
-    
+
     return render_template_string(
         DASHBOARD_TEMPLATE,
         coupons=paginated_coupons,
         total_coupons=total_coupons,
         sources=len(sources),
         cities=sorted([c for c in cities if c]),
-        last_updated=cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else 'Never',
+        last_updated=(
+            cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else "Never"
+        ),
         category_counts=categories,
         current_page=page,
-        total_pages=total_pages
+        total_pages=total_pages,
     )
 
 
-@app.route('/api/coupons')
+@app.route("/api/coupons")
 def api_coupons():
     """API endpoint with filtering support"""
     all_coupons = load_coupons()
-    
+
     # Apply filters
-    source = request.args.get('source', '')
-    category = request.args.get('category', '')
-    city = request.args.get('city', '')
-    
+    source = request.args.get("source", "")
+    category = request.args.get("category", "")
+    city = request.args.get("city", "")
+
     filtered = all_coupons
     if source:
-        filtered = [c for c in filtered if c.get('source') == source]
-    if category and category != 'all':
-        filtered = [c for c in filtered if c.get('category') == category]
-    if city and city != 'all':
-        filtered = [c for c in filtered if c.get('city') == city or c.get('city') == 'all']
-    
-    return jsonify({
-        "count": len(filtered),
-        "coupons": filtered,
-        "timestamp": datetime.now().isoformat()
-    })
+        filtered = [c for c in filtered if c.get("source") == source]
+    if category and category != "all":
+        filtered = [c for c in filtered if c.get("category") == category]
+    if city and city != "all":
+        filtered = [
+            c for c in filtered if c.get("city") == city or c.get("city") == "all"
+        ]
+
+    return jsonify(
+        {
+            "count": len(filtered),
+            "coupons": filtered,
+            "timestamp": datetime.now().isoformat(),
+        }
+    )
 
 
 # Visitor tracking data file
-VISITORS_FILE = os.path.join(os.path.dirname(__file__), 'data', 'visitors.json')
+VISITORS_FILE = os.path.join(os.path.dirname(__file__), "data", "visitors.json")
+
 
 def get_visitors_data():
     """Load visitors data from JSON file"""
     if os.path.exists(VISITORS_FILE):
         try:
-            with open(VISITORS_FILE, 'r') as f:
+            with open(VISITORS_FILE, "r") as f:
                 return json.load(f)
         except:
             return {"visits": [], "stats": {"total": 0, "today": 0}}
     return {"visits": [], "stats": {"total": 0, "today": 0}}
 
+
 def save_visitors_data(data):
     """Save visitors data to JSON file"""
     os.makedirs(os.path.dirname(VISITORS_FILE), exist_ok=True)
-    with open(VISITORS_FILE, 'w') as f:
+    with open(VISITORS_FILE, "w") as f:
         json.dump(data, f, indent=2)
 
-@app.route('/api/track_visit')
+
+@app.route("/api/track_visit")
 def api_track_visit():
     """Track a coupon visit"""
-    coupon_id = request.args.get('id', '')
-    source = request.args.get('source', 'unknown')
-    
+    coupon_id = request.args.get("id", "")
+    source = request.args.get("source", "unknown")
+
     data = get_visitors_data()
-    
+
     # Add visit
     visit = {
         "id": coupon_id,
         "source": source,
         "timestamp": datetime.now().isoformat(),
-        "user_agent": request.headers.get('User-Agent', '')[:200]
+        "user_agent": request.headers.get("User-Agent", "")[:200],
     }
     data["visits"].append(visit)
-    
+
     # Update stats
     data["stats"]["total"] = data["stats"].get("total", 0) + 1
-    
+
     # Count today's visits
     today = datetime.now().date().isoformat()
-    today_visits = sum(1 for v in data["visits"] if v.get("timestamp", "").startswith(today))
+    today_visits = sum(
+        1 for v in data["visits"] if v.get("timestamp", "").startswith(today)
+    )
     data["stats"]["today"] = today_visits
-    
+
     # Keep only last 1000 visits
     if len(data["visits"]) > 1000:
         data["visits"] = data["visits"][-1000:]
-    
+
     save_visitors_data(data)
-    
+
     return jsonify({"status": "success", "total_visits": data["stats"]["total"]})
 
-@app.route('/api/visitors')
+
+@app.route("/api/visitors")
 def api_visitors():
     """Get visitor statistics"""
     data = get_visitors_data()
     return jsonify(data)
 
 
-@app.route('/api/search-products')
+@app.route("/api/search-products")
 def api_search_products():
     """Search for products across e-commerce sites and return price comparisons"""
-    query = request.args.get('q', '').strip()
+    query = request.args.get("q", "").strip()
     if not query or len(query) < 2:
-        return jsonify({'error': 'Please enter a valid search term', 'products': []})
-    
+        return jsonify({"error": "Please enter a valid search term", "products": []})
+
     products = []
-    
+
     try:
         # Search Amazon
         amazon_results = search_amazon_products(query)
         products.extend(amazon_results)
-        
+
         # Search Flipkart
         flipkart_results = search_flipkart_products(query)
         products.extend(flipkart_results)
-        
+
         # Sort by price (lowest first)
-        products.sort(key=lambda x: x.get('price_numeric', 999999))
-        
+        products.sort(key=lambda x: x.get("price_numeric", 999999))
+
         # Return top 20 results
-        return jsonify({
-            'query': query,
-            'products': products[:20],
-            'count': len(products)
-        })
-        
+        return jsonify(
+            {"query": query, "products": products[:20], "count": len(products)}
+        )
+
     except Exception as e:
         logger.error(f"Product search error: {e}")
-        return jsonify({'error': 'Search temporarily unavailable', 'products': []})
+        return jsonify({"error": "Search temporarily unavailable", "products": []})
 
 
 def search_amazon_products(query):
@@ -2413,61 +2462,69 @@ def search_amazon_products(query):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         }
-        
+
         response = requests.get(search_url, headers=headers, timeout=10)
         if response.status_code == 200:
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
+            soup = BeautifulSoup(response.text, "html.parser")
+
             # Find product cards
-            for item in soup.select('.sg-col-4-of-12, .s-result-item')[:10]:
+            for item in soup.select(".sg-col-4-of-12, .s-result-item")[:10]:
                 try:
                     # Get title
-                    title_elem = item.select_one('h2 a span, .a-text-normal, .a-size-medium')
+                    title_elem = item.select_one(
+                        "h2 a span, .a-text-normal, .a-size-medium"
+                    )
                     if not title_elem:
                         continue
                     title = title_elem.get_text(strip=True)
                     if not title or len(title) < 5:
                         continue
-                    
+
                     # Get URL
-                    link_elem = item.select_one('h2 a, a.a-link-normal')
+                    link_elem = item.select_one("h2 a, a.a-link-normal")
                     if not link_elem:
                         continue
-                    url = 'https://www.amazon.in' + link_elem.get('href', '')
-                    if 'amazon.in/dp' not in url and 'amazon.in/gp/product' not in url:
+                    url = "https://www.amazon.in" + link_elem.get("href", "")
+                    if "amazon.in/dp" not in url and "amazon.in/gp/product" not in url:
                         continue
-                    
+
                     # Get price
-                    price_elem = item.select_one('.a-price-whole, .a-offscreen, [data-a-color="price"] .a-offscreen')
-                    price_text = price_elem.get_text(strip=True) if price_elem else ''
-                    price_numeric = int(re.sub(r'[^0-9]', '', price_text)) if price_text else 0
-                    
+                    price_elem = item.select_one(
+                        '.a-price-whole, .a-offscreen, [data-a-color="price"] .a-offscreen'
+                    )
+                    price_text = price_elem.get_text(strip=True) if price_elem else ""
+                    price_numeric = (
+                        int(re.sub(r"[^0-9]", "", price_text)) if price_text else 0
+                    )
+
                     # Get rating
-                    rating_elem = item.select_one('.a-icon-alt, .a-popover-preload')
-                    rating = rating_elem.get_text(strip=True) if rating_elem else ''
-                    
+                    rating_elem = item.select_one(".a-icon-alt, .a-popover-preload")
+                    rating = rating_elem.get_text(strip=True) if rating_elem else ""
+
                     # Get image
-                    img_elem = item.select_one('img.s-image')
-                    image = img_elem.get('src', '') if img_elem else ''
-                    
+                    img_elem = item.select_one("img.s-image")
+                    image = img_elem.get("src", "") if img_elem else ""
+
                     if price_numeric > 0:
-                        products.append({
-                            'title': title[:100],
-                            'url': url,
-                            'price': f'₹{price_numeric:,}',
-                            'price_numeric': price_numeric,
-                            'rating': rating[:20],
-                            'source': 'Amazon',
-                            'source_icon': '🛒',
-                            'image': image,
-                            'verified': True
-                        })
+                        products.append(
+                            {
+                                "title": title[:100],
+                                "url": url,
+                                "price": f"₹{price_numeric:,}",
+                                "price_numeric": price_numeric,
+                                "rating": rating[:20],
+                                "source": "Amazon",
+                                "source_icon": "🛒",
+                                "image": image,
+                                "verified": True,
+                            }
+                        )
                 except Exception:
                     continue
-                    
+
     except Exception as e:
         logger.error(f"Amazon search error: {e}")
-    
+
     return products
 
 
@@ -2480,96 +2537,112 @@ def search_flipkart_products(query):
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         }
-        
+
         response = requests.get(search_url, headers=headers, timeout=10)
         if response.status_code == 200:
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
+            soup = BeautifulSoup(response.text, "html.parser")
+
             # Find product cards
-            for item in soup.select('._1AtVbE, ._13oc-S')[:10]:
+            for item in soup.select("._1AtVbE, ._13oc-S")[:10]:
                 try:
                     # Get title
-                    title_elem = item.select_one('._4rR01T, ._2B099h, a[title]')
+                    title_elem = item.select_one("._4rR01T, ._2B099h, a[title]")
                     if not title_elem:
                         continue
                     title = title_elem.get_text(strip=True)
                     if not title or len(title) < 5:
                         continue
-                    
+
                     # Get URL
-                    link_elem = item.select_one('a._1fQZEK')
+                    link_elem = item.select_one("a._1fQZEK")
                     if not link_elem:
                         continue
-                    url = 'https://www.flipkart.com' + link_elem.get('href', '')
-                    
+                    url = "https://www.flipkart.com" + link_elem.get("href", "")
+
                     # Get price
-                    price_elem = item.select_one('._30jeq3._1_WB1e, ._1_WB1e')
-                    price_text = price_elem.get_text(strip=True) if price_elem else ''
-                    price_numeric = int(re.sub(r'[^0-9]', '', price_text)) if price_text else 0
-                    
+                    price_elem = item.select_one("._30jeq3._1_WB1e, ._1_WB1e")
+                    price_text = price_elem.get_text(strip=True) if price_elem else ""
+                    price_numeric = (
+                        int(re.sub(r"[^0-9]", "", price_text)) if price_text else 0
+                    )
+
                     # Get original price (if discounted)
-                    orig_price_elem = item.select_one('._1_WB1e + span, ._2I5kjh')
-                    orig_price_text = orig_price_elem.get_text(strip=True) if orig_price_elem else ''
-                    
+                    orig_price_elem = item.select_one("._1_WB1e + span, ._2I5kjh")
+                    orig_price_text = (
+                        orig_price_elem.get_text(strip=True) if orig_price_elem else ""
+                    )
+
                     # Get rating
-                    rating_elem = item.select_one('._2_R_DZ span, ._3LWZlK')
-                    rating = rating_elem.get_text(strip=True) if rating_elem else ''
-                    
+                    rating_elem = item.select_one("._2_R_DZ span, ._3LWZlK")
+                    rating = rating_elem.get_text(strip=True) if rating_elem else ""
+
                     # Get image
-                    img_elem = item.select_one('img._396y4z')
-                    image = img_elem.get('src', '') if img_elem else ''
-                    
+                    img_elem = item.select_one("img._396y4z")
+                    image = img_elem.get("src", "") if img_elem else ""
+
                     if price_numeric > 0:
                         product = {
-                            'title': title[:100],
-                            'url': url,
-                            'price': f'₹{price_numeric:,}',
-                            'price_numeric': price_numeric,
-                            'rating': rating,
-                            'source': 'Flipkart',
-                            'source_icon': '🛍️',
-                            'image': image,
-                            'verified': True
+                            "title": title[:100],
+                            "url": url,
+                            "price": f"₹{price_numeric:,}",
+                            "price_numeric": price_numeric,
+                            "rating": rating,
+                            "source": "Flipkart",
+                            "source_icon": "🛍️",
+                            "image": image,
+                            "verified": True,
                         }
                         if orig_price_text:
-                            product['original_price'] = orig_price_text
+                            product["original_price"] = orig_price_text
                         products.append(product)
                 except Exception:
                     continue
-                    
+
     except Exception as e:
         logger.error(f"Flipkart search error: {e}")
-    
+
     return products
 
 
-def run_server(host='0.0.0.0', port=None):
+def run_server(host="0.0.0.0", port=None):
     if port is None:
-        port = int(os.environ.get('PORT', 5000))
-    
+        port = int(os.environ.get("PORT", 5000))
+
     # Start the background scheduler
     if not scheduler.running:
         scheduler.start()
-        logger.info(f"Background scheduler started - will refresh coupons every {REFRESH_INTERVAL_HOURS} hours")
-    
+        logger.info(
+            f"Background scheduler started - will refresh coupons every {REFRESH_INTERVAL_HOURS} hours"
+        )
+
     logger.info(f"Starting GrabCoupon on http://{host}:{port}")
     app.run(host=host, port=port, debug=False)
 
 
-@app.route('/refresh')
+@app.route("/refresh")
 def refresh():
     """Manually refresh coupons"""
     refresh_coupons()
-    return jsonify({"status": "success", "last_updated": cache_updated.isoformat() if cache_updated else None, "coupons_count": len(coupons_cache) if coupons_cache else 0})
+    return jsonify(
+        {
+            "status": "success",
+            "last_updated": cache_updated.isoformat() if cache_updated else None,
+            "coupons_count": len(coupons_cache) if coupons_cache else 0,
+        }
+    )
 
-@app.route('/status')
+
+@app.route("/status")
 def status():
     """Show cache status"""
-    return jsonify({
-        "last_updated": cache_updated.isoformat() if cache_updated else None,
-        "coupons_count": len(coupons_cache) if coupons_cache else 0,
-        "next_refresh": f"in {REFRESH_INTERVAL_HOURS} hours"
-    })
+    return jsonify(
+        {
+            "last_updated": cache_updated.isoformat() if cache_updated else None,
+            "coupons_count": len(coupons_cache) if coupons_cache else 0,
+            "next_refresh": f"in {REFRESH_INTERVAL_HOURS} hours",
+        }
+    )
+
 
 if __name__ == "__main__":
     run_server()
