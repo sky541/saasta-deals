@@ -26,14 +26,17 @@ app = Flask(__name__)
 # Global variable to store cached coupons
 coupons_cache = None
 cache_updated = None
-REFRESH_INTERVAL_HOURS = 4
+REFRESH_INTERVAL_HOURS = 1  # Refresh every hour for fresh deals
 
 def refresh_coupons():
     """Refresh coupons from data file"""
     global coupons_cache, cache_updated
     coupons_cache = load_coupons()
+    # Also filter out expired coupons
+    if coupons_cache:
+        coupons_cache = filter_valid_coupons(coupons_cache)
     cache_updated = datetime.now()
-    logger.info(f"Coupons refreshed: {len(coupons_cache)} coupons at {cache_updated}")
+    logger.info(f"Coupons refreshed: {len(coupons_cache)} valid coupons at {cache_updated}")
 
 def check_and_refresh():
     """Check if refresh needed and refresh if needed"""
@@ -496,6 +499,30 @@ DASHBOARD_TEMPLATE = """
         
         .badge-text {
             font-size: 0.95rem;
+        }
+        
+        .refresh-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .refresh-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .refresh-btn.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
         }
         
         /* Category Bar */
@@ -977,9 +1004,9 @@ DASHBOARD_TEMPLATE = """
         /* Coupon Card - Like CouponDunia */
         .coupon-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: visible;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
             position: relative;
@@ -988,8 +1015,8 @@ DASHBOARD_TEMPLATE = """
         }
         
         .coupon-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
         }
         
         .coupon-card.hot-deal-card {
@@ -1020,7 +1047,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .coupon-header {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             padding: 1rem;
             padding-top: 1.5rem;
@@ -1044,6 +1071,18 @@ DASHBOARD_TEMPLATE = """
         /* Coupon Buttons */
         .coupon-buttons {
             margin-top: 12px;
+        }
+        
+        .expiring-soon-badge {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 8px 0;
+            animation: pulse 2s infinite;
         }
         
         .btn-visit {
@@ -1395,10 +1434,13 @@ DASHBOARD_TEMPLATE = """
                 <span class="badge-icon">🛡️</span>
                 <span class="badge-text">100% Authentic Deals</span>
             </div>
-            <div class="badge-item">
+            <div class="badge-item" id="lastUpdatedBadge">
                 <span class="badge-icon">⚡</span>
-                <span class="badge-text">Daily Updated</span>
+                <span class="badge-text">Last Updated: {{ last_updated }}</span>
             </div>
+            <button type="button" class="refresh-btn" onclick="refreshCoupons()" id="refreshBtn">
+                🔄 Refresh
+            </button>
         </div>
     </div>
     
@@ -1571,7 +1613,7 @@ DASHBOARD_TEMPLATE = """
                         <div class="detail-item">Min Order: <span>₹{{ coupon.min_order }}</span></div>
                         {% endif %}
                         {% if coupon.expires %}
-                        <div class="detail-item">Expires: <span>{{ coupon.expires }}</span></div>
+                        <div class="detail-item">⏰ Expires: <span style="color:#dc2626;font-weight:600;">{{ coupon.expires }}</span></div>
                         {% endif %}
                     </div>
                     <div class="coupon-buttons">
@@ -1665,6 +1707,37 @@ DASHBOARD_TEMPLATE = """
     </footer>
     
     <script>
+        // Refresh Coupons Function
+        async function refreshCoupons() {
+            const btn = document.getElementById('refreshBtn');
+            const badge = document.getElementById('lastUpdatedBadge');
+            
+            if (btn) {
+                btn.classList.add('loading');
+                btn.textContent = '⏳ Refreshing...';
+            }
+            
+            try {
+                const response = await fetch('/api/refresh');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // Reload the page to show new coupons
+                    location.reload();
+                } else {
+                    alert('Failed to refresh coupons');
+                }
+            } catch (error) {
+                console.error('Refresh error:', error);
+                alert('Error refreshing coupons');
+            }
+            
+            if (btn) {
+                btn.classList.remove('loading');
+                btn.innerHTML = '🔄 Refresh';
+            }
+        }
+        
         // Search Autocomplete - Like GrabOn & CouponDunia
         const searchInput = document.getElementById('searchInput');
         const suggestionsBox = document.getElementById('searchSuggestions');
@@ -1803,6 +1876,34 @@ def load_coupons() -> List[Dict[str, Any]]:
             except:
                 pass
     return []
+
+def is_coupon_expired(coupon: Dict[str, Any]) -> bool:
+    """Check if a coupon has expired"""
+    expires = coupon.get('expires', '')
+    if not expires:
+        return False
+    try:
+        # Parse date format like "28 Feb 2026"
+        exp_date = datetime.strptime(expires.strip(), "%d %b %Y")
+        return exp_date.date() < datetime.now().date()
+    except:
+        return False
+
+def is_expiring_soon(coupon: Dict[str, Any], days: int = 7) -> bool:
+    """Check if a coupon is expiring within given days"""
+    expires = coupon.get('expires', '')
+    if not expires:
+        return False
+    try:
+        exp_date = datetime.strptime(expires.strip(), "%d %b %Y")
+        days_until_expiry = (exp_date.date() - datetime.now().date()).days
+        return 0 <= days_until_expiry <= days
+    except:
+        return False
+
+def filter_valid_coupons(coupons: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Filter out expired coupons"""
+    return [c for c in coupons if not is_coupon_expired(c)]
 
 # Initial load after load_coupons is defined
 refresh_coupons()
@@ -2128,6 +2229,9 @@ def index():
     check_and_refresh()
     all_coupons = coupons_cache if coupons_cache else load_coupons()
     
+    # Filter out expired coupons
+    all_coupons = filter_valid_coupons(all_coupons)
+    
     # Apply filters
     source = request.args.get('source', '')
     category = request.args.get('category', '')
@@ -2176,7 +2280,7 @@ def index():
         total_coupons=total_coupons,
         sources=len(sources),
         cities=sorted([c for c in cities if c]),
-        last_updated=datetime.now().strftime("%Y-%m-%d %H:%M"),
+        last_updated=cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else 'Never',
         category_counts=categories,
         current_page=page,
         total_pages=total_pages
