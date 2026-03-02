@@ -28,6 +28,136 @@ cache_updated = None
 REFRESH_INTERVAL_HOURS = 1  # Refresh every hour for fresh deals
 
 
+def add_default_coupons():
+    """Automatically add BookMyShow and Snapdeal coupons if they don't exist"""
+    try:
+        # Try multiple paths
+        paths_to_try = [
+            "deals_bot/data/coupons.json",
+            "data/coupons.json",
+            "../deals_bot/data/coupons.json",
+        ]
+        filepath = None
+        for path in paths_to_try:
+            if os.path.exists(path):
+                filepath = path
+                break
+
+        if not filepath:
+            return
+
+        with open(filepath, "r") as f:
+            data = json.load(f)
+
+        coupons = data.get("coupons", [])
+
+        # Check if BookMyShow coupons already exist
+        existing_sources = set(c.get("source") for c in coupons)
+
+        # New BookMyShow coupons
+        bookmyshow_coupons = [
+            {
+                "coupon_code": "BMSFLAT300",
+                "description": "Flat Rs. 300 Off on Movie Tickets",
+                "discount": "Rs. 300",
+                "min_order": "Rs. 600",
+                "expires": "31 Mar 2026",
+                "product_url": "https://in.bookmyshow.com/",
+                "source": "BookMyShow",
+                "category": "entertainment",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "BMSEVENT25",
+                "description": "25% Off on Event Tickets",
+                "discount": "25%",
+                "min_order": "Rs. 500",
+                "expires": "15 Apr 2026",
+                "product_url": "https://in.bookmyshow.com/",
+                "source": "BookMyShow",
+                "category": "entertainment",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "BMSNEWUSER",
+                "description": "Rs. 200 Off for New Users",
+                "discount": "Rs. 200",
+                "min_order": "Rs. 400",
+                "expires": "31 Dec 2026",
+                "product_url": "https://in.bookmyshow.com/",
+                "source": "BookMyShow",
+                "category": "entertainment",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+        ]
+
+        # New Snapdeal coupons
+        snapdeal_coupons = [
+            {
+                "coupon_code": "SNAP100OFF",
+                "description": "Flat Rs. 100 Off on Rs. 500",
+                "discount": "Rs. 100",
+                "min_order": "Rs. 500",
+                "expires": "31 Mar 2026",
+                "product_url": "https://www.snapdeal.com/",
+                "source": "Snapdeal",
+                "category": "shopping",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "SNAPELECTRO15",
+                "description": "15% Off on Electronics",
+                "discount": "15%",
+                "min_order": "Rs. 2000",
+                "expires": "20 Apr 2026",
+                "product_url": "https://www.snapdeal.com/",
+                "source": "Snapdeal",
+                "category": "electronics",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "SNAPFASHION25",
+                "description": "25% Off on Fashion",
+                "discount": "25%",
+                "min_order": "Rs. 999",
+                "expires": "15 Apr 2026",
+                "product_url": "https://www.snapdeal.com/",
+                "source": "Snapdeal",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+        ]
+
+        # Add coupons if source doesn't exist
+        added = False
+        if "BookMyShow" not in existing_sources:
+            coupons.extend(bookmyshow_coupons)
+            added = True
+            logger.info(f"Added {len(bookmyshow_coupons)} BookMyShow coupons")
+
+        if "Snapdeal" not in existing_sources:
+            coupons.extend(snapdeal_coupons)
+            added = True
+            logger.info(f"Added {len(snapdeal_coupons)} Snapdeal coupons")
+
+        if added:
+            data["coupons"] = coupons
+            data["count"] = len(coupons)
+            data["timestamp"] = datetime.now().isoformat()
+            with open(filepath, "w") as f:
+                json.dump(data, f, indent=2)
+            logger.info(f"Total coupons now: {len(coupons)}")
+
+    except Exception as e:
+        logger.error(f"Error adding default coupons: {e}")
+
+
 def refresh_coupons():
     """Refresh coupons from data file"""
     global coupons_cache, cache_updated
@@ -1916,6 +2046,7 @@ def filter_valid_coupons(coupons: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 # Initial load after load_coupons is defined
+add_default_coupons()  # Auto-add BookMyShow & Snapdeal if not present
 refresh_coupons()
 
 
