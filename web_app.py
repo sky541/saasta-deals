@@ -2769,7 +2769,7 @@ def run_server(host="0.0.0.0", port=None):
     app.run(host=host, port=port, debug=False)
 
 
-@app.route("/refresh")
+@app.route("/api/refresh")
 def refresh():
     """Manually refresh coupons"""
     refresh_coupons()
