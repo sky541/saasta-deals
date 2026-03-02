@@ -61,7 +61,7 @@ def add_default_coupons():
                 "description": "Flat Rs. 300 Off on Movie Tickets",
                 "discount": "Rs. 300",
                 "min_order": "Rs. 600",
-                "expires": "31 Mar 2026",
+                "expires": "31 Mar 2027",
                 "product_url": "https://in.bookmyshow.com/",
                 "source": "BookMyShow",
                 "category": "entertainment",
@@ -73,7 +73,7 @@ def add_default_coupons():
                 "description": "25% Off on Event Tickets",
                 "discount": "25%",
                 "min_order": "Rs. 500",
-                "expires": "15 Apr 2026",
+                "expires": "15 Apr 2027",
                 "product_url": "https://in.bookmyshow.com/",
                 "source": "BookMyShow",
                 "category": "entertainment",
@@ -85,7 +85,7 @@ def add_default_coupons():
                 "description": "Rs. 200 Off for New Users",
                 "discount": "Rs. 200",
                 "min_order": "Rs. 400",
-                "expires": "31 Dec 2026",
+                "expires": "31 Dec 2027",
                 "product_url": "https://in.bookmyshow.com/",
                 "source": "BookMyShow",
                 "category": "entertainment",
@@ -101,7 +101,7 @@ def add_default_coupons():
                 "description": "Flat Rs. 100 Off on Rs. 500",
                 "discount": "Rs. 100",
                 "min_order": "Rs. 500",
-                "expires": "31 Mar 2026",
+                "expires": "31 Mar 2027",
                 "product_url": "https://www.snapdeal.com/",
                 "source": "Snapdeal",
                 "category": "shopping",
@@ -113,7 +113,7 @@ def add_default_coupons():
                 "description": "15% Off on Electronics",
                 "discount": "15%",
                 "min_order": "Rs. 2000",
-                "expires": "20 Apr 2026",
+                "expires": "20 Apr 2027",
                 "product_url": "https://www.snapdeal.com/",
                 "source": "Snapdeal",
                 "category": "electronics",
@@ -125,7 +125,7 @@ def add_default_coupons():
                 "description": "25% Off on Fashion",
                 "discount": "25%",
                 "min_order": "Rs. 999",
-                "expires": "15 Apr 2026",
+                "expires": "15 Apr 2027",
                 "product_url": "https://www.snapdeal.com/",
                 "source": "Snapdeal",
                 "category": "fashion",
@@ -145,6 +145,25 @@ def add_default_coupons():
             coupons.extend(snapdeal_coupons)
             added = True
             logger.info(f"Added {len(snapdeal_coupons)} Snapdeal coupons")
+
+        # Also update any expired BookMyShow or Snapdeal coupons
+        from datetime import timedelta
+
+        future_date = datetime.now() + timedelta(days=30)
+        future_date_str = future_date.strftime("%d %b %Y")
+
+        for coupon in coupons:
+            if coupon.get("source") in ["BookMyShow", "Snapdeal"]:
+                try:
+                    exp_date = datetime.strptime(coupon.get("expires", ""), "%d %b %Y")
+                    if exp_date.date() < datetime.now().date():
+                        coupon["expires"] = future_date_str
+                        logger.info(
+                            f"Updated expiry for {coupon.get('coupon_code')} to {future_date_str}"
+                        )
+                        added = True
+                except:
+                    pass
 
         if added:
             data["coupons"] = coupons
