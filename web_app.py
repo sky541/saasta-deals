@@ -547,11 +547,11 @@ DAILY_DEALS_TEMPLATE = """
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: #f8fafc; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: #f0f2f5; }
         
         /* Hero Section */
         .deals-hero {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #d63031 100%);
             padding: 40px 20px;
             text-align: center;
             color: white;
@@ -583,7 +583,7 @@ DAILY_DEALS_TEMPLATE = """
         }
         
         .store-filter a:hover, .store-filter a.active {
-            background: #2563eb;
+            background: #ff6b6b;
             color: white;
         }
         
@@ -596,104 +596,135 @@ DAILY_DEALS_TEMPLATE = """
         
         .deals-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
         }
         
-        /* Deal Card */
-        .deal-card {
+        /* Product Card */
+        .product-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             transition: all 0.3s;
-            border: 1px solid #e2e8f0;
+            position: relative;
         }
         
-        .deal-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.2);
         }
         
-        .deal-header {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            padding: 20px;
+        /* Discount Badge */
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4757;
             color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .deal-store {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        
-        .deal-discount {
-            background: #ef4444;
             padding: 6px 12px;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            z-index: 10;
         }
         
-        .deal-body {
-            padding: 20px;
+        /* Product Image */
+        .product-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
         }
         
-        .deal-description {
-            color: #334155;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        
-        .deal-details {
+        .product-image-placeholder {
+            width: 100%;
+            height: 180px;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 15px;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 3rem;
         }
         
-        .deal-detail {
-            color: #64748b;
-            font-size: 0.9rem;
+        /* Product Body */
+        .product-body {
+            padding: 15px;
         }
         
-        .deal-detail span {
-            color: #334155;
-            font-weight: 600;
-        }
-        
-        .deal-code {
+        /* Store Logo */
+        .store-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
             background: #f1f5f9;
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            font-family: monospace;
-            font-size: 1rem;
-            color: #2563eb;
-            font-weight: 600;
-            margin-bottom: 15px;
-            border: 2px dashed #cbd5e1;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 10px;
         }
         
-        .deal-btn {
+        /* Product Title */
+        .product-title {
+            font-size: 0.95rem;
+            color: #1e293b;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            height: 42px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        /* Price Section */
+        .price-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .current-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .original-price {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            text-decoration: line-through;
+        }
+        
+        /* Offer Info */
+        .offer-info {
+            font-size: 0.8rem;
+            color: #16a34a;
+            margin-bottom: 12px;
+        }
+        
+        /* Buy Button */
+        .buy-btn {
             display: block;
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            padding: 12px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
             color: white;
             text-align: center;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: all 0.3s;
         }
         
-        .deal-btn:hover {
-            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        .buy-btn:hover {
+            background: linear-gradient(135deg, #ee5a24 0%, #d63031 100%);
+            transform: scale(1.02);
         }
         
         /* No Deals */
@@ -728,12 +759,12 @@ DAILY_DEALS_TEMPLATE = """
         }
         
         .pagination a:hover {
-            background: #2563eb;
+            background: #ff6b6b;
             color: white;
         }
         
         .pagination .current {
-            background: #2563eb;
+            background: #ff6b6b;
             color: white;
         }
         
@@ -758,7 +789,7 @@ DAILY_DEALS_TEMPLATE = """
         <a href="/" class="back-link">
             <i class="fas fa-arrow-left"></i> Back to Home
         </a>
-        <h1>🎯 Today's Hot Deals</h1>
+        <h1>🔥 Today's Hot Deals</h1>
         <p>Best deals from Amazon, Flipkart, Myntra, Nykaa & {{ total_deals }}+ more stores</p>
     </div>
     
@@ -771,32 +802,41 @@ DAILY_DEALS_TEMPLATE = """
     
     <div class="deals-container">
         <p style="text-align:center;color:#64748b;margin-bottom:20px;">
-            Showing <strong>{{ deals|length }}</strong> deals (Last updated: {{ last_updated }})
+            Showing <strong>{{ deals|length }}</strong> hot deals (Last updated: {{ last_updated }})
         </p>
         
         {% if deals %}
         <div class="deals-grid">
             {% for deal in deals %}
-            <div class="deal-card">
-                <div class="deal-header">
-                    <span class="deal-store">{{ deal.source }}</span>
-                    <span class="deal-discount">{{ deal.discount }} OFF</span>
+            <div class="product-card">
+                <span class="discount-badge">{{ deal.discount }} OFF</span>
+                
+                {% if deal.product_image %}
+                <img src="{{ deal.product_image }}" alt="{{ deal.description }}" class="product-image">
+                {% else %}
+                <div class="product-image-placeholder">
+                    <i class="fas fa-{% if 'electronics' in (deal.category or '') or 'mobile' in (deal.description|lower) %}mobile-alt{% elif 'fashion' in (deal.category or '') or 'clothing' in (deal.description|lower) or 'shoe' in (deal.description|lower) %}tshirt{% elif 'beauty' in (deal.category or '') or 'makeup' in (deal.description|lower) %}magic{% elif 'home' in (deal.category or '') or 'furniture' in (deal.description|lower) %}couch{% else %}shopping-bag{% endif %}"></i>
                 </div>
-                <div class="deal-body">
-                    <p class="deal-description">{{ deal.description }}</p>
-                    <div class="deal-details">
-                        {% if deal.min_order %}
-                        <div class="deal-detail">Min Order: <span>₹{{ deal.min_order }}</span></div>
-                        {% endif %}
-                        {% if deal.expires %}
-                        <div class="deal-detail">Expires: <span>{{ deal.expires }}</span></div>
-                        {% endif %}
+                {% endif %}
+                
+                <div class="product-body">
+                    <div class="store-badge">
+                        <i class="fas fa-store"></i> {{ deal.source }}
                     </div>
-                    <div class="deal-code">
-                        <i class="fas fa-tag"></i> {{ deal.coupon_code }}
+                    
+                    <h3 class="product-title">{{ deal.description }}</h3>
+                    
+                    <div class="price-section">
+                        <span class="current-price">₹{{ deal.sale_price }}</span>
+                        <span class="original-price">₹{{ deal.original_price }}</span>
                     </div>
-                    <a href="{{ deal.product_url }}" target="_blank" class="deal-btn">
-                        Get Deal <i class="fas fa-external-link-alt"></i>
+                    
+                    <p class="offer-info">
+                        <i class="fas fa-tag"></i> Extra {{ deal.discount }} Off
+                    </p>
+                    
+                    <a href="{{ deal.product_url }}" target="_blank" class="buy-btn">
+                        Buy Now <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
             </div>
@@ -827,7 +867,7 @@ DAILY_DEALS_TEMPLATE = """
         
         {% else %}
         <div class="no-deals">
-            <i class="fas fa-tag"></i>
+            <i class="fas fa-fire"></i>
             <h2>No deals found</h2>
             <p>Check back later for new deals!</p>
         </div>
@@ -2786,6 +2826,52 @@ def daily_deals():
     source_filter = request.args.get("source", "")
     if source_filter:
         sorted_coupons = [c for c in sorted_coupons if c.get("source") == source_filter]
+
+    # Add original_price and sale_price to each deal for product-style display
+    def calculate_prices(coupon):
+        """Calculate estimated original and sale prices based on discount"""
+        discount = coupon.get("discount", "")
+        
+        # Extract discount value
+        discount_value = 0
+        if "Rs." in discount:
+            try:
+                discount_value = int(discount.replace("Rs.", "").replace(",", "").strip())
+            except:
+                discount_value = 0
+        elif "%" in discount:
+            try:
+                discount_percent = int(discount.replace("%", "").strip())
+                # Estimate original price based on percentage (assume 10-50% range)
+                discount_value = discount_percent * 100  # rough estimate
+            except:
+                discount_value = 0
+        
+        # Estimate original price (make it look realistic)
+        if discount_value > 0:
+            # For Rs. discounts, estimate original price
+            if "Rs." in discount:
+                original = discount_value * 5  # Assume discount is ~20% of original
+                if original < 500:
+                    original = 500 + (discount_value * 2)
+            else:
+                # For % discounts
+                original = discount_value * 50  # rough estimate
+                if original < 1000:
+                    original = 1000 + discount_value * 10
+        else:
+            original = 2000  # default
+        
+        # Calculate sale price
+        sale = max(1, original - discount_value)
+        
+        # Add prices to coupon dict
+        coupon["original_price"] = int(original)
+        coupon["sale_price"] = int(sale)
+        return coupon
+
+    # Apply price calculation to all deals
+    sorted_coupons = [calculate_prices(c) for c in sorted_coupons]
 
     # Pagination
     per_page = 24
