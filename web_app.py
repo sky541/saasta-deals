@@ -536,6 +536,307 @@ scheduler.add_job(
 # Don't call refresh_coupons() here - load_coupons not defined yet
 
 
+DAILY_DEALS_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Deals - GrabCoupon | Best Deals from Top Online Stores</title>
+    <meta name="description" content="Today's top deals and discounts from Amazon, Flipkart, Myntra, Nykaa & more. Save big on every purchase!">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: #f8fafc; }
+        
+        /* Hero Section */
+        .deals-hero {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .deals-hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .deals-hero p { font-size: 1.1rem; opacity: 0.9; }
+        
+        /* Store Filter */
+        .store-filter {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .store-filter a {
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #475569;
+            background: #f1f5f9;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .store-filter a:hover, .store-filter a.active {
+            background: #2563eb;
+            color: white;
+        }
+        
+        /* Deals Grid */
+        .deals-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        /* Deal Card */
+        .deal-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .deal-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+        
+        .deal-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            padding: 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .deal-store {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .deal-discount {
+            background: #ef4444;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .deal-body {
+            padding: 20px;
+        }
+        
+        .deal-description {
+            color: #334155;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .deal-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .deal-detail {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .deal-detail span {
+            color: #334155;
+            font-weight: 600;
+        }
+        
+        .deal-code {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1rem;
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 2px dashed #cbd5e1;
+        }
+        
+        .deal-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .deal-btn:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        }
+        
+        /* No Deals */
+        .no-deals {
+            text-align: center;
+            padding: 60px 20px;
+            color: #64748b;
+        }
+        
+        .no-deals i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .pagination a, .pagination span {
+            padding: 10px 16px;
+            background: white;
+            color: #475569;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .pagination a:hover {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .pagination .current {
+            background: #2563eb;
+            color: white;
+        }
+        
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="deals-hero">
+        <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+        <h1>🎯 Today's Hot Deals</h1>
+        <p>Best deals from Amazon, Flipkart, Myntra, Nykaa & {{ total_deals }}+ more stores</p>
+    </div>
+    
+    <div class="store-filter">
+        <a href="/deals" class="{% if not selected_source %}active{% endif %}">All Stores</a>
+        {% for source in sources %}
+        <a href="/deals?source={{ source }}" class="{% if selected_source == source %}active{% endif %}">{{ source }}</a>
+        {% endfor %}
+    </div>
+    
+    <div class="deals-container">
+        <p style="text-align:center;color:#64748b;margin-bottom:20px;">
+            Showing <strong>{{ deals|length }}</strong> deals (Last updated: {{ last_updated }})
+        </p>
+        
+        {% if deals %}
+        <div class="deals-grid">
+            {% for deal in deals %}
+            <div class="deal-card">
+                <div class="deal-header">
+                    <span class="deal-store">{{ deal.source }}</span>
+                    <span class="deal-discount">{{ deal.discount }} OFF</span>
+                </div>
+                <div class="deal-body">
+                    <p class="deal-description">{{ deal.description }}</p>
+                    <div class="deal-details">
+                        {% if deal.min_order %}
+                        <div class="deal-detail">Min Order: <span>₹{{ deal.min_order }}</span></div>
+                        {% endif %}
+                        {% if deal.expires %}
+                        <div class="deal-detail">Expires: <span>{{ deal.expires }}</span></div>
+                        {% endif %}
+                    </div>
+                    <div class="deal-code">
+                        <i class="fas fa-tag"></i> {{ deal.coupon_code }}
+                    </div>
+                    <a href="{{ deal.product_url }}" target="_blank" class="deal-btn">
+                        Get Deal <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if total_pages > 1 %}
+        <div class="pagination">
+            {% if current_page > 1 %}
+            <a href="/deals?source={{ selected_source }}&page={{ current_page - 1 }}">← Previous</a>
+            {% endif %}
+            
+            {% for p in range(1, total_pages + 1) %}
+            {% if p == current_page %}
+            <span class="current">{{ p }}</span>
+            {% elif p <= 3 or p > total_pages - 3 or (p >= current_page - 1 and p <= current_page + 1) %}
+            <a href="/deals?source={{ selected_source }}&page={{ p }}">{{ p }}</a>
+            {% elif p == 4 or p == total_pages - 3 %}
+            <span>...</span>
+            {% endif %}
+            {% endfor %}
+            
+            {% if current_page < total_pages %}
+            <a href="/deals?source={{ selected_source }}&page={{ current_page + 1 }}">Next →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <div class="no-deals">
+            <i class="fas fa-tag"></i>
+            <h2>No deals found</h2>
+            <p>Check back later for new deals!</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+"""
+
 DASHBOARD_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -1841,6 +2142,7 @@ DASHBOARD_TEMPLATE = """
             <!-- Navigation Links -->
             <nav class="hero-nav" style="margin-bottom: 25px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <a href="/" class="hero-nav-link {% if request.path == '/' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Home</a>
+                <a href="/deals" class="hero-nav-link {% if request.path == '/deals' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Daily Deals</a>
                 <a href="/local" class="hero-nav-link {% if request.path == '/local' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Local Food Deals</a>
                 <a href="/about" class="hero-nav-link {% if request.path == '/about' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">About Us</a>
                 <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Contact Us</a>
@@ -2450,6 +2752,64 @@ def local_deals():
     )
 
 
+@app.route("/deals")
+def daily_deals():
+    """Daily deals page - showing hot deals from all major online stores"""
+    global coupons_cache
+    check_and_refresh()
+    all_coupons = coupons_cache if coupons_cache else load_coupons()
+
+    # Get all valid (non-expired) coupons
+    valid_coupons = filter_valid_coupons(all_coupons)
+
+    # Sort by discount value to show best deals first
+    def get_discount_value(coupon):
+        discount = coupon.get("discount", "")
+        if "Rs." in discount:
+            try:
+                return int(discount.replace("Rs.", "").replace(",", "").strip())
+            except:
+                pass
+        elif "%" in discount:
+            try:
+                return int(discount.replace("%", "").strip()) * 10
+            except:
+                pass
+        return 0
+
+    sorted_coupons = sorted(valid_coupons, key=get_discount_value, reverse=True)
+
+    # Get unique sources/stores
+    sources = sorted(set(c.get("source", "") for c in valid_coupons if c.get("source")))
+
+    # Filter by source if provided
+    source_filter = request.args.get("source", "")
+    if source_filter:
+        sorted_coupons = [c for c in sorted_coupons if c.get("source") == source_filter]
+
+    # Pagination
+    per_page = 24
+    page = int(request.args.get("page", 1))
+    total_deals = len(sorted_coupons)
+    total_pages = (total_deals + per_page - 1) // per_page
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    paginated_deals = sorted_coupons[start_idx:end_idx]
+
+    return render_template_string(
+        DAILY_DEALS_TEMPLATE,
+        deals=paginated_deals,
+        total_deals=total_deals,
+        sources=sources,
+        selected_source=source_filter,
+        last_updated=(
+            cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else "N/A"
+        ),
+        current_page=page,
+        total_pages=total_pages,
+    )
+
+
 @app.route("/about")
 def about():
     """About Us page"""
@@ -2502,6 +2862,7 @@ def about():
             <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
             <nav class="nav-links">
                 <a href="/">Home</a>
+                <a href="/deals">Daily Deals</a>
                 <a href="/local">Local Food Deals</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
@@ -2580,7 +2941,7 @@ def about():
         </div>
         
         <footer class="footer">
-            <p>&copy; 2026 GrabCoupon. All rights reserved. | <a href="/">Home</a> | <a href="/contact">Contact</a></p>
+            <p>&copy; 2026 GrabCoupon. All rights reserved. | <a href="/">Home</a> | <a href="/deals">Daily Deals</a> | <a href="/contact">Contact</a></p>
         </footer>
     </body>
     </html>
@@ -2642,6 +3003,7 @@ def contact():
             <a href="/" class="logo"><i class="fas fa-tag"></i> GrabCoupon</a>
             <nav class="nav-links">
                 <a href="/">Home</a>
+                <a href="/deals">Daily Deals</a>
                 <a href="/local">Local Food Deals</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
@@ -2701,7 +3063,7 @@ def contact():
         </div>
         
         <footer class="footer">
-            <p>&copy; 2026 GrabCoupon. All rights reserved. | <a href="/">Home</a> | <a href="/about">About</a></p>
+            <p>&copy; 2026 GrabCoupon. All rights reserved. | <a href="/">Home</a> | <a href="/deals">Daily Deals</a> | <a href="/about">About</a></p>
         </footer>
         
         <script>
