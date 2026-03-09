@@ -1052,7 +1052,9 @@ DAILY_DEALS_TEMPLATE = """
         <div class="featured-grid">
             {% for deal in featured_deals %}
             <div class="featured-card">
-                <img src="{{ deal.image }}" alt="{{ deal.description }}" class="featured-image">
+                <div class="featured-image" style="background: {{ deal.image_gradient }}; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas {{ deal.image_icon }}" style="font-size: 4rem; color: white;"></i>
+                </div>
                 <div class="featured-body">
                     <span class="featured-store"><i class="fas fa-store"></i> {{ deal.source }}</span>
                     <h3 class="featured-title">{{ deal.description }}</h3>
@@ -1083,7 +1085,9 @@ DAILY_DEALS_TEMPLATE = """
             {% for deal in deals %}
             <div class="deal-card">
                 <div class="deal-image-wrapper">
-                    <img src="{{ deal.image }}" alt="{{ deal.description }}" class="deal-image">
+                    <div class="deal-image" style="background: {{ deal.image_gradient }}; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas {{ deal.image_icon }}" style="font-size: 3rem; color: white;"></i>
+                    </div>
                     <span class="deal-discount">{{ deal.discount }} OFF</span>
                     <button class="deal-wishlist"><i class="fas fa-heart"></i></button>
                 </div>
@@ -3110,9 +3114,35 @@ def daily_deals():
         """Add image, prices and other details to coupon for deal-style display"""
         discount = coupon.get("discount", "")
         
-        # Generate consistent image URL based on index
-        image_id = 100 + (index % 900)  # picsum.photos has images 1-1000
-        coupon["image"] = f"https://picsum.photos/seed/{coupon.get('source', 'deal')}{index}/400/300"
+        # Generate category-based gradient and icon (no external images)
+        category = coupon.get("category", "") or ""
+        description = coupon.get("description", "").lower()
+        
+        # Determine category gradient and icon
+        if "electronics" in category or "mobile" in description or "phone" in description or "laptop" in description or "tv" in description:
+            gradient = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+            icon = "fa-mobile-alt"
+        elif "fashion" in category or "clothing" in description or "shirt" in description or "shoe" in description or "dress" in description or "wear" in description:
+            gradient = "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+            icon = "fa-tshirt"
+        elif "beauty" in category or "makeup" in description or "skincare" in description or "perfume" in description:
+            gradient = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+            icon = "fa-spa"
+        elif "home" in category or "furniture" in description or "kitchen" in description or "decor" in description:
+            gradient = "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+            icon = "fa-couch"
+        elif "food" in category or "restaurant" in description or "zomato" in description or "swiggy" in description or "pizza" in description:
+            gradient = "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+            icon = "fa-utensils"
+        elif "book" in description or "kindle" in description:
+            gradient = "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+            icon = "fa-book"
+        else:
+            gradient = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
+            icon = "fa-shopping-bag"
+        
+        coupon["image_gradient"] = gradient
+        coupon["image_icon"] = icon
         
         # Extract discount value
         discount_value = 0
