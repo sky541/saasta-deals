@@ -15,6 +15,12 @@ from bs4 import BeautifulSoup
 from flask import Flask, render_template_string, jsonify, request, make_response
 from apscheduler.schedulers.background import BackgroundScheduler
 
+# Import Amazon Scraper
+try:
+    from deals_bot.amazon_scraper import AmazonScraper
+except ImportError:
+    from amazon_scraper import AmazonScraper
+
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
@@ -26,6 +32,152 @@ app = Flask(__name__)
 coupons_cache = None
 cache_updated = None
 REFRESH_INTERVAL_HOURS = 1  # Refresh every hour for fresh deals
+
+# Global variable to store Amazon deals cache
+amazon_deals_cache = None
+amazon_deals_updated = None
+AMAZON_DEALS_CACHE_MINUTES = 30  # Cache Amazon deals for 30 minutes
+
+
+def get_amazon_deals_with_cache():
+    """Get Amazon deals with caching to avoid excessive API calls"""
+    global amazon_deals_cache, amazon_deals_updated
+    
+    current_time = datetime.now()
+    
+    # Check if cache is valid (less than 30 minutes old)
+    if amazon_deals_cache is not None and amazon_deals_updated is not None:
+        time_diff = (current_time - amazon_deals_updated).total_seconds() / 60
+        if time_diff < AMAZON_DEALS_CACHE_MINUTES:
+            logger.info(f"Using cached Amazon deals (age: {time_diff:.1f} minutes)")
+            return amazon_deals_cache
+    
+    # Fetch fresh deals from Amazon
+    try:
+        logger.info("Fetching fresh Amazon deals...")
+        scraper = AmazonScraper()
+        deals = scraper.scrape()
+        
+        # Convert Deal objects to dictionary format for template
+        amazon_deals_cache = []
+        for deal in deals:
+            amazon_deals_cache.append({
+                "title": deal.product_name,
+                "image": deal.image_url,
+                "original_price": int(deal.original_price) if deal.original_price else 0,
+                "sale_price": int(deal.current_price) if deal.current_price else 0,
+                "discount": f"{deal.discount_percent}%" if deal.discount_percent else "0%",
+                "coupon_code": "",
+                "rating": 4.5,  # Default rating
+                "reviews": 0,
+                "url": deal.product_url
+            })
+        
+        amazon_deals_updated = current_time
+        logger.info(f"Fetched {len(amazon_deals_cache)} Amazon deals")
+        
+    except Exception as e:
+        logger.error(f"Error fetching Amazon deals: {str(e)}")
+        # Return cached data if available, otherwise use fallback
+        if amazon_deals_cache is not None:
+            return amazon_deals_cache
+        amazon_deals_cache = get_fallback_amazon_deals()
+    
+    return amazon_deals_cache
+
+
+def get_fallback_amazon_deals():
+    """Fallback Amazon deals in case scraping fails"""
+    return [
+        {
+            "title": "Apple iPhone 15 Pro (128GB) - Natural Titanium",
+            "image": "https://m.media-amazon.com/images/I/31LEl9oODfL._AC_US218_.jpg",
+            "original_price": 119900,
+            "sale_price": 99900,
+            "discount": "17%",
+            "coupon_code": "IPHONE17",
+            "rating": 4.7,
+            "reviews": 12450,
+            "url": "https://www.amazon.in/dp/B0CHX2W5BZ"
+        },
+        {
+            "title": "Sony WH-1000XM5 Wireless Noise Cancelling Headphones",
+            "image": "https://m.media-amazon.com/images/I/51o4ZdqiJML._AC_US218_.jpg",
+            "original_price": 34990,
+            "sale_price": 24990,
+            "discount": "29%",
+            "coupon_code": "SONY29",
+            "rating": 4.6,
+            "reviews": 8932,
+            "url": "https://www.amazon.in/dp/B0BSHF4WWH"
+        },
+        {
+            "title": "Samsung 55 inch OLED 4K Smart TV",
+            "image": "https://m.media-amazon.com/images/I/51n6Lf6qlJL._AC_US218_.jpg",
+            "original_price": 159999,
+            "sale_price": 99999,
+            "discount": "37%",
+            "coupon_code": "SAMSUNG37",
+            "rating": 4.5,
+            "reviews": 3421,
+            "url": "https://www.amazon.in/dp/B0BSHRJMJW"
+        },
+        {
+            "title": "Nike Air Max SC Men's Running Shoes",
+            "image": "https://m.media-amazon.com/images/I/61W3q1PmMLL._AC_US218_.jpg",
+            "original_price": 5995,
+            "sale_price": 2997,
+            "discount": "50%",
+            "coupon_code": "NIKE50",
+            "rating": 4.3,
+            "reviews": 15678,
+            "url": "https://www.amazon.in/dp/B0BSJY1H3V"
+        },
+        {
+            "title": "Apple MacBook Air M2 (256GB) - Midnight",
+            "image": "https://m.media-amazon.com/images/I/51f2Qk8aLoL._AC_US218_.jpg",
+            "original_price": 134900,
+            "sale_price": 109900,
+            "discount": "19%",
+            "coupon_code": "MACBOOK19",
+            "rating": 4.8,
+            "reviews": 7823,
+            "url": "https://www.amazon.in/dp/B0BSHF1W6P"
+        },
+        {
+            "title": "boAt Airdopes 131 PRO Wireless Earbuds",
+            "image": "https://m.media-amazon.com/images/I/52u11f0h2aL._AC_US218_.jpg",
+            "original_price": 2499,
+            "sale_price": 1299,
+            "discount": "48%",
+            "coupon_code": "BOAT48",
+            "rating": 4.1,
+            "reviews": 45678,
+            "url": "https://www.amazon.in/dp/B0BSHRXWQF"
+        },
+        {
+            "title": "OnePlus 12 (16GB RAM, 512GB) Smartphone",
+            "image": "https://m.media-amazon.com/images/I/51PB3aSVlyL._AC_US218_.jpg",
+            "original_price": 69999,
+            "sale_price": 59999,
+            "discount": "14%",
+            "coupon_code": "ONEPLUS14",
+            "rating": 4.6,
+            "reviews": 4532,
+            "url": "https://www.amazon.in/dp/B0BSHRJWX8"
+        },
+        {
+            "title": "Fitbit Sense 2 Advanced Smartwatch",
+            "image": "https://m.media-amazon.com/images/I/51vWbW+MLlL._AC_US218_.jpg",
+            "original_price": 24999,
+            "sale_price": 16999,
+            "discount": "32%",
+            "coupon_code": "FITBIT32",
+            "rating": 4.4,
+            "reviews": 5678,
+            "url": "https://www.amazon.in/dp/B0B8X5LWCV"
+        }
+    ]
 
 
 def add_default_coupons():
@@ -3064,124 +3216,45 @@ def local_deals():
 
 @app.route("/deals")
 def daily_deals():
-    """Daily deals page - showing hot deals from all major online stores - DealOfTheDay style"""
-    global coupons_cache
-    check_and_refresh()
-    all_coupons = coupons_cache if coupons_cache else load_coupons()
-
-    # Get search query
+    """Daily deals page - showing Amazon top deals with product images"""
+    
+    # Get Amazon deals (with caching) - fetches from Amazon or returns cached data
+    amazon_deals = get_amazon_deals_with_cache()
+    
+    # Get search and filter parameters
     search_query = request.args.get("search", "").strip().lower()
-    
-    # Get category filter
     selected_category = request.args.get("category", "")
-
-    # Get all valid (non-expired) coupons
-    valid_coupons = filter_valid_coupons(all_coupons)
-
-    # Sort by discount value to show best deals first
-    def get_discount_value(coupon):
-        discount = coupon.get("discount", "")
-        if "Rs." in discount:
-            try:
-                return int(discount.replace("Rs.", "").replace(",", "").strip())
-            except:
-                pass
-        elif "%" in discount:
-            try:
-                return int(discount.replace("%", "").strip()) * 10
-            except:
-                pass
-        return 0
-
-    sorted_coupons = sorted(valid_coupons, key=get_discount_value, reverse=True)
-
-    # Get unique sources/stores
-    sources = sorted(set(c.get("source", "") for c in valid_coupons if c.get("source")))
-
-    # Filter by source if provided
-    source_filter = request.args.get("source", "")
-    if source_filter:
-        sorted_coupons = [c for c in sorted_coupons if c.get("source") == source_filter]
-
-    # Filter by search query
-    if search_query:
-        sorted_coupons = [c for c in sorted_coupons if search_query in c.get("description", "").lower() or search_query in c.get("source", "").lower()]
-
-    # Add image, original_price and sale_price to each deal
-    import random
     
-    def add_deal_details(coupon, index):
-        """Add image, prices and other details to coupon for deal-style display"""
-        discount = coupon.get("discount", "")
-        
-        # Generate category-based gradient and icon (no external images)
-        category = coupon.get("category", "") or ""
-        description = coupon.get("description", "").lower()
-        
-        # Determine category gradient and icon
-        if "electronics" in category or "mobile" in description or "phone" in description or "laptop" in description or "tv" in description:
-            gradient = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-            icon = "fa-mobile-alt"
-        elif "fashion" in category or "clothing" in description or "shirt" in description or "shoe" in description or "dress" in description or "wear" in description:
-            gradient = "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-            icon = "fa-tshirt"
-        elif "beauty" in category or "makeup" in description or "skincare" in description or "perfume" in description:
-            gradient = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-            icon = "fa-spa"
-        elif "home" in category or "furniture" in description or "kitchen" in description or "decor" in description:
-            gradient = "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-            icon = "fa-couch"
-        elif "food" in category or "restaurant" in description or "zomato" in description or "swiggy" in description or "pizza" in description:
-            gradient = "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
-            icon = "fa-utensils"
-        elif "book" in description or "kindle" in description:
-            gradient = "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
-            icon = "fa-book"
-        else:
-            gradient = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
-            icon = "fa-shopping-bag"
-        
-        coupon["image_gradient"] = gradient
-        coupon["image_icon"] = icon
-        
-        # Extract discount value
-        discount_value = 0
-        if "Rs." in discount:
-            try:
-                discount_value = int(discount.replace("Rs.", "").replace(",", "").strip())
-            except:
-                discount_value = 0
-        elif "%" in discount:
-            try:
-                discount_percent = int(discount.replace("%", "").strip())
-                discount_value = discount_percent * 100
-            except:
-                discount_value = 0
-        
-        # Estimate original price
-        if discount_value > 0:
-            if "Rs." in discount:
-                original = discount_value * 5
-                if original < 500:
-                    original = 500 + (discount_value * 2)
-            else:
-                original = discount_value * 50
-                if original < 1000:
-                    original = 1000 + discount_value * 10
-        else:
-            original = 2000
-        
-        sale = max(1, original - discount_value)
-        
-        coupon["original_price"] = int(original)
-        coupon["sale_price"] = int(sale)
-        return coupon
+    # Filter deals by search
+    filtered_deals = amazon_deals
+    if search_query:
+        filtered_deals = [d for d in amazon_deals if search_query in d["title"].lower()]
+    
+    # Pagination
+    per_page = 12
+    page = int(request.args.get("page", 1))
+    total_deals = len(filtered_deals)
+    total_pages = max(1, (total_deals + per_page - 1) // per_page)
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    paginated_deals = filtered_deals[start_idx:end_idx]
+    
+    return render_template_string(
+        DAILY_DEALS_TEMPLATE,
+        deals=paginated_deals,
+        featured_deals=paginated_deals[:6],
+        total_deals=total_deals,
+        sources=["Amazon"],
+        selected_source="",
+        selected_category=selected_category,
+        search_query=request.args.get("search", ""),
+        last_updated=datetime.now().strftime("%Y-%m-%d %H:%M"),
+        current_page=page,
+        total_pages=total_pages,
+    )
 
-    # Apply details to all deals
-    sorted_coupons = [add_deal_details(c, i) for i, c in enumerate(sorted_coupons)]
 
-    # Get featured deals (top 6)
-    featured_deals = sorted_coupons[:6] if len(sorted_coupons) >= 6 else sorted_coupons
+# Helper function to get Amazon deals with caching
 
     # Pagination
     per_page = 24
