@@ -17,7 +17,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 # Import Amazon Scraper
 try:
-    from deals_bot.amazon_scraper import AmazonScraper
+    from amazon_scraper import AmazonScraper
 except ImportError:
     from amazon_scraper import AmazonScraper
 

@@ -16,8 +16,8 @@ from typing import Optional
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from deals_bot import DealsAggregator, logger
-from deals_bot.amazon_scraper import AmazonScraper
-from deals_bot.flipkart_scraper import FlipkartScraper
+from amazon_scraper import AmazonScraper
+from flipkart_scraper import FlipkartScraper
 
 
 class DealsBatchScheduler:
