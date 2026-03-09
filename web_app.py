@@ -29,7 +29,7 @@ REFRESH_INTERVAL_HOURS = 1  # Refresh every hour for fresh deals
 
 
 def add_default_coupons():
-    """Automatically add BookMyShow and Snapdeal coupons if they don't exist"""
+    """Automatically add deals from major Indian e-commerce websites"""
     try:
         # Try multiple paths
         paths_to_try = [
@@ -51,119 +51,442 @@ def add_default_coupons():
 
         coupons = data.get("coupons", [])
 
-        # Check if BookMyShow coupons already exist
+        # Check existing sources
         existing_sources = set(c.get("source") for c in coupons)
 
-        # New BookMyShow coupons
-        bookmyshow_coupons = [
+        # Major Indian E-commerce Deals - like dealoftheday.com
+        major_deals = [
+            # Amazon India
             {
-                "coupon_code": "BMSFLAT300",
-                "description": "Flat Rs. 300 Off on Movie Tickets",
-                "discount": "Rs. 300",
-                "min_order": "Rs. 600",
+                "coupon_code": "AMAZON500",
+                "description": "Flat Rs. 500 Off on Electronics & Gadgets",
+                "discount": "Rs. 500",
+                "min_order": "Rs. 3000",
                 "expires": "31 Mar 2027",
-                "product_url": "https://in.bookmyshow.com/",
-                "source": "BookMyShow",
-                "category": "entertainment",
-                "timestamp": datetime.now().isoformat(),
-                "city": "all",
-            },
-            {
-                "coupon_code": "BMSEVENT25",
-                "description": "25% Off on Event Tickets",
-                "discount": "25%",
-                "min_order": "Rs. 500",
-                "expires": "15 Apr 2027",
-                "product_url": "https://in.bookmyshow.com/",
-                "source": "BookMyShow",
-                "category": "entertainment",
-                "timestamp": datetime.now().isoformat(),
-                "city": "all",
-            },
-            {
-                "coupon_code": "BMSNEWUSER",
-                "description": "Rs. 200 Off for New Users",
-                "discount": "Rs. 200",
-                "min_order": "Rs. 400",
-                "expires": "31 Dec 2027",
-                "product_url": "https://in.bookmyshow.com/",
-                "source": "BookMyShow",
-                "category": "entertainment",
-                "timestamp": datetime.now().isoformat(),
-                "city": "all",
-            },
-        ]
-
-        # New Snapdeal coupons
-        snapdeal_coupons = [
-            {
-                "coupon_code": "SNAP100OFF",
-                "description": "Flat Rs. 100 Off on Rs. 500",
-                "discount": "Rs. 100",
-                "min_order": "Rs. 500",
-                "expires": "31 Mar 2027",
-                "product_url": "https://www.snapdeal.com/",
-                "source": "Snapdeal",
-                "category": "shopping",
-                "timestamp": datetime.now().isoformat(),
-                "city": "all",
-            },
-            {
-                "coupon_code": "SNAPELECTRO15",
-                "description": "15% Off on Electronics",
-                "discount": "15%",
-                "min_order": "Rs. 2000",
-                "expires": "20 Apr 2027",
-                "product_url": "https://www.snapdeal.com/",
-                "source": "Snapdeal",
+                "product_url": "https://www.amazon.in",
+                "source": "Amazon",
                 "category": "electronics",
                 "timestamp": datetime.now().isoformat(),
                 "city": "all",
             },
             {
-                "coupon_code": "SNAPFASHION25",
-                "description": "25% Off on Fashion",
+                "coupon_code": "AMAZON25",
+                "description": "25% Off on Fashion & Clothing",
+                "discount": "25%",
+                "min_order": "Rs. 1499",
+                "expires": "15 Apr 2027",
+                "product_url": "https://www.amazon.in",
+                "source": "Amazon",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "AMAZONNEW200",
+                "description": "Rs. 200 Off for New Users",
+                "discount": "Rs. 200",
+                "min_order": "Rs. 500",
+                "expires": "31 Dec 2027",
+                "product_url": "https://www.amazon.in",
+                "source": "Amazon",
+                "category": "all",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Flipkart
+            {
+                "coupon_code": "FLIPKART300",
+                "description": "Flat Rs. 300 Off on Mobile Phones",
+                "discount": "Rs. 300",
+                "min_order": "Rs. 5000",
+                "expires": "20 Apr 2027",
+                "product_url": "https://www.flipkart.com",
+                "source": "Flipkart",
+                "category": "mobiles",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "FLIPKART40",
+                "description": "Up to 40% Off on Electronics",
+                "discount": "40%",
+                "min_order": "Rs. 3000",
+                "expires": "25 Mar 2027",
+                "product_url": "https://www.flipkart.com",
+                "source": "Flipkart",
+                "category": "electronics",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Myntra
+            {
+                "coupon_code": "MYNTRA30",
+                "description": "30% Off on All Fashion",
+                "discount": "30%",
+                "min_order": "Rs. 1299",
+                "expires": "31 Mar 2027",
+                "product_url": "https://www.myntra.com",
+                "source": "Myntra",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "MYNTRA500",
+                "description": "Flat Rs. 500 Off on Rs. 2499",
+                "discount": "Rs. 500",
+                "min_order": "Rs. 2499",
+                "expires": "15 Apr 2027",
+                "product_url": "https://www.myntra.com",
+                "source": "Myntra",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Ajio
+            {
+                "coupon_code": "AJIO25",
+                "description": "25% Off on Ajio Exclusive Brands",
                 "discount": "25%",
                 "min_order": "Rs. 999",
-                "expires": "15 Apr 2027",
-                "product_url": "https://www.snapdeal.com/",
-                "source": "Snapdeal",
+                "expires": "20 Apr 2027",
+                "product_url": "https://www.ajio.com",
+                "source": "Ajio",
                 "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "AJIONEW",
+                "description": "Rs. 150 Off for New Users",
+                "discount": "Rs. 150",
+                "min_order": "Rs. 599",
+                "expires": "31 Dec 2027",
+                "product_url": "https://www.ajio.com",
+                "source": "Ajio",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Nykaa
+            {
+                "coupon_code": "NYKAA200",
+                "description": "Flat Rs. 200 Off on Makeup & Beauty",
+                "discount": "Rs. 200",
+                "min_order": "Rs. 1000",
+                "expires": "31 Mar 2027",
+                "product_url": "https://www.nykaa.com",
+                "source": "Nykaa",
+                "category": "beauty",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "NYKAA15",
+                "description": "15% Off on Skincare",
+                "discount": "15%",
+                "min_order": "Rs. 1500",
+                "expires": "15 Apr 2027",
+                "product_url": "https://www.nykaa.com",
+                "source": "Nykaa",
+                "category": "beauty",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Tata Cliq
+            {
+                "coupon_code": "TATACLIQ25",
+                "description": "25% Off on Premium Brands",
+                "discount": "25%",
+                "min_order": "Rs. 2000",
+                "expires": "20 Apr 2027",
+                "product_url": "https://www.tatacliq.com",
+                "source": "Tata Cliq",
+                "category": "shopping",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Meesho
+            {
+                "coupon_code": "MEESHO100",
+                "description": "Flat Rs. 100 Off on First Order",
+                "discount": "Rs. 100",
+                "min_order": "Rs. 299",
+                "expires": "31 Dec 2027",
+                "product_url": "https://www.meesho.com",
+                "source": "Meesho",
+                "category": "shopping",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "MEESHO30",
+                "description": "30% Off on Fashion",
+                "discount": "30%",
+                "min_order": "Rs. 599",
+                "expires": "25 Mar 2027",
+                "product_url": "https://www.meesho.com",
+                "source": "Meesho",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Croma
+            {
+                "coupon_code": "CROMA15",
+                "description": "15% Off on Electronics",
+                "discount": "15%",
+                "min_order": "Rs. 5000",
+                "expires": "15 Apr 2027",
+                "product_url": "https://www.croma.com",
+                "source": "Croma",
+                "category": "electronics",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Reliance Digital
+            {
+                "coupon_code": "RELIANCE10",
+                "description": "10% Off on All Products",
+                "discount": "10%",
+                "min_order": "Rs. 3000",
+                "expires": "20 Apr 2027",
+                "product_url": "https://www.reliancedigital.in",
+                "source": "Reliance Digital",
+                "category": "electronics",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Pepperfry
+            {
+                "coupon_code": "PEPPERFLY20",
+                "description": "20% Off on Furniture",
+                "discount": "20%",
+                "min_order": "Rs. 10000",
+                "expires": "31 Mar 2027",
+                "product_url": "https://www.pepperfry.com",
+                "source": "Pepperfry",
+                "category": "home",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Shoppers Stop
+            {
+                "coupon_code": "SHOPPER25",
+                "description": "25% Off on International Brands",
+                "discount": "25%",
+                "min_order": "Rs. 2500",
+                "expires": "15 Apr 2027",
+                "product_url": "https://www.shoppersstop.com",
+                "source": "Shoppers Stop",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Lifestyle
+            {
+                "coupon_code": "LIFESTYLE20",
+                "description": "20% Off on All Categories",
+                "discount": "20%",
+                "min_order": "Rs. 1500",
+                "expires": "20 Apr 2027",
+                "product_url": "https://www.lifestylestores.com",
+                "source": "Lifestyle",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Pantaloons
+            {
+                "coupon_code": "PANTALOONS30",
+                "description": "30% Off on Ethnic Wear",
+                "discount": "30%",
+                "min_order": "Rs. 1299",
+                "expires": "25 Mar 2027",
+                "product_url": "https://www.pantaloons.com",
+                "source": "Pantaloons",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Decathlon
+            {
+                "coupon_code": "DECATHLON20",
+                "description": "20% Off on Sports Equipment",
+                "discount": "20%",
+                "min_order": "Rs. 2000",
+                "expires": "31 Mar 2027",
+                "product_url": "https://www.decathlon.in",
+                "source": "Decathlon",
+                "category": "sports",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Nike
+            {
+                "coupon_code": "NIKE25",
+                "description": "25% Off on Nike Shoes & Apparel",
+                "discount": "25%",
+                "min_order": "Rs. 3000",
+                "expires": "15 Apr 2027",
+                "product_url": "https://www.nike.com/in",
+                "source": "Nike",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Adidas
+            {
+                "coupon_code": "ADIDAS25",
+                "description": "25% Off on Sportswear",
+                "discount": "25%",
+                "min_order": "Rs. 2500",
+                "expires": "20 Apr 2027",
+                "product_url": "https://www.adidas.com/in",
+                "source": "Adidas",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Puma
+            {
+                "coupon_code": "PUMA30",
+                "description": "30% Off on Puma Collection",
+                "discount": "30%",
+                "min_order": "Rs. 2000",
+                "expires": "31 Mar 2027",
+                "product_url": "https://in.puma.com",
+                "source": "Puma",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Bewakoof
+            {
+                "coupon_code": "BEWAKOOF40",
+                "description": "40% Off on T-Shirts & Jeans",
+                "discount": "40%",
+                "min_order": "Rs. 799",
+                "expires": "25 Mar 2027",
+                "product_url": "https://www.bewakoof.com",
+                "source": "Bewakoof",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # FabAlley
+            {
+                "coupon_code": "FABALLEY30",
+                "description": "30% Off on Women's Clothing",
+                "discount": "30%",
+                "min_order": "Rs. 999",
+                "expires": "15 Apr 2027",
+                "product_url": "https://www.faballey.com",
+                "source": "FabAlley",
+                "category": "fashion",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Snapdeal
+            {
+                "coupon_code": "SNAPDEAL50",
+                "description": "Flat Rs. 50 Off on Rs. 500",
+                "discount": "Rs. 50",
+                "min_order": "Rs. 500",
+                "expires": "20 Apr 2027",
+                "product_url": "https://www.snapdeal.com",
+                "source": "Snapdeal",
+                "category": "shopping",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # BookMyShow
+            {
+                "coupon_code": "BOOKMYSHOW25",
+                "description": "25% Off on Movie Tickets",
+                "discount": "25%",
+                "min_order": "Rs. 300",
+                "expires": "31 Mar 2027",
+                "product_url": "https://in.bookmyshow.com",
+                "source": "BookMyShow",
+                "category": "entertainment",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Swiggy
+            {
+                "coupon_code": "SWIGGY100",
+                "description": "Flat Rs. 100 Off on Food Orders",
+                "discount": "Rs. 100",
+                "min_order": "Rs. 300",
+                "expires": "31 Mar 2027",
+                "product_url": "https://www.swiggy.com",
+                "source": "Swiggy",
+                "category": "food",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            {
+                "coupon_code": "SWIGGY50",
+                "description": "50% Off on First 3 Orders",
+                "discount": "50%",
+                "min_order": "Rs. 200",
+                "expires": "31 Dec 2027",
+                "product_url": "https://www.swiggy.com",
+                "source": "Swiggy",
+                "category": "food",
+                "timestamp": datetime.now().isoformat(),
+                "city": "all",
+            },
+            # Zomato
+            {
+                "coupon_code": "ZOMATO60",
+                "description": "60% Off on Orders Above Rs. 400",
+                "discount": "60%",
+                "min_order": "Rs. 400",
+                "expires": "25 Mar 2027",
+                "product_url": "https://www.zomato.com",
+                "source": "Zomato",
+                "category": "food",
                 "timestamp": datetime.now().isoformat(),
                 "city": "all",
             },
         ]
 
-        # Add coupons if source doesn't exist
+        # Add deals from major sites if not already present
         added = False
-        if "BookMyShow" not in existing_sources:
-            coupons.extend(bookmyshow_coupons)
-            added = True
-            logger.info(f"Added {len(bookmyshow_coupons)} BookMyShow coupons")
+        for deal in major_deals:
+            if deal["source"] not in existing_sources:
+                # Check if we already have this coupon code
+                coupon_codes = set(c.get("coupon_code", "") for c in coupons)
+                if deal["coupon_code"] not in coupon_codes:
+                    coupons.append(deal)
+                    added = True
 
-        if "Snapdeal" not in existing_sources:
-            coupons.extend(snapdeal_coupons)
-            added = True
-            logger.info(f"Added {len(snapdeal_coupons)} Snapdeal coupons")
+        if added:
+            logger.info(
+                f"Added {len(major_deals)} deals from major Indian e-commerce sites"
+            )
 
-        # Also update any expired BookMyShow or Snapdeal coupons
+        # Update any expired coupons
         from datetime import timedelta
 
         future_date = datetime.now() + timedelta(days=30)
         future_date_str = future_date.strftime("%d %b %Y")
 
+        expired_count = 0
         for coupon in coupons:
-            if coupon.get("source") in ["BookMyShow", "Snapdeal"]:
-                try:
-                    exp_date = datetime.strptime(coupon.get("expires", ""), "%d %b %Y")
-                    if exp_date.date() < datetime.now().date():
-                        coupon["expires"] = future_date_str
-                        logger.info(
-                            f"Updated expiry for {coupon.get('coupon_code')} to {future_date_str}"
-                        )
-                        added = True
-                except:
-                    pass
+            try:
+                exp_date = datetime.strptime(coupon.get("expires", ""), "%d %b %Y")
+                if exp_date.date() < datetime.now().date():
+                    coupon["expires"] = future_date_str
+                    expired_count += 1
+            except:
+                pass
+
+        if expired_count > 0:
+            logger.info(f"Updated {expired_count} expired coupons")
+            added = True
 
         if added:
             data["coupons"] = coupons
@@ -1570,12 +1893,13 @@ DASHBOARD_TEMPLATE = """
                 <a href="/?search=Amazon" class="popular-tag">Amazon</a>
                 <a href="/?search=Flipkart" class="popular-tag">Flipkart</a>
                 <a href="/?search=Myntra" class="popular-tag">Myntra</a>
-                <a href="/?search=Swiggy" class="popular-tag">Swiggy</a>
-                <a href="/?search=Zomato" class="popular-tag">Zomato</a>
                 <a href="/?search=Ajio" class="popular-tag">Ajio</a>
                 <a href="/?search=Nykaa" class="popular-tag">Nykaa</a>
-                <a href="/?search=Tata Cliq" class="popular-tag">Tata Cliq</a>
-                <a href="/?search=Pepperfry" class="popular-tag">Pepperfry</a>
+                <a href="/?search=Meesho" class="popular-tag">Meesho</a>
+                <a href="/?search=Snapdeal" class="popular-tag">Snapdeal</a>
+                <a href="/?search=Croma" class="popular-tag">Croma</a>
+                <a href="/?search=Nike" class="popular-tag">Nike</a>
+                <a href="/?search=Puma" class="popular-tag">Puma</a>
             </div>
         </div>
         
