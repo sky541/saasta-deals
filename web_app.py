@@ -4,10 +4,19 @@ Show live coupons from Indian e-commerce websites
 """
 
 import os
+import sys
 import json
 import logging
 import re
 import requests
+
+# Add parent directory to path for imports
+_deals_bot_dir = os.path.dirname(os.path.abspath(__file__))
+_parent_dir = os.path.dirname(_deals_bot_dir)
+if _parent_dir not in sys.path:
+    sys.path.insert(0, _parent_dir)
+if _deals_bot_dir not in sys.path:
+    sys.path.insert(0, _deals_bot_dir)
 from datetime import datetime, timedelta
 from typing import List, Dict, Any
 from bs4 import BeautifulSoup
@@ -16,10 +25,7 @@ from flask import Flask, render_template_string, jsonify, request, make_response
 from apscheduler.schedulers.background import BackgroundScheduler
 
 # Import Amazon Scraper
-try:
-    from amazon_scraper import AmazonScraper
-except ImportError:
-    from amazon_scraper import AmazonScraper
+from amazon_scraper import AmazonScraper
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
