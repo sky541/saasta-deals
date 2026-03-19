@@ -11,18 +11,14 @@ import sys
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
-# Add current directory and deals_bot subdirectory to path for imports
+# Add current directory to path for imports
 import os
 import sys
 
 _file_dir = os.path.dirname(os.path.abspath(__file__))
-_deals_bot_dir = os.path.join(_file_dir, 'deals_bot')
 
-# Always add both paths
 if _file_dir not in sys.path:
     sys.path.insert(0, _file_dir)
-if _deals_bot_dir not in sys.path:
-    sys.path.insert(0, _deals_bot_dir)
 
 from deals_bot import Deal, logger
 
