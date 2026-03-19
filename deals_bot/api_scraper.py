@@ -3,6 +3,8 @@ Keepa API Scraper for Amazon India Deals
 Keepa provides free API access for Amazon price tracking
 """
 
+# Import Deal class from __init__ in same directory using importlib
+import importlib.util
 import os
 import json
 import logging
@@ -11,13 +13,18 @@ import sys
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 
-# Add current directory to path for imports
 _file_dir = os.path.dirname(os.path.abspath(__file__))
-if _file_dir not in sys.path:
-    sys.path.insert(0, _file_dir)
+_init_path = os.path.join(_file_dir, '__init__.py')
 
-# Import Deal class from the same directory (deals_bot module)
-from deals_bot import Deal, logger
+# Load __init__.py as module
+spec = importlib.util.spec_from_file_location("init_module", _init_path)
+init_module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(init_module)
+Deal = init_module.Deal
+logger = init_module.logger
+
+# Also get DealsStorage if available
+DealsStorage = getattr(init_module, 'DealsStorage', None)
 
 # Keepa API Base URL
 KEEPA_API_URL = "https://api.keepa.com/"
@@ -354,6 +361,4 @@ class IndiaDealsAggregator:
         
         return results
 
-
-# Import storage from same directory
-from deals_bot import DealsStorage
+# DealsStorage already loaded at module start
