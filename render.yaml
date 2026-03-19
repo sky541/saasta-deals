@@ -3,7 +3,7 @@ services:
     name: grabcoupon
     env: python
     buildCommand: "pip install -r deals_bot/requirements.txt"
-    startCommand: "python web_app.py"
+    startCommand: "python deals_bot/web_app.py"
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.0"

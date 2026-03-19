@@ -9,9 +9,18 @@ import json
 import logging
 import random
 import time
+import sys
 from datetime import datetime
 from typing import List, Optional
 from urllib.parse import urljoin
+
+# Add parent directory to path for imports
+_file_dir = os.path.dirname(os.path.abspath(__file__))
+_parent_dir = os.path.dirname(_file_dir)
+if _parent_dir not in sys.path:
+    sys.path.insert(0, _parent_dir)
+if _file_dir not in sys.path:
+    sys.path.insert(0, _file_dir)
 
 import requests
 from bs4 import BeautifulSoup
