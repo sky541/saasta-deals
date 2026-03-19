@@ -20,7 +20,7 @@ _file_dir = os.path.dirname(os.path.abspath(__file__))
 if _file_dir not in sys.path:
     sys.path.insert(0, _file_dir)
 
-from deals_bot import Deal, logger
+from __init__ import Deal, logger
 
 # Keepa API Base URL
 KEEPA_API_URL = "https://api.keepa.com/"
@@ -362,4 +362,4 @@ class IndiaDealsAggregator:
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from deals_bot import DealsStorage
+from __init__ import DealsStorage

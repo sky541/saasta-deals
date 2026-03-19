@@ -26,7 +26,7 @@ if _file_dir not in sys.path:
 import requests
 from bs4 import BeautifulSoup
 
-from deals_bot import Deal, logger
+from __init__ import Deal, logger
 
 # Flipkart URLs
 FLIPKART_BASE_URL = "https://www.flipkart.com"
