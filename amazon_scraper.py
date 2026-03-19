@@ -14,13 +14,17 @@ from datetime import datetime
 from typing import List, Optional
 from urllib.parse import urljoin
 
-# Add parent directory to path for imports
+# Add current directory, parent, and deals_bot subdirectory to path for imports
 _file_dir = os.path.dirname(os.path.abspath(__file__))
 _parent_dir = os.path.dirname(_file_dir)
-if _parent_dir not in sys.path:
-    sys.path.insert(0, _parent_dir)
+_deals_bot_dir = os.path.join(_file_dir, 'deals_bot')
+
 if _file_dir not in sys.path:
     sys.path.insert(0, _file_dir)
+if _parent_dir not in sys.path:
+    sys.path.insert(0, _parent_dir)
+if _deals_bot_dir not in sys.path and os.path.exists(_deals_bot_dir):
+    sys.path.insert(0, _deals_bot_dir)
 
 import requests
 from bs4 import BeautifulSoup
