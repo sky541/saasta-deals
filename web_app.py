@@ -1372,11 +1372,43 @@ DASHBOARD_TEMPLATE = """
             cursor: pointer;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             min-width: 130px;
+            transition: all 0.3s ease;
+            color: #334155;
+            font-weight: 500;
+        }
+        
+        .filter-select:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
         }
         
         .filter-select:focus {
             outline: none;
             border-color: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+        }
+        
+        /* Discount filter styling */
+        .discount-filter {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 8px 16px;
+            border-radius: 25px;
+            border: 2px solid #f59e0b;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #92400e;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .discount-filter:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .discount-filter:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
         }
         
         .search-bar-row .search-btn {
@@ -2461,6 +2493,17 @@ DASHBOARD_TEMPLATE = """
             <!-- Combined Search and Filters -->
             <form class="combined-search-form" method="get">
                 <div class="search-bar-row">
+                    <select name="category" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option value="electronics" {% if request.args.get('category')=='electronics' %}selected{% endif %}>Electronics</option>
+                        <option value="mobiles" {% if request.args.get('category')=='mobiles' %}selected{% endif %}>Mobiles</option>
+                        <option value="fashion" {% if request.args.get('category')=='fashion' %}selected{% endif %}>Fashion</option>
+                        <option value="beauty" {% if request.args.get('category')=='beauty' %}selected{% endif %}>Beauty</option>
+                        <option value="home" {% if request.args.get('category')=='home' %}selected{% endif %}>Home & Furniture</option>
+                        <option value="food" {% if request.args.get('category')=='food' %}selected{% endif %}>Food & Dining</option>
+                        <option value="books" {% if request.args.get('category')=='books' %}selected{% endif %}>Books</option>
+                    </select>
+                    
                     <select name="source" class="filter-select">
                         <option value="">All Stores</option>
                         <option value="Amazon" {% if request.args.get('source')=='Amazon' %}selected{% endif %}>Amazon</option>
@@ -2493,6 +2536,15 @@ DASHBOARD_TEMPLATE = """
                         <option value="Mumbai" {% if request.args.get('city')=='Mumbai' %}selected{% endif %}>Mumbai</option>
                         <option value="Delhi" {% if request.args.get('city')=='Delhi' %}selected{% endif %}>Delhi</option>
                         <option value="Chennai" {% if request.args.get('city')=='Chennai' %}selected{% endif %}>Chennai</option>
+                    </select>
+                    
+                    <select name="discount" class="filter-select discount-filter">
+                        <option value="">💰 Any Discount</option>
+                        <option value="10" {% if request.args.get('discount')=='10' %}selected{% endif %}>10%+ Off</option>
+                        <option value="20" {% if request.args.get('discount')=='20' %}selected{% endif %}>20%+ Off</option>
+                        <option value="30" {% if request.args.get('discount')=='30' %}selected{% endif %}>30%+ Off</option>
+                        <option value="50" {% if request.args.get('discount')=='50' %}selected{% endif %}>50%+ Off</option>
+                        <option value="70" {% if request.args.get('discount')=='70' %}selected{% endif %}>70%+ Off</option>
                     </select>
                     
                     <button type="submit" class="search-btn">Search</button>
@@ -3498,6 +3550,7 @@ def index():
     city = request.args.get("city", "")
     search = request.args.get("search", "").lower()
     product_search = request.args.get("product_search", "").lower()
+    discount_filter = request.args.get("discount", "")
 
     filtered = all_coupons
     if source:
@@ -3526,6 +3579,45 @@ def index():
             or product_search in c.get("title", "").lower()
             or product_search in (c.get("code") or c.get("coupon_code") or "").lower()
         ]
+    
+    # Filter by discount percentage
+    if discount_filter:
+        try:
+            min_discount = int(discount_filter)
+            filtered = [
+                c for c in filtered
+                if c.get("discount", "").replace("%", "").replace("Rs.", "").strip()
+                and "-" not in c.get("discount", "")  # Skip range discounts
+            ]
+            # Re-filter with percentage check
+            temp_filtered = []
+            for c in filtered:
+                discount_str = c.get("discount", "")
+                if "%" in discount_str:
+                    try:
+                        discount_pct = int(discount_str.replace("%", "").strip())
+                        if discount_pct >= min_discount:
+                            temp_filtered.append(c)
+                    except:
+                        pass
+                elif "Rs." in discount_str:
+                    # For fixed discounts, assume it's at least the min percentage based on typical values
+                    try:
+                        rs_amount = int(discount_str.replace("Rs.", "").replace(",", "").strip())
+                        # Rough estimate: Rs. 500+ = 10%+, Rs. 1000+ = 20%+
+                        if min_discount <= 10 and rs_amount >= 500:
+                            temp_filtered.append(c)
+                        elif min_discount <= 20 and rs_amount >= 1000:
+                            temp_filtered.append(c)
+                        elif min_discount <= 30 and rs_amount >= 2000:
+                            temp_filtered.append(c)
+                        elif min_discount <= 50 and rs_amount >= 3000:
+                            temp_filtered.append(c)
+                    except:
+                        pass
+            filtered = temp_filtered
+        except:
+            pass
 
     # Pagination
     per_page = 12
@@ -3540,13 +3632,27 @@ def index():
     sources = set(c.get("source") for c in all_coupons)
     cities = set(c.get("city") for c in all_coupons if c.get("city") != "all")
 
+    # Get unique categories from data
+    unique_categories = sorted(set(c.get("category", "") for c in all_coupons if c.get("category")))
+    # Define display-friendly category names
+    category_display = {
+        "": "All Categories",
+        "electronics": "Electronics",
+        "mobiles": "Mobiles",
+        "fashion": "Fashion",
+        "beauty": "Beauty",
+        "home": "Home & Furniture",
+        "food": "Food & Dining",
+        "books": "Books",
+        "all": "All Stores"
+    }
     # Get category counts for tabs
-    categories = {}
+    category_counts = {}
     for c in all_coupons:
         cat = c.get("category", "all")
         if cat == "all":
             continue
-        categories[cat] = categories.get(cat, 0) + 1
+        category_counts[cat] = category_counts.get(cat, 0) + 1
 
     return render_template_string(
         DASHBOARD_TEMPLATE,
@@ -3554,10 +3660,12 @@ def index():
         total_coupons=total_coupons,
         sources=len(sources),
         cities=sorted([c for c in cities if c]),
+        unique_categories=unique_categories,
+        category_display=category_display,
         last_updated=(
             cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else "Never"
         ),
-        category_counts=categories,
+        category_counts=category_counts,
         current_page=page,
         total_pages=total_pages,
     )
