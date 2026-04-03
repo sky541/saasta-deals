@@ -1,0 +1,2624 @@
+{
+  "timestamp": "2026-04-03T14:45:13.741428",
+  "count": 66,
+  "coupons": [
+    {
+      "coupon_code": "DELCHA10",
+      "description": "10% Off at Karim's",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=karim's",
+      "source": "Karim's",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.547438",
+      "location": "Chandni Chowk",
+      "latitude": 28.6439,
+      "longitude": 77.239,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4642-2852",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELCHA15",
+      "description": "15% Off at Paranthe Wali Gali",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=paranthe-wali-gali&query_place=Delhi",
+      "source": "Paranthe Wali Gali",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.547438",
+      "location": "Chandni Chowk",
+      "latitude": 28.6439,
+      "longitude": 77.239,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4277-0145",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELCHA20",
+      "description": "20% Off at Jalebi House",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=jalebi-house&query_place=Delhi",
+      "source": "Jalebi House",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.547438",
+      "location": "Chandni Chowk",
+      "latitude": 28.6439,
+      "longitude": 77.239,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4480-5181",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELRAJ10",
+      "description": "10% Off at Sharma Ji Ka Dhaba",
+      "discount": "10%",
+      "min_order": "Rs. 200",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=sharma-ji-ka-dhaba",
+      "source": "Sharma Ji Ka Dhaba",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.547438",
+      "location": "Rajouri Garden",
+      "latitude": 28.6539,
+      "longitude": 77.279,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4798-2888",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELRAJ15",
+      "description": "15% Off at Tandoor Express",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=tandoor-express",
+      "source": "Tandoor Express",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.547438",
+      "location": "Rajouri Garden",
+      "latitude": 28.6539,
+      "longitude": 77.279,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4627-2137",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELRAJ20",
+      "description": "20% Off at Biryani Palace",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=biryani-palace",
+      "source": "Biryani Palace",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.547438",
+      "location": "Rajouri Garden",
+      "latitude": 28.6539,
+      "longitude": 77.279,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4537-7657",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELPUN10",
+      "description": "10% Off at Pind Balliye",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=pind-balliye",
+      "source": "Pind Balliye",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.547438",
+      "location": "Punjabi Bagh",
+      "latitude": 28.6339,
+      "longitude": 77.259,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4139-7263",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELPUN15",
+      "description": "15% Off at Lassi King",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=lassi-king",
+      "source": "Lassi King",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Punjabi Bagh",
+      "latitude": 28.6339,
+      "longitude": 77.259,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4376-7714",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELPUN20",
+      "description": "20% Off at Butter Chicken House",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=butter-chicken-house&query_place=Delhi",
+      "source": "Butter Chicken House",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Punjabi Bagh",
+      "latitude": 28.6339,
+      "longitude": 77.259,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4873-1504",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMBAN10",
+      "description": "10% Off at Mahesh Lunch Home",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=mahesh-lunch-home",
+      "source": "Mahesh Lunch Home",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Bandra",
+      "latitude": 19.136,
+      "longitude": 72.9177,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4840-6566",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMBAN15",
+      "description": "15% Off at Sakura",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=sakura&query_place=Mumbai",
+      "source": "Sakura",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Bandra",
+      "latitude": 19.136,
+      "longitude": 72.9177,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4879-3503",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMBAN20",
+      "description": "20% Off at Leopold Cafe",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=leopold-cafe",
+      "source": "Leopold Cafe",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Bandra",
+      "latitude": 19.136,
+      "longitude": 72.9177,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4390-7970",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMAND10",
+      "description": "10% Off at Highway Gomantak",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=highway-gomantak&query_place=Mumbai",
+      "source": "Highway Gomantak",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Andheri",
+      "latitude": 19.146,
+      "longitude": 72.9677,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4395-4948",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMAND15",
+      "description": "15% Off at Copper Chimney",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=copper-chimney",
+      "source": "Copper Chimney",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Andheri",
+      "latitude": 19.146,
+      "longitude": 72.9677,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4671-8139",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMAND20",
+      "description": "20% Off at The Yellow Chilli",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=the-yellow-chilli&query_place=Mumbai",
+      "source": "The Yellow Chilli",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Andheri",
+      "latitude": 19.146,
+      "longitude": 72.9677,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4696-4262",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMFOR10",
+      "description": "10% Off at Britannia",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=britannia",
+      "source": "Britannia",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Fort",
+      "latitude": 19.116,
+      "longitude": 72.8877,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4782-8899",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMFOR15",
+      "description": "15% Off at Badshah Snacks",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=badshah-snacks",
+      "source": "Badshah Snacks",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Fort",
+      "latitude": 19.116,
+      "longitude": 72.8877,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4221-8156",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMFOR20",
+      "description": "20% Off at Ideal Corner",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=ideal-corner&query_place=Mumbai",
+      "source": "Ideal Corner",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Fort",
+      "latitude": 19.116,
+      "longitude": 72.8877,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4738-4859",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANIND10",
+      "description": "10% Off at MTR",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=mtr&query_place=Bangalore",
+      "source": "MTR",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Indiranagar",
+      "latitude": 12.9816,
+      "longitude": 77.5946,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4964-2753",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANIND15",
+      "description": "15% Off at Koshy's",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=koshy's&query_place=Bangalore",
+      "source": "Koshy's",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Indiranagar",
+      "latitude": 12.9816,
+      "longitude": 77.5946,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4409-6172",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANIND20",
+      "description": "20% Off at Toblerone",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=toblerone",
+      "source": "Toblerone",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Indiranagar",
+      "latitude": 12.9816,
+      "longitude": 77.5946,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4901-1780",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANKOR10",
+      "description": "10% Off at The Biere Club",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=the-biere-club&query_place=Bangalore",
+      "source": "The Biere Club",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Koramangala",
+      "latitude": 12.9816,
+      "longitude": 77.6746,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4475-3618",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANKOR15",
+      "description": "15% Off at Chutney & Chips",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=chutney-&-chips",
+      "source": "Chutney & Chips",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Koramangala",
+      "latitude": 12.9816,
+      "longitude": 77.6746,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4619-1242",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANKOR20",
+      "description": "20% Off at Grasshoppers",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=grasshoppers&query_place=Bangalore",
+      "source": "Grasshoppers",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Koramangala",
+      "latitude": 12.9816,
+      "longitude": 77.6746,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4727-2778",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANWHI10",
+      "description": "10% Off at Absolute Barbecues",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=absolute-barbecues&query_place=Bangalore",
+      "source": "Absolute Barbecues",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Whitefield",
+      "latitude": 12.9716,
+      "longitude": 77.6846,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4950-4656",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANWHI15",
+      "description": "15% Off at Truffles",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=truffles",
+      "source": "Truffles",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Whitefield",
+      "latitude": 12.9716,
+      "longitude": 77.6846,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4880-0355",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANWHI20",
+      "description": "20% Off at The Tap Room",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=the-tap-room",
+      "source": "The Tap Room",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Whitefield",
+      "latitude": 12.9716,
+      "longitude": 77.6846,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4875-1692",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDBAN10",
+      "description": "10% Off at Shadab",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=shadab&query_place=Hyderabad",
+      "source": "Shadab",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Banjara Hills",
+      "latitude": 17.415,
+      "longitude": 78.5567,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4227-6220",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDBAN15",
+      "description": "15% Off at Cafe Coffee Day",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/hyderabad/restaurants?q=cafe-coffee-day",
+      "source": "Cafe Coffee Day",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Banjara Hills",
+      "latitude": 17.415,
+      "longitude": 78.5567,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4336-6690",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDBAN20",
+      "description": "20% Off at Niloufer Cafe",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/hyderabad/restaurants?q=niloufer-cafe",
+      "source": "Niloufer Cafe",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "Banjara Hills",
+      "latitude": 17.415,
+      "longitude": 78.5567,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4134-7907",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDHIT10",
+      "description": "10% Off at Biryani by Kilo",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=biryani-by-kilo&query_place=Hyderabad",
+      "source": "Biryani by Kilo",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "HITECH City",
+      "latitude": 17.395,
+      "longitude": 78.5667,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4327-8081",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDHIT15",
+      "description": "15% Off at Dosa Corner",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=dosa-corner&query_place=Hyderabad",
+      "source": "Dosa Corner",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "HITECH City",
+      "latitude": 17.395,
+      "longitude": 78.5667,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4521-8555",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDHIT20",
+      "description": "20% Off at Chutney's",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/hyderabad/restaurants?q=chutney's",
+      "source": "Chutney's",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T13:44:08.548822",
+      "location": "HITECH City",
+      "latitude": 17.395,
+      "longitude": 78.5667,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4906-6517",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELCHA10",
+      "description": "10% Off at Karim's",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=karim's",
+      "source": "Karim's",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Chandni Chowk",
+      "latitude": 28.6439,
+      "longitude": 77.239,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4151-9627",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELCHA15",
+      "description": "15% Off at Paranthe Wali Gali",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=paranthe-wali-gali&query_place=Delhi",
+      "source": "Paranthe Wali Gali",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Chandni Chowk",
+      "latitude": 28.6439,
+      "longitude": 77.239,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4730-0319",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELCHA20",
+      "description": "20% Off at Jalebi House",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=jalebi-house",
+      "source": "Jalebi House",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Chandni Chowk",
+      "latitude": 28.6439,
+      "longitude": 77.239,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4981-5252",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELRAJ10",
+      "description": "10% Off at Sharma Ji Ka Dhaba",
+      "discount": "10%",
+      "min_order": "Rs. 200",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=sharma-ji-ka-dhaba",
+      "source": "Sharma Ji Ka Dhaba",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Rajouri Garden",
+      "latitude": 28.6539,
+      "longitude": 77.279,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4434-5353",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELRAJ15",
+      "description": "15% Off at Tandoor Express",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=tandoor-express",
+      "source": "Tandoor Express",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Rajouri Garden",
+      "latitude": 28.6539,
+      "longitude": 77.279,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4579-5317",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELRAJ20",
+      "description": "20% Off at Biryani Palace",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=biryani-palace",
+      "source": "Biryani Palace",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Rajouri Garden",
+      "latitude": 28.6539,
+      "longitude": 77.279,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4758-7096",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELPUN10",
+      "description": "10% Off at Pind Balliye",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=pind-balliye&query_place=Delhi",
+      "source": "Pind Balliye",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Punjabi Bagh",
+      "latitude": 28.6339,
+      "longitude": 77.259,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4917-9371",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELPUN15",
+      "description": "15% Off at Lassi King",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=lassi-king&query_place=Delhi",
+      "source": "Lassi King",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Punjabi Bagh",
+      "latitude": 28.6339,
+      "longitude": 77.259,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4796-9460",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "DELPUN20",
+      "description": "20% Off at Butter Chicken House",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/delhi/restaurants?q=butter-chicken-house",
+      "source": "Butter Chicken House",
+      "category": "food",
+      "city": "Delhi",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Punjabi Bagh",
+      "latitude": 28.6339,
+      "longitude": 77.259,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-11-4886-7090",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMBAN10",
+      "description": "10% Off at Mahesh Lunch Home",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=mahesh-lunch-home&query_place=Mumbai",
+      "source": "Mahesh Lunch Home",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Bandra",
+      "latitude": 19.136,
+      "longitude": 72.9177,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4204-7794",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMBAN15",
+      "description": "15% Off at Sakura",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=sakura&query_place=Mumbai",
+      "source": "Sakura",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Bandra",
+      "latitude": 19.136,
+      "longitude": 72.9177,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4994-9652",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMBAN20",
+      "description": "20% Off at Leopold Cafe",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=leopold-cafe&query_place=Mumbai",
+      "source": "Leopold Cafe",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Bandra",
+      "latitude": 19.136,
+      "longitude": 72.9177,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4817-4942",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMAND10",
+      "description": "10% Off at Highway Gomantak",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=highway-gomantak",
+      "source": "Highway Gomantak",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Andheri",
+      "latitude": 19.146,
+      "longitude": 72.9677,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4806-1100",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMAND15",
+      "description": "15% Off at Copper Chimney",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=copper-chimney",
+      "source": "Copper Chimney",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Andheri",
+      "latitude": 19.146,
+      "longitude": 72.9677,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4189-1550",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMAND20",
+      "description": "20% Off at The Yellow Chilli",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=the-yellow-chilli&query_place=Mumbai",
+      "source": "The Yellow Chilli",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Andheri",
+      "latitude": 19.146,
+      "longitude": 72.9677,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4226-4944",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMFOR10",
+      "description": "10% Off at Britannia",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=britannia",
+      "source": "Britannia",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Fort",
+      "latitude": 19.116,
+      "longitude": 72.8877,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4165-1403",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMFOR15",
+      "description": "15% Off at Badshah Snacks",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=badshah-snacks",
+      "source": "Badshah Snacks",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Fort",
+      "latitude": 19.116,
+      "longitude": 72.8877,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4333-2377",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "MUMFOR20",
+      "description": "20% Off at Ideal Corner",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/mumbai/restaurants?q=ideal-corner",
+      "source": "Ideal Corner",
+      "category": "food",
+      "city": "Mumbai",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Fort",
+      "latitude": 19.116,
+      "longitude": 72.8877,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-22-4540-5445",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANIND10",
+      "description": "10% Off at MTR",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=mtr",
+      "source": "MTR",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Indiranagar",
+      "latitude": 12.9816,
+      "longitude": 77.5946,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4106-4030",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANIND15",
+      "description": "15% Off at Koshy's",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=koshy's&query_place=Bangalore",
+      "source": "Koshy's",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Indiranagar",
+      "latitude": 12.9816,
+      "longitude": 77.5946,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4305-5255",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANIND20",
+      "description": "20% Off at Toblerone",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=toblerone&query_place=Bangalore",
+      "source": "Toblerone",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Indiranagar",
+      "latitude": 12.9816,
+      "longitude": 77.5946,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4952-3519",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANKOR10",
+      "description": "10% Off at The Biere Club",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=the-biere-club",
+      "source": "The Biere Club",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Koramangala",
+      "latitude": 12.9816,
+      "longitude": 77.6746,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4184-8270",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANKOR15",
+      "description": "15% Off at Chutney & Chips",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=chutney-&-chips",
+      "source": "Chutney & Chips",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Koramangala",
+      "latitude": 12.9816,
+      "longitude": 77.6746,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4122-7600",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANKOR20",
+      "description": "20% Off at Grasshoppers",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=grasshoppers&query_place=Bangalore",
+      "source": "Grasshoppers",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Koramangala",
+      "latitude": 12.9816,
+      "longitude": 77.6746,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4420-7097",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANWHI10",
+      "description": "10% Off at Absolute Barbecues",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=absolute-barbecues",
+      "source": "Absolute Barbecues",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Whitefield",
+      "latitude": 12.9716,
+      "longitude": 77.6846,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4404-0606",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANWHI15",
+      "description": "15% Off at Truffles",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=truffles&query_place=Bangalore",
+      "source": "Truffles",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Whitefield",
+      "latitude": 12.9716,
+      "longitude": 77.6846,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4283-5802",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "BANWHI20",
+      "description": "20% Off at The Tap Room",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/bangalore/restaurants?q=the-tap-room",
+      "source": "The Tap Room",
+      "category": "food",
+      "city": "Bangalore",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Whitefield",
+      "latitude": 12.9716,
+      "longitude": 77.6846,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-80-4792-6121",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDBAN10",
+      "description": "10% Off at Shadab",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/hyderabad/restaurants?q=shadab",
+      "source": "Shadab",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Banjara Hills",
+      "latitude": 17.415,
+      "longitude": 78.5567,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4684-0414",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDBAN15",
+      "description": "15% Off at Cafe Coffee Day",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/hyderabad/restaurants?q=cafe-coffee-day",
+      "source": "Cafe Coffee Day",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Banjara Hills",
+      "latitude": 17.415,
+      "longitude": 78.5567,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4568-6262",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDBAN20",
+      "description": "20% Off at Niloufer Cafe",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=niloufer-cafe&query_place=Hyderabad",
+      "source": "Niloufer Cafe",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "Banjara Hills",
+      "latitude": 17.415,
+      "longitude": 78.5567,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4112-1497",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDHIT10",
+      "description": "10% Off at Biryani by Kilo",
+      "discount": "10%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=biryani-by-kilo&query_place=Hyderabad",
+      "source": "Biryani by Kilo",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "HITECH City",
+      "latitude": 17.395,
+      "longitude": 78.5667,
+      "rating": 3.5,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4305-4813",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDHIT15",
+      "description": "15% Off at Dosa Corner",
+      "discount": "15%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.swiggy.com/search?query=dosa-corner&query_place=Hyderabad",
+      "source": "Dosa Corner",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "HITECH City",
+      "latitude": 17.395,
+      "longitude": 78.5667,
+      "rating": 3.8,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4761-6605",
+      "highlights": [
+        "Multi-Cuisine"
+      ]
+    },
+    {
+      "coupon_code": "HYDHIT20",
+      "description": "20% Off at Chutney's",
+      "discount": "20%",
+      "min_order": "Rs. 600",
+      "expires": "2026-05-03",
+      "product_url": "https://www.zomato.com/hyderabad/restaurants?q=chutney's",
+      "source": "Chutney's",
+      "category": "food",
+      "city": "Hyderabad",
+      "timestamp": "2026-04-03T14:08:27.797296",
+      "location": "HITECH City",
+      "latitude": 17.395,
+      "longitude": 78.5667,
+      "rating": 4.0,
+      "cuisines": [
+        "Continental",
+        "Chinese",
+        "North Indian"
+      ],
+      "meal_periods": [
+        "Lunch",
+        "Dinner"
+      ],
+      "price_range": "₹₹₹",
+      "opening_hours": {
+        "monday_friday": "11:00-23:00",
+        "saturday_sunday": "11:00-24:00",
+        "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+      },
+      "image_url": "https://images.unsplash.com/photo-1517521914051-ce0eeaca3311?w=400&h=300&fit=crop",
+      "tags": [
+        "Popular",
+        "Multi-Cuisine"
+      ],
+      "phone": "+91-40-4724-2153",
+      "highlights": [
+        "Popular",
+        "Multi-Cuisine"
+      ]
+    }
+  ]
+}

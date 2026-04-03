@@ -1,0 +1,1729 @@
+{
+  "Delhi_Del_Chandni_Chowk_0": {
+    "id": "Del_Chandni_Chowk_0",
+    "name": "Karim's",
+    "location": "Chandni Chowk",
+    "city": "Delhi",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6439,
+    "longitude": 77.239,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4986-8847",
+    "timestamp": "2026-04-03T14:44:23.987429"
+  },
+  "Delhi_Del_Chandni_Chowk_1": {
+    "id": "Del_Chandni_Chowk_1",
+    "name": "Al Jawahar",
+    "location": "Chandni Chowk",
+    "city": "Delhi",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6439,
+    "longitude": 77.239,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4321-3426",
+    "timestamp": "2026-04-03T14:44:23.987429"
+  },
+  "Delhi_Del_Chandni_Chowk_2": {
+    "id": "Del_Chandni_Chowk_2",
+    "name": "Paranthe Wali Gali",
+    "location": "Chandni Chowk",
+    "city": "Delhi",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6439,
+    "longitude": 77.239,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4475-8125",
+    "timestamp": "2026-04-03T14:44:23.987429"
+  },
+  "Delhi_Del_Chandni_Chowk_3": {
+    "id": "Del_Chandni_Chowk_3",
+    "name": "Jalebi House",
+    "location": "Chandni Chowk",
+    "city": "Delhi",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6439,
+    "longitude": 77.239,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4437-4729",
+    "timestamp": "2026-04-03T14:44:23.987429"
+  },
+  "Delhi_Del_Chandni_Chowk_4": {
+    "id": "Del_Chandni_Chowk_4",
+    "name": "Gali Paranthe Wale",
+    "location": "Chandni Chowk",
+    "city": "Delhi",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6439,
+    "longitude": 77.239,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4558-2594",
+    "timestamp": "2026-04-03T14:44:23.987429"
+  },
+  "Delhi_Del_Rajouri_Garden_0": {
+    "id": "Del_Rajouri_Garden_0",
+    "name": "Sharma Ji Ka Dhaba",
+    "location": "Rajouri Garden",
+    "city": "Delhi",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6539,
+    "longitude": 77.279,
+    "price_range": "₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4880-1159",
+    "timestamp": "2026-04-03T14:44:24.489312"
+  },
+  "Delhi_Del_Rajouri_Garden_1": {
+    "id": "Del_Rajouri_Garden_1",
+    "name": "Desi Naan",
+    "location": "Rajouri Garden",
+    "city": "Delhi",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6539,
+    "longitude": 77.279,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4304-1069",
+    "timestamp": "2026-04-03T14:44:24.489312"
+  },
+  "Delhi_Del_Rajouri_Garden_2": {
+    "id": "Del_Rajouri_Garden_2",
+    "name": "Tandoor Express",
+    "location": "Rajouri Garden",
+    "city": "Delhi",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6539,
+    "longitude": 77.279,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4199-6596",
+    "timestamp": "2026-04-03T14:44:24.489312"
+  },
+  "Delhi_Del_Rajouri_Garden_3": {
+    "id": "Del_Rajouri_Garden_3",
+    "name": "Biryani Palace",
+    "location": "Rajouri Garden",
+    "city": "Delhi",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6539,
+    "longitude": 77.279,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4715-5618",
+    "timestamp": "2026-04-03T14:44:24.489312"
+  },
+  "Delhi_Del_Rajouri_Garden_4": {
+    "id": "Del_Rajouri_Garden_4",
+    "name": "Mughlai Corner",
+    "location": "Rajouri Garden",
+    "city": "Delhi",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6539,
+    "longitude": 77.279,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4324-3099",
+    "timestamp": "2026-04-03T14:44:24.489312"
+  },
+  "Delhi_Del_Punjabi_Bagh_0": {
+    "id": "Del_Punjabi_Bagh_0",
+    "name": "Pind Balliye",
+    "location": "Punjabi Bagh",
+    "city": "Delhi",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6339,
+    "longitude": 77.259,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4187-9463",
+    "timestamp": "2026-04-03T14:44:24.991739"
+  },
+  "Delhi_Del_Punjabi_Bagh_1": {
+    "id": "Del_Punjabi_Bagh_1",
+    "name": "Dhabha Culture",
+    "location": "Punjabi Bagh",
+    "city": "Delhi",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6339,
+    "longitude": 77.259,
+    "price_range": "₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4218-3927",
+    "timestamp": "2026-04-03T14:44:24.991739"
+  },
+  "Delhi_Del_Punjabi_Bagh_2": {
+    "id": "Del_Punjabi_Bagh_2",
+    "name": "Lassi King",
+    "location": "Punjabi Bagh",
+    "city": "Delhi",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6339,
+    "longitude": 77.259,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4387-1598",
+    "timestamp": "2026-04-03T14:44:24.991739"
+  },
+  "Delhi_Del_Punjabi_Bagh_3": {
+    "id": "Del_Punjabi_Bagh_3",
+    "name": "Butter Chicken House",
+    "location": "Punjabi Bagh",
+    "city": "Delhi",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6339,
+    "longitude": 77.259,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4423-9639",
+    "timestamp": "2026-04-03T14:44:24.991739"
+  },
+  "Delhi_Del_Punjabi_Bagh_4": {
+    "id": "Del_Punjabi_Bagh_4",
+    "name": "Tandoori Nights",
+    "location": "Punjabi Bagh",
+    "city": "Delhi",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 28.6339,
+    "longitude": 77.259,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-11-4961-7844",
+    "timestamp": "2026-04-03T14:44:24.991739"
+  },
+  "Mumbai_Mum_Bandra_0": {
+    "id": "Mum_Bandra_0",
+    "name": "Mahesh Lunch Home",
+    "location": "Bandra",
+    "city": "Mumbai",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.136,
+    "longitude": 72.9177,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4814-2098",
+    "timestamp": "2026-04-03T14:44:29.011763"
+  },
+  "Mumbai_Mum_Bandra_1": {
+    "id": "Mum_Bandra_1",
+    "name": "Trishna",
+    "location": "Bandra",
+    "city": "Mumbai",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.136,
+    "longitude": 72.9177,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4275-3124",
+    "timestamp": "2026-04-03T14:44:29.011763"
+  },
+  "Mumbai_Mum_Bandra_2": {
+    "id": "Mum_Bandra_2",
+    "name": "Sakura",
+    "location": "Bandra",
+    "city": "Mumbai",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.136,
+    "longitude": 72.9177,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4841-8528",
+    "timestamp": "2026-04-03T14:44:29.011763"
+  },
+  "Mumbai_Mum_Bandra_3": {
+    "id": "Mum_Bandra_3",
+    "name": "Leopold Cafe",
+    "location": "Bandra",
+    "city": "Mumbai",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.136,
+    "longitude": 72.9177,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4260-2497",
+    "timestamp": "2026-04-03T14:44:29.011763"
+  },
+  "Mumbai_Mum_Bandra_4": {
+    "id": "Mum_Bandra_4",
+    "name": "Medge",
+    "location": "Bandra",
+    "city": "Mumbai",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.136,
+    "longitude": 72.9177,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4171-6321",
+    "timestamp": "2026-04-03T14:44:29.011763"
+  },
+  "Mumbai_Mum_Andheri_0": {
+    "id": "Mum_Andheri_0",
+    "name": "Highway Gomantak",
+    "location": "Andheri",
+    "city": "Mumbai",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.146,
+    "longitude": 72.9677,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4998-3490",
+    "timestamp": "2026-04-03T14:44:29.513531"
+  },
+  "Mumbai_Mum_Andheri_1": {
+    "id": "Mum_Andheri_1",
+    "name": "Sheetal Samrat",
+    "location": "Andheri",
+    "city": "Mumbai",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.146,
+    "longitude": 72.9677,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4111-0463",
+    "timestamp": "2026-04-03T14:44:29.513531"
+  },
+  "Mumbai_Mum_Andheri_2": {
+    "id": "Mum_Andheri_2",
+    "name": "Copper Chimney",
+    "location": "Andheri",
+    "city": "Mumbai",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.146,
+    "longitude": 72.9677,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4565-9173",
+    "timestamp": "2026-04-03T14:44:29.513531"
+  },
+  "Mumbai_Mum_Andheri_3": {
+    "id": "Mum_Andheri_3",
+    "name": "The Yellow Chilli",
+    "location": "Andheri",
+    "city": "Mumbai",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.146,
+    "longitude": 72.9677,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4998-6487",
+    "timestamp": "2026-04-03T14:44:29.513531"
+  },
+  "Mumbai_Mum_Andheri_4": {
+    "id": "Mum_Andheri_4",
+    "name": "Olive Garden",
+    "location": "Andheri",
+    "city": "Mumbai",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.146,
+    "longitude": 72.9677,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4438-0661",
+    "timestamp": "2026-04-03T14:44:29.513531"
+  },
+  "Mumbai_Mum_Fort_0": {
+    "id": "Mum_Fort_0",
+    "name": "Britannia",
+    "location": "Fort",
+    "city": "Mumbai",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.116,
+    "longitude": 72.8877,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4806-2318",
+    "timestamp": "2026-04-03T14:44:30.015696"
+  },
+  "Mumbai_Mum_Fort_1": {
+    "id": "Mum_Fort_1",
+    "name": "Gajalee",
+    "location": "Fort",
+    "city": "Mumbai",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.116,
+    "longitude": 72.8877,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4970-0427",
+    "timestamp": "2026-04-03T14:44:30.015696"
+  },
+  "Mumbai_Mum_Fort_2": {
+    "id": "Mum_Fort_2",
+    "name": "Badshah Snacks",
+    "location": "Fort",
+    "city": "Mumbai",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.116,
+    "longitude": 72.8877,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4816-9908",
+    "timestamp": "2026-04-03T14:44:30.015696"
+  },
+  "Mumbai_Mum_Fort_3": {
+    "id": "Mum_Fort_3",
+    "name": "Ideal Corner",
+    "location": "Fort",
+    "city": "Mumbai",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.116,
+    "longitude": 72.8877,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4790-2140",
+    "timestamp": "2026-04-03T14:44:30.015696"
+  },
+  "Mumbai_Mum_Fort_4": {
+    "id": "Mum_Fort_4",
+    "name": "Café Coffee Day",
+    "location": "Fort",
+    "city": "Mumbai",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 19.116,
+    "longitude": 72.8877,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-22-4298-6417",
+    "timestamp": "2026-04-03T14:44:30.015696"
+  },
+  "Bangalore_Ban_Indiranagar_0": {
+    "id": "Ban_Indiranagar_0",
+    "name": "MTR",
+    "location": "Indiranagar",
+    "city": "Bangalore",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.5946,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4457-3690",
+    "timestamp": "2026-04-03T14:44:34.037678"
+  },
+  "Bangalore_Ban_Indiranagar_1": {
+    "id": "Ban_Indiranagar_1",
+    "name": "Vidyarthi Bhavan",
+    "location": "Indiranagar",
+    "city": "Bangalore",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.5946,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4138-0129",
+    "timestamp": "2026-04-03T14:44:34.037678"
+  },
+  "Bangalore_Ban_Indiranagar_2": {
+    "id": "Ban_Indiranagar_2",
+    "name": "Koshy's",
+    "location": "Indiranagar",
+    "city": "Bangalore",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.5946,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4386-9023",
+    "timestamp": "2026-04-03T14:44:34.037678"
+  },
+  "Bangalore_Ban_Indiranagar_3": {
+    "id": "Ban_Indiranagar_3",
+    "name": "Toblerone",
+    "location": "Indiranagar",
+    "city": "Bangalore",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.5946,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4911-8176",
+    "timestamp": "2026-04-03T14:44:34.037678"
+  },
+  "Bangalore_Ban_Indiranagar_4": {
+    "id": "Ban_Indiranagar_4",
+    "name": "Sri Sairam Paradise",
+    "location": "Indiranagar",
+    "city": "Bangalore",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.5946,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4651-3099",
+    "timestamp": "2026-04-03T14:44:34.037678"
+  },
+  "Bangalore_Ban_Koramangala_0": {
+    "id": "Ban_Koramangala_0",
+    "name": "The Biere Club",
+    "location": "Koramangala",
+    "city": "Bangalore",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.6746,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4491-6596",
+    "timestamp": "2026-04-03T14:44:34.540115"
+  },
+  "Bangalore_Ban_Koramangala_1": {
+    "id": "Ban_Koramangala_1",
+    "name": "Arbor Brewing Co",
+    "location": "Koramangala",
+    "city": "Bangalore",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.6746,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4379-7358",
+    "timestamp": "2026-04-03T14:44:34.540115"
+  },
+  "Bangalore_Ban_Koramangala_2": {
+    "id": "Ban_Koramangala_2",
+    "name": "Chutney & Chips",
+    "location": "Koramangala",
+    "city": "Bangalore",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.6746,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4500-3469",
+    "timestamp": "2026-04-03T14:44:34.540115"
+  },
+  "Bangalore_Ban_Koramangala_3": {
+    "id": "Ban_Koramangala_3",
+    "name": "Grasshoppers",
+    "location": "Koramangala",
+    "city": "Bangalore",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.6746,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4924-2627",
+    "timestamp": "2026-04-03T14:44:34.542855"
+  },
+  "Bangalore_Ban_Koramangala_4": {
+    "id": "Ban_Koramangala_4",
+    "name": "Social",
+    "location": "Koramangala",
+    "city": "Bangalore",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9816,
+    "longitude": 77.6746,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4468-2780",
+    "timestamp": "2026-04-03T14:44:34.542855"
+  },
+  "Bangalore_Ban_Whitefield_0": {
+    "id": "Ban_Whitefield_0",
+    "name": "Absolute Barbecues",
+    "location": "Whitefield",
+    "city": "Bangalore",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9716,
+    "longitude": 77.6846,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4381-3953",
+    "timestamp": "2026-04-03T14:44:35.044697"
+  },
+  "Bangalore_Ban_Whitefield_1": {
+    "id": "Ban_Whitefield_1",
+    "name": "Kamat",
+    "location": "Whitefield",
+    "city": "Bangalore",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9716,
+    "longitude": 77.6846,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4733-0548",
+    "timestamp": "2026-04-03T14:44:35.044697"
+  },
+  "Bangalore_Ban_Whitefield_2": {
+    "id": "Ban_Whitefield_2",
+    "name": "Truffles",
+    "location": "Whitefield",
+    "city": "Bangalore",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9716,
+    "longitude": 77.6846,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4463-3497",
+    "timestamp": "2026-04-03T14:44:35.044697"
+  },
+  "Bangalore_Ban_Whitefield_3": {
+    "id": "Ban_Whitefield_3",
+    "name": "The Tap Room",
+    "location": "Whitefield",
+    "city": "Bangalore",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9716,
+    "longitude": 77.6846,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4556-4148",
+    "timestamp": "2026-04-03T14:44:35.044697"
+  },
+  "Bangalore_Ban_Whitefield_4": {
+    "id": "Ban_Whitefield_4",
+    "name": "Ohri's",
+    "location": "Whitefield",
+    "city": "Bangalore",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 12.9716,
+    "longitude": 77.6846,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-80-4495-2987",
+    "timestamp": "2026-04-03T14:44:35.044697"
+  },
+  "Hyderabad_Hyd_Banjara_Hills_0": {
+    "id": "Hyd_Banjara_Hills_0",
+    "name": "Shadab",
+    "location": "Banjara Hills",
+    "city": "Hyderabad",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.415,
+    "longitude": 78.5567,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4106-3177",
+    "timestamp": "2026-04-03T14:44:44.083178"
+  },
+  "Hyderabad_Hyd_Banjara_Hills_1": {
+    "id": "Hyd_Banjara_Hills_1",
+    "name": "Hotel Shaan",
+    "location": "Banjara Hills",
+    "city": "Hyderabad",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.415,
+    "longitude": 78.5567,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4648-5594",
+    "timestamp": "2026-04-03T14:44:44.083178"
+  },
+  "Hyderabad_Hyd_Banjara_Hills_2": {
+    "id": "Hyd_Banjara_Hills_2",
+    "name": "Cafe Coffee Day",
+    "location": "Banjara Hills",
+    "city": "Hyderabad",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.415,
+    "longitude": 78.5567,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4970-5157",
+    "timestamp": "2026-04-03T14:44:44.083178"
+  },
+  "Hyderabad_Hyd_Banjara_Hills_3": {
+    "id": "Hyd_Banjara_Hills_3",
+    "name": "Niloufer Cafe",
+    "location": "Banjara Hills",
+    "city": "Hyderabad",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.415,
+    "longitude": 78.5567,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4710-5979",
+    "timestamp": "2026-04-03T14:44:44.083178"
+  },
+  "Hyderabad_Hyd_Banjara_Hills_4": {
+    "id": "Hyd_Banjara_Hills_4",
+    "name": "Karachi Bakery",
+    "location": "Banjara Hills",
+    "city": "Hyderabad",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.415,
+    "longitude": 78.5567,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4614-9350",
+    "timestamp": "2026-04-03T14:44:44.083178"
+  },
+  "Hyderabad_Hyd_HITECH_City_0": {
+    "id": "Hyd_HITECH_City_0",
+    "name": "Biryani by Kilo",
+    "location": "HITECH City",
+    "city": "Hyderabad",
+    "rating": 3.5,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.395,
+    "longitude": 78.5667,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4531-7413",
+    "timestamp": "2026-04-03T14:44:45.090146"
+  },
+  "Hyderabad_Hyd_HITECH_City_1": {
+    "id": "Hyd_HITECH_City_1",
+    "name": "Paradise Biryani",
+    "location": "HITECH City",
+    "city": "Hyderabad",
+    "rating": 3.6,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.395,
+    "longitude": 78.5667,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4926-7882",
+    "timestamp": "2026-04-03T14:44:45.090146"
+  },
+  "Hyderabad_Hyd_HITECH_City_2": {
+    "id": "Hyd_HITECH_City_2",
+    "name": "Dosa Corner",
+    "location": "HITECH City",
+    "city": "Hyderabad",
+    "rating": 3.8,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.395,
+    "longitude": 78.5667,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4290-6403",
+    "timestamp": "2026-04-03T14:44:45.090146"
+  },
+  "Hyderabad_Hyd_HITECH_City_3": {
+    "id": "Hyd_HITECH_City_3",
+    "name": "Chutney's",
+    "location": "HITECH City",
+    "city": "Hyderabad",
+    "rating": 4.0,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.395,
+    "longitude": 78.5667,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4430-5538",
+    "timestamp": "2026-04-03T14:44:45.090146"
+  },
+  "Hyderabad_Hyd_HITECH_City_4": {
+    "id": "Hyd_HITECH_City_4",
+    "name": "Spice Court",
+    "location": "HITECH City",
+    "city": "Hyderabad",
+    "rating": 4.1,
+    "url": null,
+    "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop",
+    "cuisines": [
+      "North Indian",
+      "Continental",
+      "Chinese"
+    ],
+    "opening_hours": {
+      "monday_friday": "11:00-23:00",
+      "saturday_sunday": "11:00-24:00",
+      "notes": "Lunch 11:30-15:30, Dinner 19:00-23:00"
+    },
+    "latitude": 17.395,
+    "longitude": 78.5667,
+    "price_range": "₹₹₹",
+    "meal_periods": [
+      "Lunch",
+      "Dinner"
+    ],
+    "highlights": [
+      "Popular",
+      "Multi-Cuisine"
+    ],
+    "phone": "+91-40-4193-9474",
+    "timestamp": "2026-04-03T14:44:45.090146"
+  }
+}

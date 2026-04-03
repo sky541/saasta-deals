@@ -28,6 +28,59 @@ cache_updated = None
 REFRESH_INTERVAL_HOURS = 1  # Refresh every hour for fresh deals
 
 
+# ============================================================================
+# GEOLOCATION HELPER FUNCTIONS
+# ============================================================================
+
+def calculate_distance(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
+    """
+    Calculate distance between two GPS coordinates using Haversine formula
+    Returns distance in kilometers
+    """
+    import math
+    
+    # Earth's radius in kilometers
+    R = 6371
+    
+    # Convert to radians
+    lat1_rad = math.radians(lat1)
+    lat2_rad = math.radians(lat2)
+    delta_lat = math.radians(lat2 - lat1)
+    delta_lng = math.radians(lng2 - lng1)
+    
+    # Haversine formula
+    a = math.sin(delta_lat/2)**2 + math.cos(lat1_rad) * math.cos(lat2_rad) * math.sin(delta_lng/2)**2
+    c = 2 * math.asin(math.sqrt(a))
+    distance = R * c
+    
+    return round(distance, 1)  # Return in km rounded to 1 decimal
+
+
+def filter_by_distance(restaurants: List[Dict[str, Any]], user_lat: float, user_lng: float, max_distance_km: float = 5.0) -> List[Dict[str, Any]]:
+    """
+    Filter restaurants by distance from user location
+    Calculates distance and adds it to each restaurant object
+    """
+    nearby = []
+    
+    for restaurant in restaurants:
+        rest_lat = restaurant.get('latitude', 0)
+        rest_lng = restaurant.get('longitude', 0)
+        
+        if rest_lat and rest_lng:
+            distance = calculate_distance(user_lat, user_lng, rest_lat, rest_lng)
+            
+            # Only include if within max distance
+            if distance <= max_distance_km:
+                restaurant['distance_km'] = distance
+                nearby.append(restaurant)
+    
+    # Sort by distance (closest first)
+    nearby.sort(key=lambda x: x.get('distance_km', 999))
+    
+    return nearby
+
+
 def add_default_coupons():
     """Automatically add deals from major Indian e-commerce websites"""
     try:
@@ -534,6 +587,872 @@ scheduler.add_job(
 )
 
 # Don't call refresh_coupons() here - load_coupons not defined yet
+
+
+LOCAL_RESTAURANTS_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Food Deals - GrabCoupon</title>
+    <meta name="description" content="Best restaurant deals and food coupons in your city. Discounts on dining out!">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: #f5f7fa; }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            background: linear-gradient(135deg, #ff9f00 0%, #ffa500 100%);
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .header-top h1 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .header-top p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+
+        .header-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #2d3436;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .logo i { color: #ff9f00; }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #636e72;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: #ff9f00; }
+
+        /* Filters Section */
+        .filters-section {
+            background: white;
+            border-bottom: 1px solid #e1e1e1;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .filters-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #2d3436;
+            font-size: 0.9rem;
+        }
+
+        .filter-group select {
+            padding: 10px 12px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            width: 100%;
+        }
+
+        .filter-group select:focus, .filter-group select:hover {
+            outline: none;
+            border-color: #ff9f00;
+        }
+
+        /* Cuisine Filter Checkboxes */
+        .cuisine-filter-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .cuisine-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #636e72;
+            transition: color 0.2s;
+        }
+
+        .cuisine-checkbox input[type="checkbox"] {
+            cursor: pointer;
+            accent-color: #ff9f00;
+            width: 16px;
+            height: 16px;
+        }
+
+        .cuisine-checkbox:hover {
+            color: #ff9f00;
+        }
+
+        .cuisine-checkbox input[type="checkbox"]:checked + span {
+            color: #ff9f00;
+            font-weight: 600;
+        }
+
+        /* Near Me Button */
+        .btn-near-me {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #ff9f00;
+            border: 2px solid #ff9f00;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-near-me:hover {
+            background: #ff9f00;
+            color: white;
+        }
+
+        .btn-near-me.active {
+            background: #ff9f00;
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            color: #2d3436;
+            font-size: 1.5rem;
+        }
+
+        .deals-count {
+            background: #ff9f00;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Restaurant Grid */
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Restaurant Card */
+        .restaurant-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 159, 0, 0.15);
+            border-color: #ff9f00;
+        }
+
+        /* Restaurant Image */
+        .restaurant-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .restaurant-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .restaurant-card:hover .restaurant-image {
+            transform: scale(1.05);
+        }
+
+        /* Rating Badge */
+        .rating-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #00b894;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .rating-badge i { font-size: 0.85rem; }
+
+        /* Discount Badge */
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        /* Restaurant Body */
+        .restaurant-body {
+            padding: 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .restaurant-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            height: 30px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+
+        .restaurant-location {
+            font-size: 0.85rem;
+            color: #636e72;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .distance-badge {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: auto;
+        }
+
+        /* Cuisines */
+        .cuisines-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .cuisine-badge {
+            background: #f1f2f6;
+            color: #636e72;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Opening Hours */
+        .opening-hours {
+            font-size: 0.85rem;
+            color: #636e72;
+            margin-bottom: 12px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 3px solid #ff9f00;
+        }
+
+        .opening-hours i { color: #ff9f00; margin-right: 5px; }
+
+        /* Price Range */
+        .price-range {
+            font-size: 0.9rem;
+            color: #2d3436;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        /* Action Buttons */
+        .card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn-coupon {
+            flex: 1;
+            padding: 10px;
+            background: #ff9f00;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-coupon:hover {
+            background: #ff8c00;
+        }
+
+        .btn-call {
+            padding: 10px 16px;
+            background: white;
+            color: #ff9f00;
+            border: 2px solid #ff9f00;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-call:hover {
+            background: #ff9f00;
+            color: white;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #636e72;
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #dfe6e9;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pagination a, .pagination span {
+            padding: 10px 16px;
+            background: white;
+            color: #636e72;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .pagination a:hover {
+            background: #ff9f00;
+            color: white;
+        }
+
+        .pagination .current {
+            background: #ff9f00;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2d3436;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer p { opacity: 0.8; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-nav { flex-direction: column; }
+            .filters-container { grid-template-columns: 1fr; }
+            .restaurant-grid { grid-template-columns: 1fr; }
+            .section-header { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <h1>🍽️ Local Restaurant Deals</h1>
+            <p>Best food discounts and restaurant coupons in your city</p>
+        </div>
+        <div class="header-nav">
+            <a href="/" class="logo">
+                <i class="fas fa-utensils"></i> GrabCoupon
+            </a>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/deals">Deals</a>
+                <a href="/local" style="color: #ff9f00; font-weight: 700;">Restaurants</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Filters -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <!-- City Filter -->
+            <div class="filter-group">
+                <label for="city-filter">City</label>
+                <form method="get" style="display: inline; width: 100%;">
+                    <select id="city-filter" name="city" onchange="this.form.submit()">
+                        <option value="">All Cities</option>
+                        {% for c in cities %}
+                        <option value="{{ c }}" {% if selected_city == c %}selected{% endif %}>{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+
+            <!-- Location/Area Filter -->
+            {% if locations %}
+            <div class="filter-group">
+                <label for="location-filter">Area</label>
+                <form method="get" style="display: inline; width: 100%;">
+                    <input type="hidden" name="city" value="{{ selected_city }}">
+                    <select id="location-filter" name="location" onchange="this.form.submit()">
+                        <option value="">All Areas</option>
+                        {% for loc in locations %}
+                        <option value="{{ loc }}" {% if selected_location == loc %}selected{% endif %}>{{ loc }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            {% endif %}
+
+            <!-- Cuisines Multi-Select -->
+            {% if all_cuisines %}
+            <div class="filter-group">
+                <label>Cuisines</label>
+                <div class="cuisine-filter-list">
+                    {% for cuisine in all_cuisines[:6] %}
+                    <label class="cuisine-checkbox">
+                        <input type="checkbox" name="cuisine" value="{{ cuisine }}" {% if cuisine in selected_cuisines %}checked{% endif %} onchange="applyFilters()">
+                        <span>{{ cuisine }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Meal Period Filter -->
+            {% if all_meal_periods %}
+            <div class="filter-group">
+                <label>Meal Period</label>
+                <form method="get" style="display: inline; width: 100%;">
+                    <input type="hidden" name="city" value="{{ selected_city }}">
+                    <input type="hidden" name="location" value="{{ selected_location }}">
+                    {% for cuisine in selected_cuisines %}
+                    <input type="hidden" name="cuisine" value="{{ cuisine }}">
+                    {% endfor %}
+                    <select name="meal_period" onchange="this.form.submit()">
+                        <option value="">All Meals</option>
+                        {% for meal in all_meal_periods %}
+                        <option value="{{ meal }}" {% if selected_meal == meal %}selected{% endif %}>{{ meal }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+            {% endif %}
+
+            <!-- Rating Filter -->
+            <div class="filter-group">
+                <label>Min Rating</label>
+                <form method="get" style="display: inline; width: 100%;">
+                    <input type="hidden" name="city" value="{{ selected_city }}">
+                    <input type="hidden" name="location" value="{{ selected_location }}">
+                    <input type="hidden" name="meal_period" value="{{ selected_meal }}">
+                    {% for cuisine in selected_cuisines %}
+                    <input type="hidden" name="cuisine" value="{{ cuisine }}">
+                    {% endfor %}
+                    <select name="min_rating" onchange="this.form.submit()">
+                        <option value="3.5" {% if min_rating == 3.5 %}selected{% endif %}>3.5+</option>
+                        <option value="3.8" {% if min_rating == 3.8 %}selected{% endif %}>3.8+</option>
+                        <option value="4.0" {% if min_rating == 4.0 %}selected{% endif %}>4.0+</option>
+                        <option value="4.2" {% if min_rating == 4.2 %}selected{% endif %}>4.2+</option>
+                        <option value="4.5" {% if min_rating == 4.5 %}selected{% endif %}>4.5+</option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- Price Range Filter -->
+            <div class="filter-group">
+                <label>Price Range</label>
+                <form method="get" style="display: inline; width: 100%;">
+                    <input type="hidden" name="city" value="{{ selected_city }}">
+                    <input type="hidden" name="location" value="{{ selected_location }}">
+                    <input type="hidden" name="meal_period" value="{{ selected_meal }}">
+                    <input type="hidden" name="min_rating" value="{{ min_rating }}">
+                    {% for cuisine in selected_cuisines %}
+                    <input type="hidden" name="cuisine" value="{{ cuisine }}">
+                    {% endfor %}
+                    <select name="price_range" onchange="this.form.submit()">
+                        <option value="">All Prices</option>
+                        <option value="1" {% if selected_price_range == "1" %}selected{% endif %}>Budget (₹)</option>
+                        <option value="2" {% if selected_price_range == "2" %}selected{% endif %}>Moderate (₹-₹₹)</option>
+                        <option value="3" {% if selected_price_range == "3" %}selected{% endif %}>Premium (₹-₹₹₹)</option>
+                        <option value="4" {% if selected_price_range == "4" %}selected{% endif %}>Luxury (All)</option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- Near Me Button -->
+            <div class="filter-group" style="align-items: flex-end;">
+                {% if near_me %}
+                <button class="btn-near-me active" onclick="clearNearMe()">
+                    <i class="fas fa-location-dot"></i> Near Me (5km) ×
+                </button>
+                {% else %}
+                <button class="btn-near-me" onclick="getNearbyLocation()">
+                    <i class="fas fa-location-dot"></i> Find Near Me
+                </button>
+                {% endif %}
+            </div>
+
+            <div class="filter-group" style="justify-content: flex-end;">
+                <label style="font-size: 0.8rem; color: #999;">Updated: {{ last_updated }}</label>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="section-header">
+            <h2>🎉 Available Restaurants</h2>
+            <span class="deals-count">{{ total_coupons }} restaurants</span>
+        </div>
+
+        {% if coupons %}
+        <div class="restaurant-grid">
+            {% for coupon in coupons %}
+            <div class="restaurant-card">
+                <!-- Image Section -->
+                <div class="restaurant-image-wrapper">
+                    {% if coupon.image_url and coupon.image_url != '' %}
+                    <img src="{{ coupon.image_url }}" alt="{{ coupon.source }}" class="restaurant-image" onerror="this.style.display='none'">
+                    {% endif %}
+                    
+                    <!-- Discount Badge -->
+                    <div class="discount-badge">{{ coupon.discount }}</div>
+                    
+                    <!-- Rating Badge -->
+                    {% if coupon.rating %}
+                    <div class="rating-badge">
+                        <i class="fas fa-star"></i>
+                        {{ coupon.rating }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Card Body -->
+                <div class="restaurant-body">
+                    <!-- Restaurant Name -->
+                    <h3 class="restaurant-name">{{ coupon.source }}</h3>
+
+                    <!-- Location -->
+                    {% if coupon.location %}
+                    <div class="restaurant-location">
+                        <i class="fas fa-map-marker-alt" style="color: #ff9f00;"></i>
+                        {{ coupon.location }}
+                        {% if coupon.distance_km %}
+                        <span class="distance-badge">{{ coupon.distance_km }} km</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Cuisines -->
+                    {% if coupon.cuisines %}
+                    <div class="cuisines-list">
+                        {% for cuisine in coupon.cuisines[:3] %}
+                        <span class="cuisine-badge">{{ cuisine }}</span>
+                        {% endfor %}
+                        {% if coupon.cuisines|length > 3 %}
+                        <span class="cuisine-badge">+{{ coupon.cuisines|length - 3 }} more</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Opening Hours -->
+                    {% if coupon.opening_hours %}
+                    <div class="opening-hours">
+                        <i class="fas fa-clock"></i>
+                        {% if coupon.opening_hours.get('monday_friday') %}
+                        {{ coupon.opening_hours.monday_friday }}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Price Range -->
+                    {% if coupon.price_range %}
+                    <div class="price-range">
+                        Price: <span style="color: #ff9f00;">{{ coupon.price_range }}</span>
+                    </div>
+                    {% endif %}
+
+                    <!-- Coupon Code / Deal -->
+                    <div style="background: #fff3cd; padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 0.85rem; color: #856404;">
+                        <i class="fas fa-tag" style="color: #ff9f00;"></i>
+                        Code: <strong>{{ coupon.coupon_code }}</strong>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="card-actions">
+                        <a href="{{ coupon.product_url }}" target="_blank" class="btn-coupon">
+                            View Deal <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                        </a>
+                        {% if coupon.phone %}
+                        <button class="btn-call" onclick="alert('Call: {{ coupon.phone }}')">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if total_pages > 1 %}
+        <div class="pagination">
+            {% if current_page > 1 %}
+            <a href="/local?city={{ selected_city }}&location={{ selected_location }}&page=1">First</a>
+            <a href="/local?city={{ selected_city }}&location={{ selected_location }}&page={{ current_page - 1 }}">← Prev</a>
+            {% endif %}
+
+            {% for p in range(1, total_pages + 1) %}
+                {% if p == current_page %}
+                <span class="current">{{ p }}</span>
+                {% elif p <= 3 or p > total_pages - 3 or (p >= current_page - 1 and p <= current_page + 1) %}
+                <a href="/local?city={{ selected_city }}&location={{ selected_location }}&page={{ p }}">{{ p }}</a>
+                {% elif p == 4 or p == total_pages - 3 %}
+                <span>...</span>
+                {% endif %}
+            {% endfor %}
+
+            {% if current_page < total_pages %}
+            <a href="/local?city={{ selected_city }}&location={{ selected_location }}&page={{ current_page + 1 }}">Next →</a>
+            <a href="/local?city={{ selected_city }}&location={{ selected_location }}&page={{ total_pages }}">Last</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="no-results">
+            <i class="fas fa-search"></i>
+            <h2>No restaurants found</h2>
+            <p>Try selecting a different city or check back soon for new deals!</p>
+        </div>
+        {% endif %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 GrabCoupon. All rights reserved. | Enjoy great food at the best prices!</p>
+    </footer>
+
+    <script>
+        // Handle cuisine filter submission
+        function applyFilters() {
+            const form = document.createElement('form');
+            form.method = 'GET';
+            form.action = '/local';
+
+            // Get all form inputs
+            const city = document.querySelector('select[name="city"]')?.value || '';
+            const location = document.querySelector('select[name="location"]')?.value || '';
+            const mealPeriod = document.querySelector('select[name="meal_period"]')?.value || '';
+            const minRating = document.querySelector('select[name="min_rating"]')?.value || '3.5';
+            const priceRange = document.querySelector('select[name="price_range"]')?.value || '';
+
+            // Add fields to form
+            if (city) form.appendChild(createHiddenInput('city', city));
+            if (location) form.appendChild(createHiddenInput('location', location));
+            if (mealPeriod) form.appendChild(createHiddenInput('meal_period', mealPeriod));
+            if (minRating) form.appendChild(createHiddenInput('min_rating', minRating));
+            if (priceRange) form.appendChild(createHiddenInput('price_range', priceRange));
+
+            // Get all checked cuisines
+            const cuisineCheckboxes = document.querySelectorAll('.cuisine-checkbox input[type="checkbox"]:checked');
+            cuisineCheckboxes.forEach(checkbox => {
+                form.appendChild(createHiddenInput('cuisine', checkbox.value));
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        function createHiddenInput(name, value) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = value;
+            return input;
+        }
+
+        // Geolocation Handler - Get user's current location
+        function getNearbyLocation() {
+            if ('geolocation' in navigator) {
+                // Show loading state
+                const btn = event.target.closest('button');
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting location...';
+                btn.disabled = true;
+
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        // Redirect to /local with geolocation parameters
+                        window.location = `/local?user_lat=${lat}&user_lng=${lng}`;
+                    },
+                    function(error) {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                        let errorMsg = 'Location access denied. ';
+                        if (error.code === error.PERMISSION_DENIED) {
+                            errorMsg += 'Please enable location in your browser settings.';
+                        } else if (error.code === error.POSITION_UNAVAILABLE) {
+                            errorMsg += 'Location information is unavailable.';
+                        } else if (error.code === error.TIMEOUT) {
+                            errorMsg += 'Location request timed out.';
+                        }
+                        alert(errorMsg);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by your browser. Please upgrade your browser.');
+            }
+        }
+
+        // Clear Geolocation Filter
+        function clearNearMe() {
+            // Preserve other filters while clearing geolocation
+            const form = document.createElement('form');
+            form.method = 'GET';
+            form.action = '/local';
+
+            const city = document.querySelector('select[name="city"]')?.value || '';
+            const location = document.querySelector('select[name="location"]')?.value || '';
+            const mealPeriod = document.querySelector('select[name="meal_period"]')?.value || '';
+            const minRating = document.querySelector('select[name="min_rating"]')?.value || '3.5';
+            const priceRange = document.querySelector('select[name="price_range"]')?.value || '';
+
+            if (city) form.appendChild(createHiddenInput('city', city));
+            if (location) form.appendChild(createHiddenInput('location', location));
+            if (mealPeriod) form.appendChild(createHiddenInput('meal_period', mealPeriod));
+            if (minRating) form.appendChild(createHiddenInput('min_rating', minRating));
+            if (priceRange) form.appendChild(createHiddenInput('price_range', priceRange));
+
+            const cuisineCheckboxes = document.querySelectorAll('.cuisine-checkbox input[type="checkbox"]:checked');
+            cuisineCheckboxes.forEach(checkbox => {
+                form.appendChild(createHiddenInput('cuisine', checkbox.value));
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>
+</html>
+"""
 
 
 DAILY_DEALS_TEMPLATE = """
@@ -3815,7 +4734,7 @@ refresh_coupons()
 
 @app.route("/local")
 def local_deals():
-    """Local restaurants and food deals page"""
+    """Local restaurants and food deals page - with advanced filtering and enriched data"""
     global coupons_cache
     check_and_refresh()
     all_coupons = coupons_cache if coupons_cache else load_coupons()
@@ -3823,7 +4742,7 @@ def local_deals():
     # Filter only food/restaurants
     food_coupons = [c for c in all_coupons if c.get("category") == "food"]
 
-    # Get unique cities from food deals - proper cities only
+    # Get unique cities from food deals
     all_cities = [
         "Hyderabad",
         "Bangalore",
@@ -3837,14 +4756,106 @@ def local_deals():
         "Jaipur",
     ]
 
-    # Apply city filter
+    # =========================================================================
+    # STEP 1: City & Location Filtering
+    # =========================================================================
     city = request.args.get("city", "")
     if city and city != "all":
         food_coupons = [
             c for c in food_coupons if c.get("city") == city or c.get("city") == "all"
         ]
 
+    # Extract unique locations for the selected city
+    locations = []
+    if city and city != "all":
+        locations = sorted(list(set([c.get("location", "") for c in food_coupons if c.get("location")])))
+
+    location = request.args.get("location", "")
+    if location and location != "all":
+        food_coupons = [c for c in food_coupons if c.get("location") == location]
+
+    # =========================================================================
+    # STEP 2: Cuisine Filtering
+    # =========================================================================
+    selected_cuisines = request.args.getlist("cuisine")
+    if selected_cuisines and selected_cuisines[0] != "":
+        filtered_coupons = []
+        for coupon in food_coupons:
+            coupon_cuisines = coupon.get("cuisines", [])
+            # Check if any selected cuisine matches
+            if any(cuisine in coupon_cuisines for cuisine in selected_cuisines):
+                filtered_coupons.append(coupon)
+        food_coupons = filtered_coupons
+
+    # Extract all unique cuisines from current restaurants
+    all_cuisines = set()
+    for coupon in food_coupons:
+        all_cuisines.update(coupon.get("cuisines", []))
+    all_cuisines = sorted(list(all_cuisines))
+
+    # =========================================================================
+    # STEP 3: Meal Period Filtering
+    # =========================================================================
+    selected_meal = request.args.get("meal_period", "")
+    if selected_meal and selected_meal != "":
+        filtered_coupons = []
+        for coupon in food_coupons:
+            meal_periods = coupon.get("meal_periods", [])
+            if selected_meal in meal_periods:
+                filtered_coupons.append(coupon)
+        food_coupons = filtered_coupons
+
+    # Extract all unique meal periods
+    all_meal_periods = set()
+    for coupon in food_coupons:
+        all_meal_periods.update(coupon.get("meal_periods", ["Lunch", "Dinner"]))
+    all_meal_periods = sorted(list(all_meal_periods))
+
+    # =========================================================================
+    # STEP 4: Rating Range Filtering
+    # =========================================================================
+    min_rating = request.args.get("min_rating", "3.5")
+    try:
+        min_rating_val = float(min_rating)
+    except:
+        min_rating_val = 3.5
+
+    food_coupons = [
+        c for c in food_coupons if c.get("rating", 3.5) >= min_rating_val
+    ]
+
+    # =========================================================================
+    # STEP 5: Price Range Filtering
+    # =========================================================================
+    price_range_filter = request.args.get("price_range", "")
+    if price_range_filter and price_range_filter != "":
+        price_map = {"1": "₹", "2": "₹₹", "3": "₹₹₹", "4": "₹₹₹₹"}
+        # Allow selected price range and lower ranges
+        allowed_ranges = [price_map[i] for i in price_map if int(i) <= int(price_range_filter)]
+        food_coupons = [
+            c for c in food_coupons if c.get("price_range", "₹₹") in allowed_ranges
+        ]
+
+    # =========================================================================
+    # STEP 6: Geolocation "Near Me" Filtering
+    # =========================================================================
+    user_lat = request.args.get("user_lat", "")
+    user_lng = request.args.get("user_lng", "")
+    near_me = False
+    
+    if user_lat and user_lng:
+        try:
+            user_lat_val = float(user_lat)
+            user_lng_val = float(user_lng)
+            # Filter restaurants within 5km
+            food_coupons = filter_by_distance(food_coupons, user_lat_val, user_lng_val, max_distance_km=5.0)
+            near_me = True
+        except ValueError:
+            pass  # Invalid coordinates, skip geolocation filter
+
+    # =========================================================================
     # Pagination
+    # =========================================================================
     per_page = 12
     page = int(request.args.get("page", 1))
     total_coupons = len(food_coupons)
@@ -3854,17 +4865,25 @@ def local_deals():
     paginated_coupons = food_coupons[start_idx:end_idx]
 
     return render_template_string(
-        DASHBOARD_TEMPLATE,
+        LOCAL_RESTAURANTS_TEMPLATE,
         coupons=paginated_coupons,
         total_coupons=len(food_coupons),
-        sources=[],  # Empty - hide source filter on local page
         cities=all_cities,
+        locations=locations,
+        all_cuisines=all_cuisines,
+        all_meal_periods=all_meal_periods,
         selected_city=city,
+        selected_location=location,
+        selected_cuisines=selected_cuisines,
+        selected_meal=selected_meal,
+        min_rating=min_rating_val,
+        selected_price_range=price_range_filter,
+        user_lat=user_lat,
+        user_lng=user_lng,
+        near_me=near_me,
         last_updated=(
             cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else "N/A"
         ),
-        is_local=True,
-        category_counts={},
         current_page=page,
         total_pages=total_pages,
     )
