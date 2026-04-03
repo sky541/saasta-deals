@@ -536,6 +536,795 @@ scheduler.add_job(
 # Don't call refresh_coupons() here - load_coupons not defined yet
 
 
+LIMITED_DEALS_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limited Time Deals - GrabCoupon | Flash Sales & Lightning Deals</title>
+    <meta name="description" content="Limited time deals and flash sales from Amazon, Flipkart, Myntra & more. Don't miss out on these time-sensitive offers!">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: #f5f7fa; }
+
+        /* Header */
+        .deals-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .header-top h1 {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .header-top p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+
+        .header-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #2d3436;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .logo i {
+            color: #ff4757;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 45px 12px 20px;
+            border: 2px solid #e1e1e1;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #ff4757;
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff4757;
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #636e72;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ff4757;
+        }
+
+        /* Category Tabs */
+        .category-tabs {
+            background: white;
+            border-bottom: 1px solid #e1e1e1;
+            overflow-x: auto;
+        }
+
+        .category-tabs-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 5px;
+            padding: 10px 20px;
+        }
+
+        .category-tabs a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #636e72;
+            font-weight: 500;
+            border-radius: 20px;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .category-tabs a:hover, .category-tabs a.active {
+            background: #ff4757;
+            color: white;
+        }
+
+        /* Limited Time Banner */
+        .limited-banner {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .limited-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><text fill="rgba(255,255,255,0.1)" font-size="20" y="15">⚡ LIMITED TIME ⚡</text></svg>');
+            background-repeat: repeat-x;
+            background-size: 200px 40px;
+            animation: scroll 10s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-200px); }
+        }
+
+        .limited-banner h2 {
+            position: relative;
+            z-index: 1;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .limited-banner p {
+            position: relative;
+            z-index: 1;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .countdown-item {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .countdown-item .number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .countdown-item .label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Featured Deals */
+        .featured-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .featured-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .featured-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .featured-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .featured-body {
+            padding: 20px;
+        }
+
+        .featured-store {
+            display: inline-block;
+            background: #f1f2f6;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #636e72;
+            margin-bottom: 10px;
+        }
+
+        .featured-title {
+            color: #2d3436;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            font-size: 1rem;
+        }
+
+        .featured-prices {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .featured-sale {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ff4757;
+        }
+
+        .featured-original {
+            font-size: 1rem;
+            color: #b2bec3;
+            text-decoration: line-through;
+        }
+
+        .featured-discount {
+            background: #00b894;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .featured-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #ff4757;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .featured-btn:hover {
+            background: #e84118;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            color: #2d3436;
+            font-size: 1.5rem;
+        }
+
+        .deals-count {
+            color: #636e72;
+            font-size: 0.9rem;
+        }
+
+        /* Deal Grid */
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Deal Card */
+        .deal-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .deal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 71, 87, 0.15);
+            border-color: #ff4757;
+        }
+
+        .deal-image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #f0f0f0;
+            transition: transform 0.3s;
+        }
+
+        .deal-card:hover .deal-image {
+            transform: scale(1.05);
+        }
+
+        .deal-discount {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            z-index: 2;
+        }
+
+        .deal-timer {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .deal-wishlist {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff4757;
+            z-index: 2;
+        }
+
+        .deal-body {
+            padding: 15px;
+        }
+
+        .deal-store {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #636e72;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+        }
+
+        .deal-title {
+            color: #2d3436;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            height: 40px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .deal-prices {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .deal-sale {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #2d3436;
+        }
+
+        .deal-original {
+            font-size: 0.9rem;
+            color: #b2bec3;
+            text-decoration: line-through;
+        }
+
+        .deal-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: white;
+            color: #ff4757;
+            border: 2px solid #ff4757;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .deal-btn:hover {
+            background: #ff4757;
+            color: white;
+        }
+
+        /* No Deals */
+        .no-deals {
+            text-align: center;
+            padding: 60px 20px;
+            color: #636e72;
+        }
+
+        .no-deals i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #dfe6e9;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pagination a, .pagination span {
+            padding: 10px 16px;
+            background: white;
+            color: #636e72;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .pagination a:hover {
+            background: #ff4757;
+            color: white;
+        }
+
+        .pagination .current {
+            background: #ff4757;
+            color: white;
+        }
+
+        /* Footer */
+        .deals-footer {
+            background: #2d3436;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .deals-footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-nav {
+                flex-direction: column;
+            }
+
+            .search-box {
+                max-width: 100%;
+                order: 3;
+            }
+
+            .nav-links {
+                order: 2;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .countdown-item {
+                min-width: 50px;
+            }
+        }
+
+        /* Pulse animation for urgency */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .deal-discount {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="deals-header">
+        <div class="header-top">
+            <h1>⚡ Limited Time Deals</h1>
+            <p>Flash sales ending soon - Don't miss out!</p>
+        </div>
+        <div class="header-nav">
+            <a href="/" class="logo">
+                <i class="fas fa-tag"></i> GrabCoupon
+            </a>
+            <div class="search-box">
+                <form action="/limited-deals" method="get">
+                    <input type="text" name="search" placeholder="Search limited deals..." value="{{ search_query }}">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/deals">All Deals</a>
+                <a href="/limited-deals" class="active">Limited Time</a>
+                <a href="/local">Food</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Limited Time Banner -->
+    <div class="limited-banner">
+        <h2>⏰ FLASH SALE ALERT ⏰</h2>
+        <p>These deals are disappearing fast! Limited stock available.</p>
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="number">23</span>
+                <span class="label">HOURS</span>
+            </div>
+            <div class="countdown-item">
+                <span class="number">59</span>
+                <span class="label">MIN</span>
+            </div>
+            <div class="countdown-item">
+                <span class="number">45</span>
+                <span class="label">SEC</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="category-tabs">
+        <div class="category-tabs-inner">
+            <a href="/limited-deals" class="{% if not selected_category %}active{% endif %}">All Categories</a>
+            <a href="/limited-deals?category=electronics" class="{% if selected_category == 'electronics' %}active{% endif %}"><i class="fas fa-mobile-alt"></i> Electronics</a>
+            <a href="/limited-deals?category=fashion" class="{% if selected_category == 'fashion' %}active{% endif %}"><i class="fas fa-tshirt"></i> Fashion</a>
+            <a href="/limited-deals?category=home" class="{% if selected_category == 'home' %}active{% endif %}"><i class="fas fa-couch"></i> Home</a>
+            <a href="/limited-deals?category=beauty" class="{% if selected_category == 'beauty' %}active{% endif %}"><i class="fas fa-spa"></i> Beauty</a>
+            <a href="/limited-deals?category=food" class="{% if selected_category == 'food' %}active{% endif %}"><i class="fas fa-utensils"></i> Food</a>
+        </div>
+    </div>
+
+    <!-- Featured Deals -->
+    {% if featured_deals %}
+    <section class="featured-section">
+        <h2>🔥 Hot Deals Right Now</h2>
+        <div class="featured-grid">
+            {% for deal in featured_deals %}
+            <div class="featured-card">
+                {% if deal.image_url and deal.image_url != '' %}
+                <img src="{{ deal.image_url }}" alt="{{ deal.description }}" class="featured-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                {% endif %}
+                <div class="featured-image" style="background: {{ deal.image_gradient }}; display: {% if deal.image_url and deal.image_url != '' %}none{% else %}flex{% endif %}; align-items: center; justify-content: center;">
+                    <i class="fas {{ deal.image_icon }}" style="font-size: 4rem; color: white;"></i>
+                </div>
+                <div class="featured-body">
+                    <span class="featured-store"><i class="fas fa-store"></i> {{ deal.source }}</span>
+                    <h3 class="featured-title">{{ deal.description }}</h3>
+                    <div class="featured-prices">
+                        <span class="featured-sale">₹{{ deal.sale_price }}</span>
+                        <span class="featured-original">₹{{ deal.original_price }}</span>
+                        <span class="featured-discount">{{ deal.discount }} OFF</span>
+                    </div>
+                    <a href="{{ deal.product_url }}" target="_blank" class="featured-btn">
+                        Grab Deal Now <i class="fas fa-bolt"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="section-header">
+            <h2>🕐 Limited Time Offers</h2>
+            <span class="deals-count">{{ deals|length }} deals available</span>
+        </div>
+
+        {% if deals %}
+        <div class="deals-grid">
+            {% for deal in deals %}
+            <div class="deal-card">
+                <div class="deal-image-wrapper">
+                    {% if deal.image_url and deal.image_url != '' %}
+                    <img src="{{ deal.image_url }}" alt="{{ deal.description }}" class="deal-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    {% endif %}
+                    <div class="deal-image" style="background: {{ deal.image_gradient }}; display: {% if deal.image_url and deal.image_url != '' %}none{% else %}flex{% endif %}; align-items: center; justify-content: center;">
+                        <i class="fas {{ deal.image_icon }}" style="font-size: 3rem; color: white;"></i>
+                    </div>
+                    <span class="deal-discount">{{ deal.discount }} OFF</span>
+                    <span class="deal-timer"><i class="fas fa-clock"></i> 23h 59m</span>
+                    <button class="deal-wishlist"><i class="fas fa-heart"></i></button>
+                </div>
+                <div class="deal-body">
+                    <div class="deal-store">
+                        <i class="fas fa-store"></i> {{ deal.source }}
+                    </div>
+                    <h3 class="deal-title">{{ deal.description }}</h3>
+                    <div class="deal-prices">
+                        <span class="deal-sale">₹{{ deal.sale_price }}</span>
+                        <span class="deal-original">₹{{ deal.original_price }}</span>
+                    </div>
+                    <a href="{{ deal.product_url }}" target="_blank" class="deal-btn">
+                        Get Deal <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if total_pages > 1 %}
+        <div class="pagination">
+            {% if current_page > 1 %}
+            <a href="/limited-deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ current_page - 1 }}">← Previous</a>
+            {% endif %}
+
+            {% for p in range(1, total_pages + 1) %}
+            {% if p == current_page %}
+            <span class="current">{{ p }}</span>
+            {% elif p <= 3 or p > total_pages - 3 or (p >= current_page - 1 and p <= current_page + 1) %}
+            <a href="/limited-deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ p }}">{{ p }}</a>
+            {% elif p == 4 or p == total_pages - 3 %}
+            <span>...</span>
+            {% endif %}
+            {% endfor %}
+
+            {% if current_page < total_pages %}
+            <a href="/limited-deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ current_page + 1 }}">Next →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="no-deals">
+            <i class="fas fa-clock"></i>
+            <h2>No limited time deals found</h2>
+            <p>Check back soon for new flash sales!</p>
+        </div>
+        {% endif %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="deals-footer">
+        <p>&copy; 2026 GrabCoupon. All rights reserved. | Limited time deals updated every hour.</p>
+    </footer>
+
+    <script>
+        // Simple countdown animation
+        function updateCountdown() {
+            const countdownItems = document.querySelectorAll('.countdown-item .number');
+            if (countdownItems.length >= 3) {
+                let hours = parseInt(countdownItems[0].textContent);
+                let minutes = parseInt(countdownItems[1].textContent);
+                let seconds = parseInt(countdownItems[2].textContent);
+
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                    if (minutes < 0) {
+                        minutes = 59;
+                        hours--;
+                        if (hours < 0) {
+                            hours = 23;
+                        }
+                    }
+                }
+
+                countdownItems[0].textContent = hours.toString().padStart(2, '0');
+                countdownItems[1].textContent = minutes.toString().padStart(2, '0');
+                countdownItems[2].textContent = seconds.toString().padStart(2, '0');
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
+"""
+
+
 DAILY_DEALS_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -1028,6 +1817,7 @@ DAILY_DEALS_TEMPLATE = """
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/deals">All Deals</a>
+                <a href="/limited-deals">Limited Time</a>
                 <a href="/local">Food</a>
             </nav>
         </div>
@@ -3009,13 +3799,20 @@ def load_coupons() -> List[Dict[str, Any]]:
         "deals_bot/data/coupons.json",
         "data/coupons.json",
         "../deals_bot/data/coupons.json",
+        "deals_bot/data/combined_deals.json",
+        "data/combined_deals.json",
+        "../deals_bot/data/combined_deals.json",
     ]
     for filepath in paths_to_try:
         if os.path.exists(filepath):
             try:
                 with open(filepath, "r") as f:
                     data = json.load(f)
-                    return data.get("coupons", [])
+                    # Handle different JSON structures
+                    if "coupons" in data:
+                        return data.get("coupons", [])
+                    elif "deals" in data:
+                        return data.get("deals", [])
             except:
                 pass
     return []
@@ -3196,6 +3993,10 @@ def daily_deals():
         coupon["image_gradient"] = gradient
         coupon["image_icon"] = icon
         
+        # Preserve existing image_url if available, otherwise use placeholder
+        if not coupon.get("image_url"):
+            coupon["image_url"] = ""
+        
         # Extract discount value
         discount_value = 0
         if "Rs." in discount:
@@ -3314,6 +4115,7 @@ def about():
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/deals">Daily Deals</a>
+                <a href="/limited-deals">Limited Time</a>
                 <a href="/local">Local Food Deals</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
@@ -3455,6 +4257,7 @@ def contact():
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/deals">Daily Deals</a>
+                <a href="/limited-deals">Limited Time</a>
                 <a href="/local">Local Food Deals</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
@@ -3984,6 +4787,153 @@ def status():
             "coupons_count": len(coupons_cache) if coupons_cache else 0,
             "next_refresh": f"in {REFRESH_INTERVAL_HOURS} hours",
         }
+    )
+
+
+@app.route("/limited-deals")
+def limited_deals():
+    """Limited time deals page - Amazon deals style with product images and countdown"""
+    global coupons_cache
+    check_and_refresh()
+    all_coupons = coupons_cache if coupons_cache else load_coupons()
+
+    # Get search query
+    search_query = request.args.get("search", "").strip().lower()
+
+    # Get category filter
+    selected_category = request.args.get("category", "")
+
+    # Get all valid (non-expired) coupons
+    valid_coupons = filter_valid_coupons(all_coupons)
+
+    # Sort by discount value to show best deals first
+    def get_discount_value(coupon):
+        discount = coupon.get("discount", "")
+        if "Rs." in discount:
+            try:
+                return int(discount.replace("Rs.", "").replace(",", "").strip())
+            except:
+                pass
+        elif "%" in discount:
+            try:
+                return int(discount.replace("%", "").strip()) * 10
+            except:
+                pass
+        return 0
+
+    sorted_coupons = sorted(valid_coupons, key=get_discount_value, reverse=True)
+
+    # Get unique sources/stores
+    sources = sorted(set(c.get("source", "") for c in valid_coupons if c.get("source")))
+
+    # Filter by source if provided
+    source_filter = request.args.get("source", "")
+    if source_filter:
+        sorted_coupons = [c for c in sorted_coupons if c.get("source") == source_filter]
+
+    # Filter by search query
+    if search_query:
+        sorted_coupons = [c for c in sorted_coupons if search_query in c.get("description", "").lower() or search_query in c.get("source", "").lower()]
+
+    # Add image, original_price and sale_price to each deal
+    import random
+
+    def add_deal_details(coupon, index):
+        """Add image, prices and other details to coupon for deal-style display"""
+        discount = coupon.get("discount", "")
+
+        # Generate category-based gradient and icon (no external images)
+        category = coupon.get("category", "") or ""
+        description = coupon.get("description", "").lower()
+
+        # Determine category gradient and icon
+        if "electronics" in category or "mobile" in description or "phone" in description or "laptop" in description or "tv" in description:
+            gradient = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+            icon = "fa-mobile-alt"
+        elif "fashion" in category or "clothing" in description or "shirt" in description or "shoe" in description or "dress" in description or "wear" in description:
+            gradient = "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
+            icon = "fa-tshirt"
+        elif "beauty" in category or "makeup" in description or "skincare" in description or "perfume" in description:
+            gradient = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
+            icon = "fa-spa"
+        elif "home" in category or "furniture" in description or "kitchen" in description or "decor" in description:
+            gradient = "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
+            icon = "fa-couch"
+        elif "food" in category or "restaurant" in description or "zomato" in description or "swiggy" in description or "pizza" in description:
+            gradient = "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
+            icon = "fa-utensils"
+        elif "book" in description or "kindle" in description:
+            gradient = "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
+            icon = "fa-book"
+        else:
+            gradient = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
+            icon = "fa-shopping-bag"
+
+        coupon["image_gradient"] = gradient
+        coupon["image_icon"] = icon
+
+        # Extract discount value
+        discount_value = 0
+        if "Rs." in discount:
+            try:
+                discount_value = int(discount.replace("Rs.", "").replace(",", "").strip())
+            except:
+                discount_value = 0
+        elif "%" in discount:
+            try:
+                discount_percent = int(discount.replace("%", "").strip())
+                discount_value = discount_percent * 100
+            except:
+                discount_value = 0
+
+        # Estimate original price
+        if discount_value > 0:
+            if "Rs." in discount:
+                original = discount_value * 5
+                if original < 500:
+                    original = 500 + (discount_value * 2)
+            else:
+                original = discount_value * 50
+                if original < 1000:
+                    original = 1000 + discount_value * 10
+        else:
+            original = 2000
+
+        sale = max(1, original - discount_value)
+
+        coupon["original_price"] = int(original)
+        coupon["sale_price"] = int(sale)
+        return coupon
+
+    # Apply details to all deals
+    sorted_coupons = [add_deal_details(c, i) for i, c in enumerate(sorted_coupons)]
+
+    # Get featured deals (top 6)
+    featured_deals = sorted_coupons[:6] if len(sorted_coupons) >= 6 else sorted_coupons
+
+    # Pagination
+    per_page = 24
+    page = int(request.args.get("page", 1))
+    total_deals = len(sorted_coupons)
+    total_pages = max(1, (total_deals + per_page - 1) // per_page)
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    paginated_deals = sorted_coupons[start_idx:end_idx]
+
+    return render_template_string(
+        LIMITED_DEALS_TEMPLATE,
+        deals=paginated_deals,
+        featured_deals=featured_deals,
+        total_deals=total_deals,
+        sources=sources,
+        selected_source=source_filter,
+        selected_category=selected_category,
+        search_query=search_query,
+        last_updated=(
+            cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else "N/A"
+        ),
+        current_page=page,
+        total_pages=total_pages,
     )
 
 
