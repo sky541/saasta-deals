@@ -20,73 +20,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Brand-to-Image mapping for product verification - ensures images match company names
-BRAND_IMAGE_MAPPING = {
-    # Fashion Brands
-    'US Polo': 'https://images.unsplash.com/photo-1542272604-787c62d465d1?w=400&q=80',
-    'Puma': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
-    'Adidas': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
-    'Nike': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
-    'Levi': 'https://images.unsplash.com/photo-1542272604-787c62d465d1?w=400&q=80',
-    'Reebok': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
-    
-    # Audio/Electronics Brands
-    'JBL': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
-    'boAt': 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&q=80',
-    'Noise': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
-    'Sony': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
-    'Samsung': 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&q=80',
-    'Apple': 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80',
-    'Philips': 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80',
-    'Dyson': 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80',
-    
-    # Mobile Brands
-    'realme': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-    'Xiaomi': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-    'POCO': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-    'Redmi': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-    'OnePlus': 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80',
-    'iQOO': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-    'OPPO': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-    'Vivo': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-    'iPhone': 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&q=80',
-    
-    # Computers
-    'Dell': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
-    'HP': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
-    'Lenovo': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
-    'ASUS': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
-    'MacBook': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
-    
-    # Gaming
-    'Xbox': 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&q=80',
-    'PlayStation': 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&q=80',
-    'Nintendo': 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&q=80',
-    
-    # Wearables/Accessories
-    'Watch': 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&q=80',
-    'AirPods': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
-}
-
-DEFAULT_CATEGORY_IMAGES = {
-    'fashion': 'https://images.unsplash.com/photo-1542272604-787c62d465d1?w=400&q=80',
-    'electronics': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
-    'mobiles': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
-    'computers': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
-    'gaming': 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&q=80',
-    'beauty': 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80',
-}
-
-def get_brand_image(product_name, category=''):
-    """Get brand-specific image URL for a product"""
-    # Check if product name contains any recognized brand
-    for brand, image_url in BRAND_IMAGE_MAPPING.items():
-        if brand.lower() in product_name.lower():
-            return image_url
-    
-    # Fall back to category default
-    return DEFAULT_CATEGORY_IMAGES.get(category.lower(), 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80')
-
 app = Flask(__name__)
 
 # Global variable to store cached coupons
@@ -603,14 +536,14 @@ scheduler.add_job(
 # Don't call refresh_coupons() here - load_coupons not defined yet
 
 
-LIMITED_DEALS_TEMPLATE = """
+DAILY_DEALS_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Limited Time Deals - GrabCoupon | Flash Sales & Lightning Deals</title>
-    <meta name="description" content="Limited time deals and flash sales from Amazon, Flipkart, Myntra & more. Don't miss out on these time-sensitive offers!">
+    <title>Daily Deals - GrabCoupon | Best Deals Today</title>
+    <meta name="description" content="Daily deals and discounts from Amazon, Flipkart and other online stores. Shop best deals today!">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1204,15 +1137,14 @@ LIMITED_DEALS_TEMPLATE = """
                 <i class="fas fa-tag"></i> GrabCoupon
             </a>
             <div class="search-box">
-                <form action="/limited-deals" method="get">
-                    <input type="text" name="search" placeholder="Search limited deals..." value="{{ search_query }}">
+                <form action="/deals" method="get">
+                    <input type="text" name="search" placeholder="Search deals..." value="{{ search_query }}">
                     <button type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/deals">All Deals</a>
-                <a href="/limited-deals" class="active">Limited Time</a>
                 <a href="/local">Food</a>
             </nav>
         </div>
@@ -1241,12 +1173,12 @@ LIMITED_DEALS_TEMPLATE = """
     <!-- Category Tabs -->
     <div class="category-tabs">
         <div class="category-tabs-inner">
-            <a href="/limited-deals" class="{% if not selected_category %}active{% endif %}">All Categories</a>
-            <a href="/limited-deals?category=electronics" class="{% if selected_category == 'electronics' %}active{% endif %}"><i class="fas fa-mobile-alt"></i> Electronics</a>
-            <a href="/limited-deals?category=fashion" class="{% if selected_category == 'fashion' %}active{% endif %}"><i class="fas fa-tshirt"></i> Fashion</a>
-            <a href="/limited-deals?category=home" class="{% if selected_category == 'home' %}active{% endif %}"><i class="fas fa-couch"></i> Home</a>
-            <a href="/limited-deals?category=beauty" class="{% if selected_category == 'beauty' %}active{% endif %}"><i class="fas fa-spa"></i> Beauty</a>
-            <a href="/limited-deals?category=food" class="{% if selected_category == 'food' %}active{% endif %}"><i class="fas fa-utensils"></i> Food</a>
+            <a href="/deals" class="{% if not selected_category %}active{% endif %}">All Categories</a>
+            <a href="/deals?category=electronics" class="{% if selected_category == 'electronics' %}active{% endif %}"><i class="fas fa-mobile-alt"></i> Electronics</a>
+            <a href="/deals?category=fashion" class="{% if selected_category == 'fashion' %}active{% endif %}"><i class="fas fa-tshirt"></i> Fashion</a>
+            <a href="/deals?category=home" class="{% if selected_category == 'home' %}active{% endif %}"><i class="fas fa-couch"></i> Home</a>
+            <a href="/deals?category=beauty" class="{% if selected_category == 'beauty' %}active{% endif %}"><i class="fas fa-spa"></i> Beauty</a>
+            <a href="/deals?category=food" class="{% if selected_category == 'food' %}active{% endif %}"><i class="fas fa-utensils"></i> Food</a>
         </div>
     </div>
 
@@ -1323,29 +1255,29 @@ LIMITED_DEALS_TEMPLATE = """
         {% if total_pages > 1 %}
         <div class="pagination">
             {% if current_page > 1 %}
-            <a href="/limited-deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ current_page - 1 }}">← Previous</a>
+            <a href="/deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ current_page - 1 }}">← Previous</a>
             {% endif %}
 
             {% for p in range(1, total_pages + 1) %}
             {% if p == current_page %}
             <span class="current">{{ p }}</span>
             {% elif p <= 3 or p > total_pages - 3 or (p >= current_page - 1 and p <= current_page + 1) %}
-            <a href="/limited-deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ p }}">{{ p }}</a>
+            <a href="/deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ p }}">{{ p }}</a>
             {% elif p == 4 or p == total_pages - 3 %}
             <span>...</span>
             {% endif %}
             {% endfor %}
 
             {% if current_page < total_pages %}
-            <a href="/limited-deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ current_page + 1 }}">Next →</a>
+            <a href="/deals?category={{ selected_category }}&search={{ search_query }}&source={{ selected_source }}&page={{ current_page + 1 }}">Next →</a>
             {% endif %}
         </div>
         {% endif %}
 
         {% else %}
         <div class="no-deals">
-            <i class="fas fa-clock"></i>
-            <h2>No limited time deals found</h2>
+            <i class="fas fa-search"></i>
+            <h2>No deals found</h2>
             <p>Check back soon for new flash sales!</p>
         </div>
         {% endif %}
@@ -1353,7 +1285,7 @@ LIMITED_DEALS_TEMPLATE = """
 
     <!-- Footer -->
     <footer class="deals-footer">
-        <p>&copy; 2026 GrabCoupon. All rights reserved. | Limited time deals updated every hour.</p>
+        <p>&copy; 2026 GrabCoupon. All rights reserved. | Deals updated every hour.</p>
     </footer>
 
     <script>
@@ -1385,51 +1317,12 @@ LIMITED_DEALS_TEMPLATE = """
         }
 
         // Update countdown every second
-        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
 """
 
-
-DAILY_DEALS_TEMPLATE = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Deals - GrabCoupon | Best Deals from Top Online Stores in India</title>
-    <meta name="description" content="Today's top deals and discounts from Amazon, Flipkart, Myntra, Nykaa & more. Save big on every purchase!">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: #f5f7fa; }
-        
-        /* Header */
-        .deals-header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-top {
-            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
-            padding: 10px 20px;
-            text-align: center;
-        }
-        
-        .header-top h1 {
-            color: white;
-            font-size: 1.8rem;
-        }
-        
-        .header-top p {
-            color: rgba(255,255,255,0.9);
-            font-size: 0.9rem;
-        }
-        
+DASHBOARD_TEMPLATE = """
         .header-nav {
             max-width: 1200px;
             margin: 0 auto;
@@ -1884,7 +1777,6 @@ DAILY_DEALS_TEMPLATE = """
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/deals">All Deals</a>
-                <a href="/limited-deals">Limited Time</a>
                 <a href="/local">Food</a>
             </nav>
         </div>
@@ -3342,7 +3234,6 @@ DASHBOARD_TEMPLATE = """
             <nav class="hero-nav" style="margin-bottom: 25px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <a href="/" class="hero-nav-link {% if request.path == '/' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Home</a>
                 <a href="/deals" class="hero-nav-link {% if request.path == '/deals' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Daily Deals</a>
-                <a href="/limited-deals" class="hero-nav-link {% if request.path == '/limited-deals' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">⚡ Limited Time</a>
                 <a href="/local" class="hero-nav-link {% if request.path == '/local' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Local Food Deals</a>
                 <a href="/about" class="hero-nav-link {% if request.path == '/about' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">About Us</a>
                 <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Contact Us</a>
@@ -3886,26 +3777,6 @@ def load_coupons() -> List[Dict[str, Any]]:
     return []
 
 
-def load_deals() -> List[Dict[str, Any]]:
-    """Load deals from combined_deals.json file with product images"""
-    paths_to_try = [
-        "deals_bot/data/combined_deals.json",
-        "data/combined_deals.json",
-        "../deals_bot/data/combined_deals.json",
-    ]
-    for filepath in paths_to_try:
-        if os.path.exists(filepath):
-            try:
-                with open(filepath, "r") as f:
-                    data = json.load(f)
-                    deals = data.get("deals", [])
-                    if deals:
-                        return deals
-            except:
-                pass
-    return []
-
-
 def is_coupon_expired(coupon: Dict[str, Any]) -> bool:
     """Check if a coupon has expired"""
     expires = coupon.get("expires", "")
@@ -4203,7 +4074,6 @@ def about():
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/deals">Daily Deals</a>
-                <a href="/limited-deals">Limited Time</a>
                 <a href="/local">Local Food Deals</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
@@ -4345,7 +4215,6 @@ def contact():
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/deals">Daily Deals</a>
-                <a href="/limited-deals">Limited Time</a>
                 <a href="/local">Local Food Deals</a>
                 <a href="/about">About Us</a>
                 <a href="/contact">Contact Us</a>
@@ -4875,185 +4744,6 @@ def status():
             "coupons_count": len(coupons_cache) if coupons_cache else 0,
             "next_refresh": f"in {REFRESH_INTERVAL_HOURS} hours",
         }
-    )
-
-
-@app.route("/limited-deals")
-def limited_deals():
-    """Limited time deals page - Amazon deals style with product images and countdown"""
-    # Load deals data with real product images
-    all_deals = load_deals()
-    
-    # Fallback to coupons if no deals found
-    if not all_deals:
-        all_deals = load_coupons()
-
-    # Get search query
-    search_query = request.args.get("search", "").strip().lower()
-    
-    # Get category filter
-    selected_category = request.args.get("category", "")
-
-    # Filter by category
-    filtered_deals = all_deals
-    if selected_category and selected_category != "all":
-        filtered_deals = [d for d in filtered_deals if d.get("category") == selected_category]
-
-    # Sort by discount value to show best deals first
-    def get_discount_value(deal):
-        # Try discount_percent first (from deals data)
-        discount_pct = deal.get("discount_percent", 0)
-        if isinstance(discount_pct, (int, float)):
-            return discount_pct * 10
-        # Fallback for string discounts (from coupons)
-        discount_str = deal.get("discount", "")
-        if "Rs." in discount_str:
-            try:
-                return int(discount_str.replace("Rs.", "").replace(",", "").strip())
-            except:
-                pass
-        elif "%" in discount_str:
-            try:
-                return int(discount_str.replace("%", "").strip()) * 10
-            except:
-                pass
-        return 0
-
-    sorted_deals = sorted(filtered_deals, key=get_discount_value, reverse=True)
-
-    # Get unique sources/stores
-    sources = sorted(set(d.get("source", "") for d in all_deals if d.get("source")))
-
-    # Filter by source if provided
-    source_filter = request.args.get("source", "")
-    if source_filter:
-        sorted_deals = [d for d in sorted_deals if d.get("source") == source_filter]
-
-    # Filter by search query
-    if search_query:
-        sorted_deals = [
-            d for d in sorted_deals 
-            if search_query in d.get("product_name", "").lower() 
-            or search_query in d.get("description", "").lower()
-            or search_query in d.get("source", "").lower()
-            or search_query in d.get("category", "").lower()
-        ]
-
-    def format_deal_for_display(deal):
-        """Format deal data for display in template"""
-        # Determine category gradient and icon based on category and product name
-        category = deal.get("category", "") or ""
-        product_name = (deal.get("product_name", "") or deal.get("description", "")).lower()
-
-        if "electronics" in category or "mobile" in product_name or "phone" in product_name or "laptop" in product_name or "tv" in product_name or "headphone" in product_name:
-            gradient = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-            icon = "fa-mobile-alt"
-        elif "fashion" in category or "shirt" in product_name or "shoe" in product_name or "dress" in product_name or "clothing" in product_name or "tshirt" in product_name:
-            gradient = "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-            icon = "fa-tshirt"
-        elif "beauty" in category or "makeup" in product_name or "skincare" in product_name:
-            gradient = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-            icon = "fa-spa"
-        elif "home" in category or "furniture" in product_name or "kitchen" in product_name:
-            gradient = "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-            icon = "fa-couch"
-        else:
-            gradient = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
-            icon = "fa-shopping-bag"
-
-        deal["image_gradient"] = gradient
-        deal["image_icon"] = icon
-        
-        # Apply brand-specific image mapping for product verification
-        original_product_name = deal.get("product_name", "") or deal.get("description", "")
-        deal["image_url"] = get_brand_image(original_product_name, category)
-        
-        # Format price and discount - using data from combined_deals.json
-        if isinstance(deal.get("current_price"), (int, float)):
-            deal["sale_price"] = int(deal.get("current_price", 0))
-            deal["original_price"] = int(deal.get("original_price", deal.get("current_price", 0)))
-            
-            # Create discount string from percentage
-            discount_pct = deal.get("discount_percent", 0)
-            if discount_pct:
-                deal["discount"] = f"{discount_pct}%"
-            else:
-                deal["discount"] = "Limited Offer"
-        else:
-            # Fallback: use discount field from coupons
-            discount = deal.get("discount", "")
-            
-            # Estimate original price from discount
-            discount_value = 0
-            if "Rs." in discount:
-                try:
-                    discount_value = int(discount.replace("Rs.", "").replace(",", "").strip())
-                except:
-                    discount_value = 0
-            elif "%" in discount:
-                try:
-                    discount_percent = int(discount.replace("%", "").strip())
-                    discount_value = discount_percent * 100
-                except:
-                    discount_value = 0
-
-            # Estimate original price
-            if discount_value > 0:
-                if "Rs." in discount:
-                    original = discount_value * 5
-                    if original < 500:
-                        original = 500 + (discount_value * 2)
-                else:
-                    original = discount_value * 50
-                    if original < 1000:
-                        original = 1000 + discount_value * 10
-            else:
-                original = 2000
-
-            sale = max(1, original - discount_value)
-
-            deal["sale_price"] = int(sale)
-            deal["original_price"] = int(original)
-
-        # Ensure product_url exists
-        if not deal.get("product_url"):
-            deal["product_url"] = "#"
-            
-        # Use product_name as description if not available
-        if not deal.get("description"):
-            deal["description"] = deal.get("product_name", "Special Limited Deal")
-
-        return deal
-
-    # Apply formatting to all deals
-    sorted_deals = [format_deal_for_display(d) for d in sorted_deals]
-
-    # Get featured deals (top 6)
-    featured_deals = sorted_deals[:6] if len(sorted_deals) >= 6 else sorted_deals
-
-    # Pagination
-    per_page = 24
-    page = int(request.args.get("page", 1))
-    total_deals = len(sorted_deals)
-    total_pages = max(1, (total_deals + per_page - 1) // per_page)
-    start_idx = (page - 1) * per_page
-    end_idx = start_idx + per_page
-    paginated_deals = sorted_deals[start_idx:end_idx]
-
-    return render_template_string(
-        LIMITED_DEALS_TEMPLATE,
-        deals=paginated_deals,
-        featured_deals=featured_deals,
-        total_deals=total_deals,
-        sources=sources,
-        selected_source=source_filter,
-        selected_category=selected_category,
-        search_query=search_query,
-        last_updated=(
-            cache_updated.strftime("%Y-%m-%d %H:%M") if cache_updated else "N/A"
-        ),
-        current_page=page,
-        total_pages=total_pages,
     )
 
 
