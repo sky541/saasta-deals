@@ -20,6 +20,73 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Brand-to-Image mapping for product verification - ensures images match company names
+BRAND_IMAGE_MAPPING = {
+    # Fashion Brands
+    'US Polo': 'https://images.unsplash.com/photo-1542272604-787c62d465d1?w=400&q=80',
+    'Puma': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
+    'Adidas': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
+    'Nike': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
+    'Levi': 'https://images.unsplash.com/photo-1542272604-787c62d465d1?w=400&q=80',
+    'Reebok': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80',
+    
+    # Audio/Electronics Brands
+    'JBL': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
+    'boAt': 'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&q=80',
+    'Noise': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
+    'Sony': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
+    'Samsung': 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&q=80',
+    'Apple': 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80',
+    'Philips': 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80',
+    'Dyson': 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80',
+    
+    # Mobile Brands
+    'realme': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+    'Xiaomi': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+    'POCO': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+    'Redmi': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+    'OnePlus': 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80',
+    'iQOO': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+    'OPPO': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+    'Vivo': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+    'iPhone': 'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&q=80',
+    
+    # Computers
+    'Dell': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
+    'HP': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
+    'Lenovo': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
+    'ASUS': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
+    'MacBook': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
+    
+    # Gaming
+    'Xbox': 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&q=80',
+    'PlayStation': 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&q=80',
+    'Nintendo': 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&q=80',
+    
+    # Wearables/Accessories
+    'Watch': 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&q=80',
+    'AirPods': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
+}
+
+DEFAULT_CATEGORY_IMAGES = {
+    'fashion': 'https://images.unsplash.com/photo-1542272604-787c62d465d1?w=400&q=80',
+    'electronics': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
+    'mobiles': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&q=80',
+    'computers': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80',
+    'gaming': 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=400&q=80',
+    'beauty': 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=400&q=80',
+}
+
+def get_brand_image(product_name, category=''):
+    """Get brand-specific image URL for a product"""
+    # Check if product name contains any recognized brand
+    for brand, image_url in BRAND_IMAGE_MAPPING.items():
+        if brand.lower() in product_name.lower():
+            return image_url
+    
+    # Fall back to category default
+    return DEFAULT_CATEGORY_IMAGES.get(category.lower(), 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80')
+
 app = Flask(__name__)
 
 # Global variable to store cached coupons
@@ -3275,6 +3342,7 @@ DASHBOARD_TEMPLATE = """
             <nav class="hero-nav" style="margin-bottom: 25px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <a href="/" class="hero-nav-link {% if request.path == '/' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Home</a>
                 <a href="/deals" class="hero-nav-link {% if request.path == '/deals' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Daily Deals</a>
+                <a href="/limited-deals" class="hero-nav-link {% if request.path == '/limited-deals' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">⚡ Limited Time</a>
                 <a href="/local" class="hero-nav-link {% if request.path == '/local' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Local Food Deals</a>
                 <a href="/about" class="hero-nav-link {% if request.path == '/about' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">About Us</a>
                 <a href="/contact" class="hero-nav-link {% if request.path == '/contact' %}active{% endif %}" style="color: white; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 8px; transition: background 0.3s;">Contact Us</a>
@@ -3813,6 +3881,26 @@ def load_coupons() -> List[Dict[str, Any]]:
                         return data.get("coupons", [])
                     elif "deals" in data:
                         return data.get("deals", [])
+            except:
+                pass
+    return []
+
+
+def load_deals() -> List[Dict[str, Any]]:
+    """Load deals from combined_deals.json file with product images"""
+    paths_to_try = [
+        "deals_bot/data/combined_deals.json",
+        "data/combined_deals.json",
+        "../deals_bot/data/combined_deals.json",
+    ]
+    for filepath in paths_to_try:
+        if os.path.exists(filepath):
+            try:
+                with open(filepath, "r") as f:
+                    data = json.load(f)
+                    deals = data.get("deals", [])
+                    if deals:
+                        return deals
             except:
                 pass
     return []
@@ -4793,132 +4881,164 @@ def status():
 @app.route("/limited-deals")
 def limited_deals():
     """Limited time deals page - Amazon deals style with product images and countdown"""
-    global coupons_cache
-    check_and_refresh()
-    all_coupons = coupons_cache if coupons_cache else load_coupons()
+    # Load deals data with real product images
+    all_deals = load_deals()
+    
+    # Fallback to coupons if no deals found
+    if not all_deals:
+        all_deals = load_coupons()
 
     # Get search query
     search_query = request.args.get("search", "").strip().lower()
-
+    
     # Get category filter
     selected_category = request.args.get("category", "")
 
-    # Get all valid (non-expired) coupons
-    valid_coupons = filter_valid_coupons(all_coupons)
+    # Filter by category
+    filtered_deals = all_deals
+    if selected_category and selected_category != "all":
+        filtered_deals = [d for d in filtered_deals if d.get("category") == selected_category]
 
     # Sort by discount value to show best deals first
-    def get_discount_value(coupon):
-        discount = coupon.get("discount", "")
-        if "Rs." in discount:
+    def get_discount_value(deal):
+        # Try discount_percent first (from deals data)
+        discount_pct = deal.get("discount_percent", 0)
+        if isinstance(discount_pct, (int, float)):
+            return discount_pct * 10
+        # Fallback for string discounts (from coupons)
+        discount_str = deal.get("discount", "")
+        if "Rs." in discount_str:
             try:
-                return int(discount.replace("Rs.", "").replace(",", "").strip())
+                return int(discount_str.replace("Rs.", "").replace(",", "").strip())
             except:
                 pass
-        elif "%" in discount:
+        elif "%" in discount_str:
             try:
-                return int(discount.replace("%", "").strip()) * 10
+                return int(discount_str.replace("%", "").strip()) * 10
             except:
                 pass
         return 0
 
-    sorted_coupons = sorted(valid_coupons, key=get_discount_value, reverse=True)
+    sorted_deals = sorted(filtered_deals, key=get_discount_value, reverse=True)
 
     # Get unique sources/stores
-    sources = sorted(set(c.get("source", "") for c in valid_coupons if c.get("source")))
+    sources = sorted(set(d.get("source", "") for d in all_deals if d.get("source")))
 
     # Filter by source if provided
     source_filter = request.args.get("source", "")
     if source_filter:
-        sorted_coupons = [c for c in sorted_coupons if c.get("source") == source_filter]
+        sorted_deals = [d for d in sorted_deals if d.get("source") == source_filter]
 
     # Filter by search query
     if search_query:
-        sorted_coupons = [c for c in sorted_coupons if search_query in c.get("description", "").lower() or search_query in c.get("source", "").lower()]
+        sorted_deals = [
+            d for d in sorted_deals 
+            if search_query in d.get("product_name", "").lower() 
+            or search_query in d.get("description", "").lower()
+            or search_query in d.get("source", "").lower()
+            or search_query in d.get("category", "").lower()
+        ]
 
-    # Add image, original_price and sale_price to each deal
-    import random
+    def format_deal_for_display(deal):
+        """Format deal data for display in template"""
+        # Determine category gradient and icon based on category and product name
+        category = deal.get("category", "") or ""
+        product_name = (deal.get("product_name", "") or deal.get("description", "")).lower()
 
-    def add_deal_details(coupon, index):
-        """Add image, prices and other details to coupon for deal-style display"""
-        discount = coupon.get("discount", "")
-
-        # Generate category-based gradient and icon (no external images)
-        category = coupon.get("category", "") or ""
-        description = coupon.get("description", "").lower()
-
-        # Determine category gradient and icon
-        if "electronics" in category or "mobile" in description or "phone" in description or "laptop" in description or "tv" in description:
+        if "electronics" in category or "mobile" in product_name or "phone" in product_name or "laptop" in product_name or "tv" in product_name or "headphone" in product_name:
             gradient = "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
             icon = "fa-mobile-alt"
-        elif "fashion" in category or "clothing" in description or "shirt" in description or "shoe" in description or "dress" in description or "wear" in description:
+        elif "fashion" in category or "shirt" in product_name or "shoe" in product_name or "dress" in product_name or "clothing" in product_name or "tshirt" in product_name:
             gradient = "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
             icon = "fa-tshirt"
-        elif "beauty" in category or "makeup" in description or "skincare" in description or "perfume" in description:
+        elif "beauty" in category or "makeup" in product_name or "skincare" in product_name:
             gradient = "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
             icon = "fa-spa"
-        elif "home" in category or "furniture" in description or "kitchen" in description or "decor" in description:
+        elif "home" in category or "furniture" in product_name or "kitchen" in product_name:
             gradient = "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
             icon = "fa-couch"
-        elif "food" in category or "restaurant" in description or "zomato" in description or "swiggy" in description or "pizza" in description:
-            gradient = "linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
-            icon = "fa-utensils"
-        elif "book" in description or "kindle" in description:
-            gradient = "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
-            icon = "fa-book"
         else:
             gradient = "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"
             icon = "fa-shopping-bag"
 
-        coupon["image_gradient"] = gradient
-        coupon["image_icon"] = icon
-
-        # Extract discount value
-        discount_value = 0
-        if "Rs." in discount:
-            try:
-                discount_value = int(discount.replace("Rs.", "").replace(",", "").strip())
-            except:
-                discount_value = 0
-        elif "%" in discount:
-            try:
-                discount_percent = int(discount.replace("%", "").strip())
-                discount_value = discount_percent * 100
-            except:
-                discount_value = 0
-
-        # Estimate original price
-        if discount_value > 0:
-            if "Rs." in discount:
-                original = discount_value * 5
-                if original < 500:
-                    original = 500 + (discount_value * 2)
+        deal["image_gradient"] = gradient
+        deal["image_icon"] = icon
+        
+        # Apply brand-specific image mapping for product verification
+        original_product_name = deal.get("product_name", "") or deal.get("description", "")
+        deal["image_url"] = get_brand_image(original_product_name, category)
+        
+        # Format price and discount - using data from combined_deals.json
+        if isinstance(deal.get("current_price"), (int, float)):
+            deal["sale_price"] = int(deal.get("current_price", 0))
+            deal["original_price"] = int(deal.get("original_price", deal.get("current_price", 0)))
+            
+            # Create discount string from percentage
+            discount_pct = deal.get("discount_percent", 0)
+            if discount_pct:
+                deal["discount"] = f"{discount_pct}%"
             else:
-                original = discount_value * 50
-                if original < 1000:
-                    original = 1000 + discount_value * 10
+                deal["discount"] = "Limited Offer"
         else:
-            original = 2000
+            # Fallback: use discount field from coupons
+            discount = deal.get("discount", "")
+            
+            # Estimate original price from discount
+            discount_value = 0
+            if "Rs." in discount:
+                try:
+                    discount_value = int(discount.replace("Rs.", "").replace(",", "").strip())
+                except:
+                    discount_value = 0
+            elif "%" in discount:
+                try:
+                    discount_percent = int(discount.replace("%", "").strip())
+                    discount_value = discount_percent * 100
+                except:
+                    discount_value = 0
 
-        sale = max(1, original - discount_value)
+            # Estimate original price
+            if discount_value > 0:
+                if "Rs." in discount:
+                    original = discount_value * 5
+                    if original < 500:
+                        original = 500 + (discount_value * 2)
+                else:
+                    original = discount_value * 50
+                    if original < 1000:
+                        original = 1000 + discount_value * 10
+            else:
+                original = 2000
 
-        coupon["original_price"] = int(original)
-        coupon["sale_price"] = int(sale)
-        return coupon
+            sale = max(1, original - discount_value)
 
-    # Apply details to all deals
-    sorted_coupons = [add_deal_details(c, i) for i, c in enumerate(sorted_coupons)]
+            deal["sale_price"] = int(sale)
+            deal["original_price"] = int(original)
+
+        # Ensure product_url exists
+        if not deal.get("product_url"):
+            deal["product_url"] = "#"
+            
+        # Use product_name as description if not available
+        if not deal.get("description"):
+            deal["description"] = deal.get("product_name", "Special Limited Deal")
+
+        return deal
+
+    # Apply formatting to all deals
+    sorted_deals = [format_deal_for_display(d) for d in sorted_deals]
 
     # Get featured deals (top 6)
-    featured_deals = sorted_coupons[:6] if len(sorted_coupons) >= 6 else sorted_coupons
+    featured_deals = sorted_deals[:6] if len(sorted_deals) >= 6 else sorted_deals
 
     # Pagination
     per_page = 24
     page = int(request.args.get("page", 1))
-    total_deals = len(sorted_coupons)
+    total_deals = len(sorted_deals)
     total_pages = max(1, (total_deals + per_page - 1) // per_page)
     start_idx = (page - 1) * per_page
     end_idx = start_idx + per_page
-    paginated_deals = sorted_coupons[start_idx:end_idx]
+    paginated_deals = sorted_deals[start_idx:end_idx]
 
     return render_template_string(
         LIMITED_DEALS_TEMPLATE,
