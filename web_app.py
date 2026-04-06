@@ -1478,7 +1478,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .header-top {
-            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            background: linear-gradient(135deg, #ff9f00 0%, #ffa500 100%);
             padding: 10px 20px;
             text-align: center;
         }
@@ -1515,7 +1515,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .logo i {
-            color: #ff4757;
+            color: #ff9f00;
         }
 
         .search-box {
@@ -1535,7 +1535,7 @@ DAILY_DEALS_TEMPLATE = """
 
         .search-box input:focus {
             outline: none;
-            border-color: #ff4757;
+            border-color: #ff9f00;
         }
 
         .search-box button {
@@ -1543,7 +1543,7 @@ DAILY_DEALS_TEMPLATE = """
             right: 5px;
             top: 50%;
             transform: translateY(-50%);
-            background: #ff4757;
+            background: #ff9f00;
             border: none;
             color: white;
             width: 35px;
@@ -1565,7 +1565,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: #ff4757;
+            color: #ff9f00;
         }
 
         /* Category Tabs */
@@ -1594,7 +1594,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .category-tabs a:hover, .category-tabs a.active {
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
         }
 
@@ -1740,7 +1740,7 @@ DAILY_DEALS_TEMPLATE = """
         .featured-sale {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #ff4757;
+            color: #ff9f00;
         }
 
         .featured-original {
@@ -1762,7 +1762,7 @@ DAILY_DEALS_TEMPLATE = """
             display: block;
             width: 100%;
             padding: 12px;
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
             text-align: center;
             text-decoration: none;
@@ -1820,7 +1820,7 @@ DAILY_DEALS_TEMPLATE = """
         .deal-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(255, 71, 87, 0.15);
-            border-color: #ff4757;
+            border-color: #ff9f00;
         }
 
         .deal-image-wrapper {
@@ -1844,7 +1844,7 @@ DAILY_DEALS_TEMPLATE = """
             position: absolute;
             top: 10px;
             left: 10px;
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
@@ -1880,7 +1880,7 @@ DAILY_DEALS_TEMPLATE = """
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ff4757;
+            color: #ff9f00;
             z-index: 2;
         }
 
@@ -1934,8 +1934,8 @@ DAILY_DEALS_TEMPLATE = """
             width: 100%;
             padding: 10px;
             background: white;
-            color: #ff4757;
-            border: 2px solid #ff4757;
+            color: #ff9f00;
+            border: 2px solid #ff9f00;
             text-align: center;
             text-decoration: none;
             border-radius: 8px;
@@ -1945,7 +1945,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .deal-btn:hover {
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
         }
 
@@ -1981,12 +1981,12 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .pagination a:hover {
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
         }
 
         .pagination .current {
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
         }
 
@@ -2264,7 +2264,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .logo i {
-            color: #ff4757;
+            color: #ff9f00;
         }
         
         .search-box {
@@ -2284,7 +2284,7 @@ DASHBOARD_TEMPLATE = """
         
         .search-box input:focus {
             outline: none;
-            border-color: #ff4757;
+            border-color: #ff9f00;
         }
         
         .search-box button {
@@ -2292,7 +2292,7 @@ DASHBOARD_TEMPLATE = """
             right: 5px;
             top: 50%;
             transform: translateY(-50%);
-            background: #ff4757;
+            background: #ff9f00;
             border: none;
             color: white;
             width: 35px;
@@ -2314,7 +2314,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .nav-links a:hover {
-            color: #ff4757;
+            color: #ff9f00;
         }
         
         /* Category Tabs */
@@ -2343,7 +2343,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .category-tabs a:hover, .category-tabs a.active {
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
         }
         
@@ -2416,7 +2416,7 @@ DASHBOARD_TEMPLATE = """
         .featured-sale {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #ff4757;
+            color: #ff9f00;
         }
         
         .featured-original {
@@ -2438,7 +2438,7 @@ DASHBOARD_TEMPLATE = """
             display: block;
             width: 100%;
             padding: 12px;
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
             text-align: center;
             text-decoration: none;
@@ -2511,7 +2511,7 @@ DASHBOARD_TEMPLATE = """
             position: absolute;
             top: 10px;
             left: 10px;
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
@@ -2533,7 +2533,7 @@ DASHBOARD_TEMPLATE = """
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ff4757;
+            color: #ff9f00;
         }
         
         .deal-body {
@@ -2586,8 +2586,8 @@ DASHBOARD_TEMPLATE = """
             width: 100%;
             padding: 10px;
             background: white;
-            color: #ff4757;
-            border: 2px solid #ff4757;
+            color: #ff9f00;
+            border: 2px solid #ff9f00;
             text-align: center;
             text-decoration: none;
             border-radius: 8px;
@@ -2597,7 +2597,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .deal-btn:hover {
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
         }
         
@@ -2633,12 +2633,12 @@ DASHBOARD_TEMPLATE = """
         }
         
         .pagination a:hover {
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
         }
         
         .pagination .current {
-            background: #ff4757;
+            background: #ff9f00;
             color: white;
         }
         
