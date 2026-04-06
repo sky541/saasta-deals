@@ -708,44 +708,6 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             border-color: #2563eb;
         }
 
-        /* Cuisine Filter Checkboxes */
-        .cuisine-filter-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 8px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .cuisine-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            color: #636e72;
-            transition: color 0.2s;
-        }
-
-        .cuisine-checkbox input[type="checkbox"] {
-            cursor: pointer;
-            accent-color: #2563eb;
-            width: 16px;
-            height: 16px;
-        }
-
-        .cuisine-checkbox:hover {
-            color: #2563eb;
-        }
-
-        .cuisine-checkbox input[type="checkbox"]:checked + span {
-            color: #2563eb;
-            font-weight: 600;
-        }
-
         /* Near Me Button */
         .btn-near-me {
             width: 100%;
@@ -1142,18 +1104,23 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             </div>
             {% endif %}
 
-            <!-- Cuisines Multi-Select -->
+            <!-- Cuisines Dropdown -->
             {% if all_cuisines %}
             <div class="filter-group">
-                <label>Cuisines</label>
-                <div class="cuisine-filter-list">
-                    {% for cuisine in all_cuisines[:6] %}
-                    <label class="cuisine-checkbox">
-                        <input type="checkbox" name="cuisine" value="{{ cuisine }}" {% if cuisine in selected_cuisines %}checked{% endif %} onchange="applyFilters()">
-                        <span>{{ cuisine }}</span>
-                    </label>
-                    {% endfor %}
-                </div>
+                <label for="cuisine-filter">Cuisines</label>
+                <form method="get" style="display: inline; width: 100%;">
+                    <input type="hidden" name="city" value="{{ selected_city }}">
+                    <input type="hidden" name="location" value="{{ selected_location }}">
+                    <input type="hidden" name="meal_period" value="{{ selected_meal }}">
+                    <input type="hidden" name="min_rating" value="{{ min_rating }}">
+                    <input type="hidden" name="price_range" value="{{ selected_price_range }}">
+                    <select id="cuisine-filter" name="cuisine" onchange="this.form.submit()">
+                        <option value="">All Cuisines</option>
+                        {% for cuisine in all_cuisines %}
+                        <option value="{{ cuisine }}" {% if selected_cuisines|length == 1 and selected_cuisines[0] == cuisine %}selected{% endif %}>{{ cuisine }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
             </div>
             {% endif %}
 
@@ -1389,42 +1356,6 @@ LOCAL_RESTAURANTS_TEMPLATE = """
 
     <script>
         // Handle cuisine filter submission
-        function applyFilters() {
-            const form = document.createElement('form');
-            form.method = 'GET';
-            form.action = '/local';
-
-            // Get all form inputs
-            const city = document.querySelector('select[name="city"]')?.value || '';
-            const location = document.querySelector('select[name="location"]')?.value || '';
-            const mealPeriod = document.querySelector('select[name="meal_period"]')?.value || '';
-            const minRating = document.querySelector('select[name="min_rating"]')?.value || '3.5';
-            const priceRange = document.querySelector('select[name="price_range"]')?.value || '';
-
-            // Add fields to form
-            if (city) form.appendChild(createHiddenInput('city', city));
-            if (location) form.appendChild(createHiddenInput('location', location));
-            if (mealPeriod) form.appendChild(createHiddenInput('meal_period', mealPeriod));
-            if (minRating) form.appendChild(createHiddenInput('min_rating', minRating));
-            if (priceRange) form.appendChild(createHiddenInput('price_range', priceRange));
-
-            // Get all checked cuisines
-            const cuisineCheckboxes = document.querySelectorAll('.cuisine-checkbox input[type="checkbox"]:checked');
-            cuisineCheckboxes.forEach(checkbox => {
-                form.appendChild(createHiddenInput('cuisine', checkbox.value));
-            });
-
-            document.body.appendChild(form);
-            form.submit();
-        }
-
-        function createHiddenInput(name, value) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = name;
-            input.value = value;
-            return input;
-        }
 
         // Geolocation Handler - Get user's current location
         function getNearbyLocation() {
@@ -1522,7 +1453,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .header-top {
-            background: linear-gradient(135deg, #ff9f00 0%, #ffa500 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
             padding: 10px 20px;
             text-align: center;
         }
@@ -1559,7 +1490,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .logo i {
-            color: #ff9f00;
+            color: #2563eb;
         }
 
         .search-box {
@@ -1579,7 +1510,7 @@ DAILY_DEALS_TEMPLATE = """
 
         .search-box input:focus {
             outline: none;
-            border-color: #ff9f00;
+            border-color: #2563eb;
         }
 
         .search-box button {
@@ -1587,7 +1518,7 @@ DAILY_DEALS_TEMPLATE = """
             right: 5px;
             top: 50%;
             transform: translateY(-50%);
-            background: #ff9f00;
+            background: #2563eb;
             border: none;
             color: white;
             width: 35px;
@@ -1609,7 +1540,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: #ff9f00;
+            color: #2563eb;
         }
 
         /* Category Tabs */
@@ -1638,7 +1569,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .category-tabs a:hover, .category-tabs a.active {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
@@ -1784,7 +1715,7 @@ DAILY_DEALS_TEMPLATE = """
         .featured-sale {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #ff9f00;
+            color: #2563eb;
         }
 
         .featured-original {
@@ -1806,7 +1737,7 @@ DAILY_DEALS_TEMPLATE = """
             display: block;
             width: 100%;
             padding: 12px;
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
             text-align: center;
             text-decoration: none;
@@ -1816,7 +1747,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .featured-btn:hover {
-            background: #e84118;
+            background: #1d4ed8;
         }
 
         /* Main Content */
@@ -1863,8 +1794,8 @@ DAILY_DEALS_TEMPLATE = """
 
         .deal-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 71, 87, 0.15);
-            border-color: #ff9f00;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+            border-color: #2563eb;
         }
 
         .deal-image-wrapper {
@@ -1888,7 +1819,7 @@ DAILY_DEALS_TEMPLATE = """
             position: absolute;
             top: 10px;
             left: 10px;
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
@@ -1924,7 +1855,7 @@ DAILY_DEALS_TEMPLATE = """
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ff9f00;
+            color: #2563eb;
             z-index: 2;
         }
 
@@ -1978,8 +1909,8 @@ DAILY_DEALS_TEMPLATE = """
             width: 100%;
             padding: 10px;
             background: white;
-            color: #ff9f00;
-            border: 2px solid #ff9f00;
+            color: #2563eb;
+            border: 2px solid #2563eb;
             text-align: center;
             text-decoration: none;
             border-radius: 8px;
@@ -1989,7 +1920,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .deal-btn:hover {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
@@ -2025,12 +1956,12 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         .pagination a:hover {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
         .pagination .current {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
@@ -2280,6 +2211,7 @@ DAILY_DEALS_TEMPLATE = """
         }
 
         // Update countdown every second
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
@@ -2308,7 +2240,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .logo i {
-            color: #ff9f00;
+            color: #2563eb;
         }
         
         .search-box {
@@ -2328,7 +2260,7 @@ DASHBOARD_TEMPLATE = """
         
         .search-box input:focus {
             outline: none;
-            border-color: #ff9f00;
+            border-color: #2563eb;
         }
         
         .search-box button {
@@ -2336,7 +2268,7 @@ DASHBOARD_TEMPLATE = """
             right: 5px;
             top: 50%;
             transform: translateY(-50%);
-            background: #ff9f00;
+            background: #2563eb;
             border: none;
             color: white;
             width: 35px;
@@ -2358,7 +2290,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .nav-links a:hover {
-            color: #ff9f00;
+            color: #2563eb;
         }
         
         /* Category Tabs */
@@ -2387,7 +2319,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .category-tabs a:hover, .category-tabs a.active {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
         
@@ -2460,7 +2392,7 @@ DASHBOARD_TEMPLATE = """
         .featured-sale {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #ff9f00;
+            color: #2563eb;
         }
         
         .featured-original {
@@ -2482,7 +2414,7 @@ DASHBOARD_TEMPLATE = """
             display: block;
             width: 100%;
             padding: 12px;
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
             text-align: center;
             text-decoration: none;
@@ -2555,7 +2487,7 @@ DASHBOARD_TEMPLATE = """
             position: absolute;
             top: 10px;
             left: 10px;
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
@@ -2577,7 +2509,7 @@ DASHBOARD_TEMPLATE = """
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ff9f00;
+            color: #2563eb;
         }
         
         .deal-body {
@@ -2630,8 +2562,8 @@ DASHBOARD_TEMPLATE = """
             width: 100%;
             padding: 10px;
             background: white;
-            color: #ff9f00;
-            border: 2px solid #ff9f00;
+            color: #2563eb;
+            border: 2px solid #2563eb;
             text-align: center;
             text-decoration: none;
             border-radius: 8px;
@@ -2641,7 +2573,7 @@ DASHBOARD_TEMPLATE = """
         }
         
         .deal-btn:hover {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
         
@@ -2677,12 +2609,12 @@ DASHBOARD_TEMPLATE = """
         }
         
         .pagination a:hover {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
         
         .pagination .current {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
         
