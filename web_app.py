@@ -847,6 +847,35 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             transform: scale(1.05);
         }
 
+        /* No Image Placeholder */
+        .no-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .no-image-placeholder i {
+            margin-bottom: 8px;
+            opacity: 0.8;
+        }
+
+        .no-image-placeholder span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .restaurant-image-wrapper.no-image {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+        }
+
         /* Rating Badge */
         .rating-badge {
             position: absolute;
@@ -1221,8 +1250,14 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             <div class="restaurant-card">
                 <!-- Image Section -->
                 <div class="restaurant-image-wrapper">
-                    {% if coupon.image_url and coupon.image_url != '' %}
-                    <img src="{{ coupon.image_url }}" alt="{{ coupon.source }}" class="restaurant-image" onerror="this.style.display='none'">
+                    {% if coupon.image_url and coupon.image_url.strip() %}
+                    <img src="{{ coupon.image_url }}" alt="{{ coupon.source }}" class="restaurant-image" 
+                         onerror="this.style.display='none'; this.parentElement.classList.add('no-image')">
+                    {% else %}
+                    <div class="no-image-placeholder">
+                        <i class="fas fa-utensils"></i>
+                        <span>{{ coupon.source }}</span>
+                    </div>
                     {% endif %}
                     
                     <!-- Discount Badge -->
@@ -1283,10 +1318,19 @@ LOCAL_RESTAURANTS_TEMPLATE = """
                     {% endif %}
 
                     <!-- Coupon Code / Deal -->
+                    {% if coupon.coupon_code and coupon.coupon_code.strip() %}
                     <div style="background: #fff3cd; padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 0.85rem; color: #856404;">
                         <i class="fas fa-tag" style="color: #2563eb;"></i>
-                        Code: <strong>{{ coupon.coupon_code }}</strong>
+                        <strong>How to use:</strong> Apply code <strong>{{ coupon.coupon_code }}</strong> at checkout
+                        {% if coupon.min_order %} (Min. order: {{ coupon.min_order }}){% endif %}
                     </div>
+                    {% else %}
+                    <div style="background: #e8f5e8; padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 0.85rem; color: #2e7d32;">
+                        <i class="fas fa-info-circle" style="color: #2563eb;"></i>
+                        <strong>Deal:</strong> {{ coupon.discount }} off
+                        {% if coupon.min_order %} (Min. order: {{ coupon.min_order }}){% endif %}
+                    </div>
+                    {% endif %}
 
                     <!-- Action Buttons -->
                     <div class="card-actions">
