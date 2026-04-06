@@ -612,7 +612,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
         }
 
         .header-top {
-            background: linear-gradient(135deg, #ff9f00 0%, #ffa500 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
             padding: 15px 20px;
             text-align: center;
         }
@@ -649,7 +649,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             font-size: 1.3rem;
         }
 
-        .logo i { color: #ff9f00; }
+        .logo i { color: #2563eb; }
 
         .nav-links {
             display: flex;
@@ -663,7 +663,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             transition: color 0.3s;
         }
 
-        .nav-links a:hover { color: #ff9f00; }
+        .nav-links a:hover { color: #2563eb; }
 
         /* Filters Section */
         .filters-section {
@@ -705,7 +705,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
 
         .filter-group select:focus, .filter-group select:hover {
             outline: none;
-            border-color: #ff9f00;
+            border-color: #2563eb;
         }
 
         /* Cuisine Filter Checkboxes */
@@ -732,17 +732,17 @@ LOCAL_RESTAURANTS_TEMPLATE = """
 
         .cuisine-checkbox input[type="checkbox"] {
             cursor: pointer;
-            accent-color: #ff9f00;
+            accent-color: #2563eb;
             width: 16px;
             height: 16px;
         }
 
         .cuisine-checkbox:hover {
-            color: #ff9f00;
+            color: #2563eb;
         }
 
         .cuisine-checkbox input[type="checkbox"]:checked + span {
-            color: #ff9f00;
+            color: #2563eb;
             font-weight: 600;
         }
 
@@ -751,8 +751,8 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             width: 100%;
             padding: 12px;
             background: white;
-            color: #ff9f00;
-            border: 2px solid #ff9f00;
+            color: #2563eb;
+            border: 2px solid #2563eb;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
@@ -765,12 +765,12 @@ LOCAL_RESTAURANTS_TEMPLATE = """
         }
 
         .btn-near-me:hover {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
         .btn-near-me.active {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
@@ -794,7 +794,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
         }
 
         .deals-count {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
@@ -825,7 +825,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
         .restaurant-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(255, 159, 0, 0.15);
-            border-color: #ff9f00;
+            border-color: #2563eb;
         }
 
         /* Restaurant Image */
@@ -946,10 +946,10 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             padding: 8px;
             background: #f8f9fa;
             border-radius: 6px;
-            border-left: 3px solid #ff9f00;
+            border-left: 3px solid #2563eb;
         }
 
-        .opening-hours i { color: #ff9f00; margin-right: 5px; }
+        .opening-hours i { color: #2563eb; margin-right: 5px; }
 
         /* Price Range */
         .price-range {
@@ -969,7 +969,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
         .btn-coupon {
             flex: 1;
             padding: 10px;
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
             border: none;
             border-radius: 8px;
@@ -988,8 +988,8 @@ LOCAL_RESTAURANTS_TEMPLATE = """
         .btn-call {
             padding: 10px 16px;
             background: white;
-            color: #ff9f00;
-            border: 2px solid #ff9f00;
+            color: #2563eb;
+            border: 2px solid #2563eb;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
@@ -997,7 +997,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
         }
 
         .btn-call:hover {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
@@ -1033,12 +1033,12 @@ LOCAL_RESTAURANTS_TEMPLATE = """
         }
 
         .pagination a:hover {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
         .pagination .current {
-            background: #ff9f00;
+            background: #2563eb;
             color: white;
         }
 
@@ -1076,7 +1076,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
             <nav class="nav-links">
                 <a href="/">Home</a>
                 <a href="/deals">Deals</a>
-                <a href="/local" style="color: #ff9f00; font-weight: 700;">Restaurants</a>
+                <a href="/local" style="color: #2563eb; font-weight: 700;">Restaurants</a>
             </nav>
         </div>
     </header>
@@ -1245,7 +1245,7 @@ LOCAL_RESTAURANTS_TEMPLATE = """
                     <!-- Location -->
                     {% if coupon.location %}
                     <div class="restaurant-location">
-                        <i class="fas fa-map-marker-alt" style="color: #ff9f00;"></i>
+                        <i class="fas fa-map-marker-alt" style="color: #2563eb;"></i>
                         {{ coupon.location }}
                         {% if coupon.distance_km %}
                         <span class="distance-badge">{{ coupon.distance_km }} km</span>
@@ -1278,13 +1278,13 @@ LOCAL_RESTAURANTS_TEMPLATE = """
                     <!-- Price Range -->
                     {% if coupon.price_range %}
                     <div class="price-range">
-                        Price: <span style="color: #ff9f00;">{{ coupon.price_range }}</span>
+                        Price: <span style="color: #2563eb;">{{ coupon.price_range }}</span>
                     </div>
                     {% endif %}
 
                     <!-- Coupon Code / Deal -->
                     <div style="background: #fff3cd; padding: 8px 12px; border-radius: 6px; margin-bottom: 12px; font-size: 0.85rem; color: #856404;">
-                        <i class="fas fa-tag" style="color: #ff9f00;"></i>
+                        <i class="fas fa-tag" style="color: #2563eb;"></i>
                         Code: <strong>{{ coupon.coupon_code }}</strong>
                     </div>
 
