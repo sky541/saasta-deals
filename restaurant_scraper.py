@@ -3,6 +3,7 @@ Restaurant Scraper - Enriches local food deals with ratings, cuisines, hours, an
 Scrapes data from Zomato and enriches coupons.json with real restaurant metadata
 """
 
+import os
 import requests
 import json
 import logging
@@ -13,6 +14,11 @@ from urllib.parse import quote
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+SCRIPT_DIR = os.path.dirname(__file__)
+DATA_DIR = os.path.join(SCRIPT_DIR, "data")
+CACHE_FILE_PATH = os.path.join(SCRIPT_DIR, "restaurant_cache.json")
+COUPONS_FILE_PATH = os.path.join(DATA_DIR, "coupons.json")
 
 # ============================================================================
 # CONFIGURATION - Indian Cities and Sub-locations
@@ -119,7 +125,7 @@ class RestaurantScraper:
             use_cache: Whether to use cached data to avoid excessive API calls
         """
         self.use_cache = use_cache
-        self.cache_file = "restaurant_cache.json"
+        self.cache_file = CACHE_FILE_PATH
         self.session = requests.Session()
         self.session.headers.update(ZOMATO_HEADERS)
         self.scraped_restaurants = []
@@ -195,7 +201,10 @@ class RestaurantScraper:
         
         restaurants = []
         city_data = mock_data.get(city, {})
-        location_data = city_data.get(location, [])
+        location_data = city_data.get(location)
+        
+        if not location_data:
+            location_data = self._create_dynamic_restaurant_names(city, location, count)
         
         for idx, name in enumerate(location_data[:count]):
             restaurants.append({
@@ -211,6 +220,31 @@ class RestaurantScraper:
         
         logger.info(f"  📋 Generated mock data: {len(restaurants)} restaurants in {location}")
         return restaurants
+
+    def _create_dynamic_restaurant_names(self, city: str, location: str, count: int) -> List[str]:
+        """Create realistic restaurant names for locations not covered by the built-in mock data."""
+        base_names = [
+            f"{location} Spice Hub",
+            f"{location} Cafe & Bistro",
+            f"{location} Dhaba",
+            f"{location} Grill House",
+            f"{location} Kitchen",
+            f"{location} Palace",
+            f"{location} Lounge",
+            f"{location} Express",
+            f"{location} Corner",
+            f"{location} Tandoor",
+        ]
+
+        names = base_names[:count]
+        suffixes = ["Eats", "Bites", "Garden", "Bazaar", "Station", "House", "Tavern", "Street", "Point"]
+        idx = 1
+        while len(names) < count:
+            suffix = suffixes[(idx - 1) % len(suffixes)]
+            names.append(f"{location} {suffix} {idx}")
+            idx += 1
+
+        return names
     
     # ========================================================================
     # STEP 3: DATA ENRICHMENT
@@ -553,7 +587,7 @@ class RestaurantScraper:
         expiry = datetime.now() + timedelta(days=30)
         return expiry.strftime('%Y-%m-%d')
     
-    def integrate_with_coupons_file(self, restaurants: List[Dict[str, Any]], output_file: str = 'coupons.json') -> int:
+    def integrate_with_coupons_file(self, restaurants: List[Dict[str, Any]], output_file: str = COUPONS_FILE_PATH) -> int:
         """
         Integrate scraped restaurants into existing coupons.json file
         Preserves existing coupons and adds new restaurant coupons
@@ -564,27 +598,32 @@ class RestaurantScraper:
         logger.info("=" * 60)
         
         try:
-            # Load existing coupons - handle both old format (list) and new format (dict with 'coupons' key)
-            coupons_list = []
-            try:
+            existing_data = {}
+            coupons = []
+
+            if os.path.exists(output_file):
                 with open(output_file, 'r', encoding='utf-8') as f:
                     data = json.load(f)
-                    # If structure is {'timestamp': '...', 'count': ..., 'coupons': [...]}
-                    if isinstance(data, dict) and 'coupons' in data:
-                        coupons_list = data['coupons']
-                    # If structure is just a list of coupons
+                    if isinstance(data, dict):
+                        if "coupons" in data:
+                            coupons = data.get("coupons", []) or []
+                        elif "deals" in data:
+                            coupons = data.get("deals", []) or []
+                        else:
+                            coupons = list(data.values()) if isinstance(data, dict) else []
+                        existing_data = data
                     elif isinstance(data, list):
-                        coupons_list = data
-                    # If it's a dict but not the above format, extract values
-                    elif isinstance(data, dict):
-                        coupons_list = list(data.values())
-                    logger.info(f"📖 Loaded {len(coupons_list)} existing coupons")
-            except FileNotFoundError:
+                        coupons = data
+                        existing_data = {}
+
+                logger.info(f"📖 Loaded {len(coupons)} existing coupons")
+            else:
                 logger.info("📝 Creating new coupons file")
             
-            # Track new additions
+            # Track new additions and existing codes
             new_coupons_count = 0
-            coupon_codes_added = set([c.get('coupon_code') for c in coupons_list])
+            coupon_codes_added = set()
+            existing_codes = {c.get('coupon_code') for c in coupons if isinstance(c, dict) and c.get('coupon_code')}
             
             # Convert restaurants to coupons
             for restaurant in restaurants:
@@ -594,23 +633,22 @@ class RestaurantScraper:
                 coupon_code = coupon['coupon_code']
                 
                 # Avoid duplicates
-                if coupon_code not in coupon_codes_added:
-                    coupons_list.append(coupon)
+                if coupon_code not in existing_codes and coupon_code not in coupon_codes_added:
+                    coupons.append(coupon)
                     coupon_codes_added.add(coupon_code)
                     new_coupons_count += 1
                     logger.debug(f"  ✓ Added: {coupon_code} - {coupon['description']}")
             
-            # Save updated coupons with metadata
-            output_data = {
-                'timestamp': datetime.now().isoformat(),
-                'count': len(coupons_list),
-                'coupons': coupons_list
-            }
+            existing_data['timestamp'] = datetime.now().isoformat()
+            existing_data['count'] = len(coupons)
+            existing_data['coupons'] = coupons
+
+            # Save updated coupons
             with open(output_file, 'w', encoding='utf-8') as f:
-                json.dump(output_data, f, indent=2, ensure_ascii=False)
+                json.dump(existing_data, f, indent=2, ensure_ascii=False)
             
             logger.info(f"\n✅ Integration complete!")
-            logger.info(f"   Total coupons: {len(coupons_list)}")
+            logger.info(f"   Total coupons: {len(coupons)}")
             logger.info(f"   New coupons added: {new_coupons_count}")
             logger.info(f"   Saved to: {output_file}")
             
@@ -620,7 +658,7 @@ class RestaurantScraper:
             logger.error(f"❌ Integration failed: {e}")
             raise
     
-    def process_all_cities(self, output_file: str = 'coupons.json') -> int:
+    def process_all_cities(self, output_file: str = COUPONS_FILE_PATH) -> int:
         """
         Main orchestration function: Scrape all cities, enrich data, and integrate with coupons
         """
@@ -675,9 +713,9 @@ def main():
     scraper = RestaurantScraper(use_cache=True)
     
     # Complete pipeline with all 4 steps
-    coupons_added = scraper.process_all_cities(output_file='coupons.json')
+    coupons_added = scraper.process_all_cities()
     
-    logger.info(f"\n🎊 SUCCESS! {coupons_added} new restaurant coupons added to coupons.json")
+    logger.info(f"\n🎊 SUCCESS! {coupons_added} new restaurant coupons added to {COUPONS_FILE_PATH}")
     return coupons_added
 
 
