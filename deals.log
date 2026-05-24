@@ -1,0 +1,761 @@
+2026-02-16 18:50:40,617 - deals_bot - INFO - Scraping Amazon category: electronics
+2026-02-16 18:50:40,617 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:50:44,694 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:50:44,695 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:50:46,339 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:50:46,341 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/electronics?ref_=nav_cs_gb
+2026-02-16 18:50:49,094 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:50:49,104 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:50:54,428 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:50:56,904 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:50:56,906 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:50:56,906 - deals_bot - INFO - Scraping Amazon category: mobile-phones
+2026-02-16 18:50:56,906 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:51:00,050 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:51:00,050 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:51:02,105 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:51:02,105 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/mobile-phones?ref_=nav_cs_gb
+2026-02-16 18:51:05,769 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:51:05,769 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:51:12,685 - deals_bot - INFO - Scraped 11 deals from Amazon
+2026-02-16 18:51:12,685 - deals_bot - INFO - Scraping Amazon category: fashion
+2026-02-16 18:51:12,685 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:51:16,915 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:51:16,915 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:51:18,182 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:51:18,182 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/fashion?ref_=nav_cs_gb
+2026-02-16 18:51:22,170 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:51:22,170 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:51:28,729 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:51:30,980 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:51:30,983 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:51:30,983 - deals_bot - INFO - Scraping Amazon category: home
+2026-02-16 18:51:30,983 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:51:33,637 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:51:33,641 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:51:35,997 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:51:35,997 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/home?ref_=nav_cs_gb
+2026-02-16 18:51:38,834 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:51:38,834 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:51:43,678 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:51:46,549 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:51:46,549 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:51:46,550 - deals_bot - INFO - Scraping Amazon category: computers
+2026-02-16 18:51:46,550 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:51:50,424 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:51:50,424 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:51:53,406 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:51:53,407 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 18:51:57,440 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:51:57,440 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:52:02,724 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:52:05,286 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:52:05,287 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:54:24,869 - deals_bot - INFO - Scraping Amazon category: electronics
+2026-02-16 18:54:24,870 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:54:28,179 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:54:28,181 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:54:30,388 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:54:30,388 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/electronics?ref_=nav_cs_gb
+2026-02-16 18:54:33,331 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:54:33,331 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:54:38,781 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:54:40,418 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:54:40,420 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:54:40,420 - deals_bot - INFO - Scraping Amazon category: mobile-phones
+2026-02-16 18:54:40,420 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:54:43,835 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:54:43,837 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:54:46,972 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:54:46,974 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/mobile-phones?ref_=nav_cs_gb
+2026-02-16 18:54:49,741 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:54:49,741 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:54:55,469 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:54:58,338 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:54:58,339 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:54:58,339 - deals_bot - INFO - Scraping Amazon category: fashion
+2026-02-16 18:54:58,339 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:55:01,621 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:55:01,621 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:55:03,869 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:55:03,870 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/fashion?ref_=nav_cs_gb
+2026-02-16 18:55:06,512 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:55:06,513 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:55:12,212 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:55:14,713 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:55:14,714 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:55:14,714 - deals_bot - INFO - Scraping Amazon category: home
+2026-02-16 18:55:14,714 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:55:17,385 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:55:17,387 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:55:19,331 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:55:19,331 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/home?ref_=nav_cs_gb
+2026-02-16 18:55:20,612 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals/home?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals/home?ref_=nav_cs_gb
+2026-02-16 18:55:20,612 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:55:26,807 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:55:28,752 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:55:28,752 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:55:28,752 - deals_bot - INFO - Scraping Amazon category: computers
+2026-02-16 18:55:28,752 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:55:31,903 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:55:31,906 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:55:33,972 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:55:33,972 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 18:55:35,509 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals/computers?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 18:55:35,509 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:55:41,757 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:55:44,929 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:55:44,931 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:55:44,931 - deals_bot - INFO - Adding sample deals for demonstration
+2026-02-16 18:55:44,936 - __main__ - INFO - Saved 5 deals from amazon to amazon_deals_20260216_185544.json
+2026-02-16 18:57:50,029 - deals_bot - INFO - Scraping Amazon category: electronics
+2026-02-16 18:57:50,030 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:57:52,210 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:57:52,213 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:57:53,644 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:57:53,646 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/electronics?ref_=nav_cs_gb
+2026-02-16 18:57:57,016 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:57:57,016 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:58:02,043 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:58:05,114 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:58:05,116 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:58:05,118 - deals_bot - INFO - Scraping Amazon category: mobile-phones
+2026-02-16 18:58:05,120 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:58:08,223 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:58:08,223 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:58:10,439 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:58:10,440 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/mobile-phones?ref_=nav_cs_gb
+2026-02-16 18:58:14,617 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:58:14,617 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:58:20,473 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:58:23,239 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:58:23,239 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:58:23,239 - deals_bot - INFO - Scraping Amazon category: fashion
+2026-02-16 18:58:23,239 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:58:26,472 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:58:26,474 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:58:28,051 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:58:28,051 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/fashion?ref_=nav_cs_gb
+2026-02-16 18:58:31,661 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:58:31,661 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:58:35,627 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:58:38,292 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:58:38,293 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:58:38,293 - deals_bot - INFO - Scraping Amazon category: home
+2026-02-16 18:58:38,293 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:58:41,046 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:58:41,046 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:58:43,511 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:58:43,511 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/home?ref_=nav_cs_gb
+2026-02-16 18:58:47,729 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:58:47,729 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:58:53,446 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:58:54,673 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:58:54,673 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:58:54,673 - deals_bot - INFO - Scraping Amazon category: computers
+2026-02-16 18:58:54,673 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 18:58:57,968 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:58:57,968 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:59:00,770 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 18:59:00,770 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 18:59:04,209 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:59:04,209 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 18:59:08,390 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 18:59:09,660 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 18:59:09,660 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 18:59:09,660 - deals_bot - INFO - Adding sample deals for demonstration
+2026-02-16 18:59:09,675 - __main__ - INFO - Saved 5 deals from amazon to amazon_deals_20260216_185909.json
+2026-02-16 18:59:09,684 - deals_bot - INFO - Scraping Flipkart category: electronics
+2026-02-16 18:59:09,684 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 18:59:12,608 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:59:12,610 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 18:59:15,310 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 18:59:15,313 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+electronics
+2026-02-16 18:59:18,786 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:59:18,786 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 18:59:27,889 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 18:59:27,889 - deals_bot - INFO - Scraping Flipkart category: mobiles
+2026-02-16 18:59:27,889 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 18:59:30,948 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:59:30,949 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 18:59:32,563 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 18:59:32,565 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+mobiles
+2026-02-16 18:59:34,545 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:59:34,552 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 18:59:41,628 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 18:59:41,631 - deals_bot - INFO - Scraping Flipkart category: fashion
+2026-02-16 18:59:41,634 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 18:59:44,798 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:59:44,800 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 18:59:45,876 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 18:59:45,877 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+fashion
+2026-02-16 18:59:50,015 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:59:50,015 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 18:59:57,073 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 18:59:57,073 - deals_bot - INFO - Scraping Flipkart category: home-kitchen
+2026-02-16 18:59:57,073 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 18:59:59,871 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 18:59:59,871 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:00:01,109 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:00:01,109 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+home-kitchen
+2026-02-16 19:00:05,029 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:00:05,029 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:00:14,843 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:00:14,843 - deals_bot - INFO - Scraping Flipkart category: computers
+2026-02-16 19:00:14,843 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:00:16,829 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:00:16,829 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:00:19,695 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:00:19,695 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+computers
+2026-02-16 19:00:22,399 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:00:22,399 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:00:30,662 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:00:30,662 - deals_bot - INFO - Adding sample deals for demonstration
+2026-02-16 19:00:30,671 - __main__ - INFO - Saved 5 deals from flipkart to flipkart_deals_20260216_190030.json
+2026-02-16 19:00:32,062 - deals_bot - INFO - DealsAggregator initialized
+2026-02-16 19:00:32,063 - deals_bot - INFO - Added scraper: amazon
+2026-02-16 19:00:32,063 - deals_bot - INFO - Added scraper: flipkart
+2026-02-16 19:00:32,063 - deals_bot - INFO - Scrapers initialized
+2026-02-16 19:00:32,066 - deals_bot - INFO - Deals Batch Scheduler started
+2026-02-16 19:00:32,066 - deals_bot - INFO - Interval: 1.0 hour(s)
+2026-02-16 19:00:32,066 - deals_bot - INFO - Max iterations: unlimited
+2026-02-16 19:00:32,066 - deals_bot - INFO - Press Ctrl+C to stop
+2026-02-16 19:00:32,067 - deals_bot - INFO - === Starting iteration 1 at 2026-02-16T19:00:32.067561 ===
+2026-02-16 19:00:32,067 - deals_bot - INFO - Starting deals aggregation cycle
+2026-02-16 19:00:32,067 - deals_bot - INFO - Scraping deals from amazon
+2026-02-16 19:00:32,067 - deals_bot - INFO - Scraping Amazon category: electronics
+2026-02-16 19:00:32,067 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:00:35,323 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:00:35,323 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:00:37,483 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:00:37,484 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/electronics?ref_=nav_cs_gb
+2026-02-16 19:00:40,367 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:00:40,367 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:00:47,725 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:00:49,155 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:00:49,157 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:00:49,157 - deals_bot - INFO - Scraping Amazon category: mobile-phones
+2026-02-16 19:00:49,161 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:00:52,424 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:00:52,424 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:00:54,683 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:00:54,683 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/mobile-phones?ref_=nav_cs_gb
+2026-02-16 19:00:58,432 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:00:58,432 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:01:04,859 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:01:06,462 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:01:06,464 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:01:06,464 - deals_bot - INFO - Scraping Amazon category: fashion
+2026-02-16 19:01:06,468 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:01:09,466 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:01:09,466 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:01:11,017 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:01:11,017 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/fashion?ref_=nav_cs_gb
+2026-02-16 19:01:14,022 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:01:14,022 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:01:20,699 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:01:22,640 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:01:22,642 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:01:22,642 - deals_bot - INFO - Scraping Amazon category: home
+2026-02-16 19:01:22,644 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:01:26,432 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:01:26,432 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:01:29,193 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:01:29,193 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/home?ref_=nav_cs_gb
+2026-02-16 19:01:31,971 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:01:31,971 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:01:37,705 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:01:39,559 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:01:39,559 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:01:39,559 - deals_bot - INFO - Scraping Amazon category: computers
+2026-02-16 19:01:39,559 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:01:42,604 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:01:42,604 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:01:45,269 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:01:45,269 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 19:01:46,601 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals/computers?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 19:01:46,604 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:01:53,261 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:01:54,691 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:01:54,691 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:01:54,691 - deals_bot - INFO - Adding sample deals for demonstration
+2026-02-16 19:01:54,696 - deals_bot - INFO - Saved 5 deals from amazon to amazon_deals_20260216_190154.json
+2026-02-16 19:01:54,706 - deals_bot - INFO - Successfully scraped 5 deals from amazon
+2026-02-16 19:01:54,706 - deals_bot - INFO - Scraping deals from flipkart
+2026-02-16 19:01:54,708 - deals_bot - INFO - Scraping Flipkart category: electronics
+2026-02-16 19:01:54,708 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:01:57,351 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:01:57,353 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:01:58,998 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:01:59,000 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+electronics
+2026-02-16 19:02:01,648 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:02:01,656 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:02:10,989 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:02:10,991 - deals_bot - INFO - Scraping Flipkart category: mobiles
+2026-02-16 19:02:10,992 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:02:13,932 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:02:13,934 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:02:15,740 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:02:15,742 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+mobiles
+2026-02-16 19:02:18,504 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:02:18,504 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:02:26,942 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:02:26,945 - deals_bot - INFO - Scraping Flipkart category: fashion
+2026-02-16 19:02:26,945 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:02:29,664 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:02:29,664 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:02:32,240 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:02:32,242 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+fashion
+2026-02-16 19:02:32,966 - deals_bot - INFO - Received signal 2, shutting down gracefully...
+2026-02-16 19:02:35,708 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:02:35,708 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:02:43,760 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:02:43,760 - deals_bot - INFO - Scraping Flipkart category: home-kitchen
+2026-02-16 19:02:43,760 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:02:46,092 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:02:46,092 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:02:47,148 - deals_bot - INFO - Received signal 2, shutting down gracefully...
+2026-02-16 19:02:47,938 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:02:47,940 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+home-kitchen
+2026-02-16 19:02:50,129 - deals_bot - INFO - Received signal 2, shutting down gracefully...
+2026-02-16 19:02:53,289 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:02:53,289 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:03:04,639 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:03:04,639 - deals_bot - INFO - Scraping Flipkart category: computers
+2026-02-16 19:03:04,645 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:03:07,934 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:03:07,934 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:03:10,740 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:03:10,740 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+computers
+2026-02-16 19:03:14,048 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:03:14,049 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:03:21,245 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:03:21,245 - deals_bot - INFO - Adding sample deals for demonstration
+2026-02-16 19:03:21,255 - deals_bot - INFO - Saved 5 deals from flipkart to flipkart_deals_20260216_190321.json
+2026-02-16 19:03:21,260 - deals_bot - INFO - Successfully scraped 5 deals from flipkart
+2026-02-16 19:03:21,266 - deals_bot - INFO - Deals aggregation cycle completed. Processed 2 sources
+2026-02-16 19:03:21,268 - deals_bot - INFO - Iteration 1 completed: 2/2 sources successful
+2026-02-16 19:03:21,269 - deals_bot - INFO -   - amazon: success - 5 deals
+2026-02-16 19:03:21,271 - deals_bot - INFO -   - flipkart: success - 5 deals
+2026-02-16 19:03:21,272 - deals_bot - INFO - Scheduler stopped
+2026-02-16 19:03:24,067 - deals_bot - INFO - DealsAggregator initialized
+2026-02-16 19:03:24,073 - deals_bot - INFO - Added scraper: amazon
+2026-02-16 19:03:24,084 - deals_bot - INFO - Added scraper: flipkart
+2026-02-16 19:03:24,087 - deals_bot - INFO - Starting deals aggregation cycle
+2026-02-16 19:03:24,103 - deals_bot - INFO - Scraping deals from amazon
+2026-02-16 19:03:24,117 - deals_bot - INFO - Scraping Amazon category: electronics
+2026-02-16 19:03:24,132 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:03:27,342 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:03:27,346 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:03:29,050 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:03:29,052 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/electronics?ref_=nav_cs_gb
+2026-02-16 19:03:32,611 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:03:32,612 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:03:37,057 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:03:38,521 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:03:38,524 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:03:38,524 - deals_bot - INFO - Scraping Amazon category: mobile-phones
+2026-02-16 19:03:38,527 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:03:41,297 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:03:41,297 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:03:42,467 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:03:42,467 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/mobile-phones?ref_=nav_cs_gb
+2026-02-16 19:03:45,484 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals/mobile-phones?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals/mobile-phones?ref_=nav_cs_gb
+2026-02-16 19:03:45,484 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:03:50,676 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:03:53,375 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:03:53,375 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:03:53,375 - deals_bot - INFO - Scraping Amazon category: fashion
+2026-02-16 19:03:53,375 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:03:56,237 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:03:56,240 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:03:58,286 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:03:58,286 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/fashion?ref_=nav_cs_gb
+2026-02-16 19:04:01,359 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals/fashion?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals/fashion?ref_=nav_cs_gb
+2026-02-16 19:04:01,359 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:04:07,685 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:04:09,833 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:04:09,833 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:04:09,833 - deals_bot - INFO - Scraping Amazon category: home
+2026-02-16 19:04:09,835 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:04:13,841 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:04:13,841 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:04:15,938 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:04:15,938 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/home?ref_=nav_cs_gb
+2026-02-16 19:04:19,086 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:04:19,089 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:04:24,944 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:04:27,244 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:04:27,247 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:04:27,247 - deals_bot - INFO - Scraping Amazon category: computers
+2026-02-16 19:04:27,247 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:04:29,934 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:04:29,934 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:04:32,898 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:04:32,956 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 19:04:35,797 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:04:35,799 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:04:42,008 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:04:44,057 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:04:44,058 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:04:44,058 - deals_bot - INFO - Adding sample deals for demonstration
+2026-02-16 19:04:44,060 - deals_bot - INFO - Saved 5 deals from amazon to amazon_deals_20260216_190444.json
+2026-02-16 19:04:44,064 - deals_bot - INFO - Successfully scraped 5 deals from amazon
+2026-02-16 19:04:44,064 - deals_bot - INFO - Scraping deals from flipkart
+2026-02-16 19:04:44,065 - deals_bot - INFO - Scraping Flipkart category: electronics
+2026-02-16 19:04:44,065 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:04:45,990 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:04:45,990 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:04:48,052 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:04:48,052 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+electronics
+2026-02-16 19:04:51,498 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:04:51,504 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:04:59,627 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:04:59,627 - deals_bot - INFO - Scraping Flipkart category: mobiles
+2026-02-16 19:04:59,627 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:05:01,075 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:05:01,075 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:05:03,484 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:05:03,484 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+mobiles
+2026-02-16 19:05:06,949 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:05:06,949 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:05:15,115 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:05:15,115 - deals_bot - INFO - Scraping Flipkart category: fashion
+2026-02-16 19:05:15,115 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:05:17,405 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:05:17,406 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:05:18,650 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:05:18,650 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+fashion
+2026-02-16 19:05:20,685 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:05:20,685 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:05:28,559 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:05:28,559 - deals_bot - INFO - Scraping Flipkart category: home-kitchen
+2026-02-16 19:05:28,559 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:05:30,517 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:05:30,517 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:05:31,801 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:05:31,801 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+home-kitchen
+2026-02-16 19:05:33,862 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:05:33,883 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:05:40,235 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:05:40,235 - deals_bot - INFO - Scraping Flipkart category: computers
+2026-02-16 19:05:40,236 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:05:43,175 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:05:43,176 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:05:44,421 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:05:44,421 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+computers
+2026-02-16 19:05:47,781 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:05:47,783 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:05:54,660 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:05:54,661 - deals_bot - INFO - Adding sample deals for demonstration
+2026-02-16 19:05:54,662 - deals_bot - INFO - Saved 5 deals from flipkart to flipkart_deals_20260216_190554.json
+2026-02-16 19:05:54,666 - deals_bot - INFO - Successfully scraped 5 deals from flipkart
+2026-02-16 19:05:54,668 - deals_bot - INFO - Deals aggregation cycle completed. Processed 2 sources
+2026-02-16 19:05:56,630 - deals_bot - INFO - DealsAggregator initialized
+2026-02-16 19:05:56,631 - deals_bot - INFO - Added scraper: amazon
+2026-02-16 19:05:56,632 - deals_bot - INFO - Added scraper: flipkart
+2026-02-16 19:05:56,633 - deals_bot - INFO - Scrapers initialized
+2026-02-16 19:05:56,633 - deals_bot - INFO - Deals Batch Scheduler started
+2026-02-16 19:05:56,634 - deals_bot - INFO - Interval: 1.0 hour(s)
+2026-02-16 19:05:56,634 - deals_bot - INFO - Max iterations: unlimited
+2026-02-16 19:05:56,635 - deals_bot - INFO - Press Ctrl+C to stop
+2026-02-16 19:05:56,635 - deals_bot - INFO - === Starting iteration 1 at 2026-02-16T19:05:56.635437 ===
+2026-02-16 19:05:56,636 - deals_bot - INFO - Starting deals aggregation cycle
+2026-02-16 19:05:56,636 - deals_bot - INFO - Scraping deals from amazon
+2026-02-16 19:05:56,637 - deals_bot - INFO - Scraping Amazon category: electronics
+2026-02-16 19:05:56,638 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:06:00,654 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:06:00,655 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:06:03,291 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:06:03,292 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/electronics?ref_=nav_cs_gb
+2026-02-16 19:06:07,150 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:06:07,150 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:06:13,483 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:06:14,706 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:06:14,707 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:06:14,707 - deals_bot - INFO - Scraping Amazon category: mobile-phones
+2026-02-16 19:06:14,708 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:06:17,084 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:06:17,085 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:06:18,753 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:06:18,755 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/mobile-phones?ref_=nav_cs_gb
+2026-02-16 19:06:21,023 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:06:21,024 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:06:27,532 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:06:29,762 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:06:29,763 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:06:29,764 - deals_bot - INFO - Scraping Amazon category: fashion
+2026-02-16 19:06:29,765 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:06:33,727 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:06:33,728 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:06:36,495 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:06:36,496 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/fashion?ref_=nav_cs_gb
+2026-02-16 19:06:40,496 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:06:40,497 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:06:44,457 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:06:47,468 - deals_bot - INFO - Scraped 6 deals from Amazon
+2026-02-16 19:06:47,469 - deals_bot - INFO - Scraping Amazon category: home
+2026-02-16 19:06:47,470 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:06:49,903 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:06:49,904 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:06:51,318 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:06:51,319 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/home?ref_=nav_cs_gb
+2026-02-16 19:06:53,835 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:06:53,835 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:06:58,956 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:07:00,788 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:07:00,790 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:07:00,790 - deals_bot - INFO - Scraping Amazon category: computers
+2026-02-16 19:07:00,791 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals?ref_=nav_cs_gb
+2026-02-16 19:07:03,458 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:07:03,458 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:07:05,625 - deals_bot - ERROR - Error fetching https://www.amazon.in/gp/deals?ref_=nav_cs_gb: 404 Client Error: Not Found for url: https://www.amazon.in/gp/deals?ref_=nav_cs_gb
+2026-02-16 19:07:05,626 - deals_bot - INFO - Trying Amazon URL: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 19:07:08,544 - deals_bot - ERROR - Error fetching https://www.amazon.in/deals/computers?ref_=nav_cs_gb: 503 Server Error: Service Unavailable for url: https://www.amazon.in/deals/computers?ref_=nav_cs_gb
+2026-02-16 19:07:08,545 - deals_bot - INFO - No deals from deals page, trying bestseller pages
+2026-02-16 19:07:12,595 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=best+sellers+electronics: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=best+sellers+electronics
+2026-02-16 19:07:14,163 - deals_bot - ERROR - Error fetching https://www.amazon.in/s?k=today%27s+deals: 503 Server Error: Service Unavailable for url: https://www.amazon.in/s?k=today%27s+deals
+2026-02-16 19:07:14,164 - deals_bot - INFO - Scraped 0 deals from Amazon
+2026-02-16 19:07:14,168 - deals_bot - INFO - Saved 6 deals from amazon to amazon_deals_20260216_190714.json
+2026-02-16 19:07:14,174 - deals_bot - INFO - Successfully scraped 6 deals from amazon
+2026-02-16 19:07:14,175 - deals_bot - INFO - Scraping deals from flipkart
+2026-02-16 19:07:14,176 - deals_bot - INFO - Scraping Flipkart category: electronics
+2026-02-16 19:07:14,177 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:07:17,187 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:07:17,187 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:07:20,143 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:07:20,143 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+electronics
+2026-02-16 19:07:22,898 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:07:22,899 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:07:31,411 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:07:31,411 - deals_bot - INFO - Scraping Flipkart category: mobiles
+2026-02-16 19:07:31,412 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:07:34,409 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:07:34,411 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:07:35,725 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:07:35,726 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+mobiles
+2026-02-16 19:07:38,293 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:07:38,294 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:07:46,854 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:07:46,855 - deals_bot - INFO - Scraping Flipkart category: fashion
+2026-02-16 19:07:46,855 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:07:49,759 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:07:49,760 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:07:51,386 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:07:51,387 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+fashion
+2026-02-16 19:07:54,338 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:07:54,339 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:08:01,231 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:08:01,232 - deals_bot - INFO - Scraping Flipkart category: home-kitchen
+2026-02-16 19:08:01,232 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:08:04,026 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:08:04,027 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:08:05,402 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:08:05,403 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+home-kitchen
+2026-02-16 19:08:08,828 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:08:08,828 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:08:16,765 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:08:16,765 - deals_bot - INFO - Scraping Flipkart category: computers
+2026-02-16 19:08:16,765 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offers
+2026-02-16 19:08:19,130 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:08:19,131 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/offer/electronics
+2026-02-16 19:08:20,522 - deals_bot - ERROR - Error fetching https://www.flipkart.com/offer/electronics: 404 Client Error: Not Found for url: https://www.flipkart.com/offer/electronics
+2026-02-16 19:08:20,523 - deals_bot - INFO - Trying Flipkart URL: https://www.flipkart.com/search?q=deals+computers
+2026-02-16 19:08:22,438 - deals_bot - INFO - Found 0 potential deal cards
+2026-02-16 19:08:22,439 - deals_bot - INFO - No deals from deals page, trying search pages
+2026-02-16 19:08:29,311 - deals_bot - INFO - Scraped 0 deals from Flipkart
+2026-02-16 19:08:29,312 - deals_bot - INFO - Adding sample deals for demonstration
+2026-02-16 19:08:29,315 - deals_bot - INFO - Saved 5 deals from flipkart to flipkart_deals_20260216_190829.json
+2026-02-16 19:08:29,317 - deals_bot - INFO - Successfully scraped 5 deals from flipkart
+2026-02-16 19:08:29,319 - deals_bot - INFO - Deals aggregation cycle completed. Processed 2 sources
+2026-02-16 19:08:29,320 - deals_bot - INFO - Iteration 1 completed: 2/2 sources successful
+2026-02-16 19:08:29,320 - deals_bot - INFO -   - amazon: success - 6 deals
+2026-02-16 19:08:29,321 - deals_bot - INFO -   - flipkart: success - 5 deals
+2026-02-16 19:08:29,321 - deals_bot - INFO - Next iteration in 1.0 hour(s)
+2026-02-16 19:08:35,700 - deals_bot - INFO - Received signal 2, shutting down gracefully...
+2026-02-16 19:08:36,035 - deals_bot - INFO - Received signal 2, shutting down gracefully...
+2026-02-16 19:09:06,709 - __main__ - INFO - Starting IndiaDeals web app on http://0.0.0.0:5000
+2026-02-16 19:09:06,744 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.88.10:5000
+2026-02-16 19:09:06,745 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-16 19:10:31,408 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:10:31] "GET /api/deals HTTP/1.1" 200 -
+2026-02-16 19:10:56,876 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:10:56] "GET / HTTP/1.1" 200 -
+2026-02-16 19:12:57,275 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:12:57] "GET / HTTP/1.1" 200 -
+2026-02-16 19:13:47,478 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:13:47] "GET / HTTP/1.1" 200 -
+2026-02-16 19:14:33,909 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:14:33] "GET /api/deals HTTP/1.1" 200 -
+2026-02-16 19:14:48,564 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:14:48] "GET / HTTP/1.1" 200 -
+2026-02-16 19:14:48,977 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:14:48] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-16 19:16:49,695 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:16:49] "GET / HTTP/1.1" 200 -
+2026-02-16 19:18:06,445 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:18:06] "GET /api/deals HTTP/1.1" 200 -
+2026-02-16 19:18:21,061 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:18:21] "GET / HTTP/1.1" 200 -
+2026-02-16 19:18:50,382 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:18:50] "GET / HTTP/1.1" 200 -
+2026-02-16 19:20:21,703 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:20:21] "GET / HTTP/1.1" 200 -
+2026-02-16 19:20:40,929 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:20:40] "GET /api/deals HTTP/1.1" 200 -
+2026-02-16 19:20:51,371 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:20:51] "GET / HTTP/1.1" 200 -
+2026-02-16 19:21:14,724 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:21:14] "GET / HTTP/1.1" 200 -
+2026-02-16 19:23:15,680 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:23:15] "GET / HTTP/1.1" 200 -
+2026-02-16 19:25:16,680 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:25:16] "GET / HTTP/1.1" 200 -
+2026-02-16 19:27:13,080 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:27:13] "GET / HTTP/1.1" 200 -
+2026-02-16 19:27:17,376 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:27:17] "GET / HTTP/1.1" 200 -
+2026-02-16 19:27:29,506 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:27:29] "GET / HTTP/1.1" 200 -
+2026-02-16 19:29:30,696 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:29:30] "GET / HTTP/1.1" 200 -
+2026-02-16 19:30:29,377 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:30:29] "GET /api/deals HTTP/1.1" 200 -
+2026-02-16 19:31:10,886 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:31:10] "GET / HTTP/1.1" 200 -
+2026-02-16 19:31:31,367 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:31:31] "GET / HTTP/1.1" 200 -
+2026-02-16 19:31:37,517 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:31:37] "GET /?source=&category=&sort=price_low&search= HTTP/1.1" 200 -
+2026-02-16 19:33:32,675 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:33:32] "GET / HTTP/1.1" 200 -
+2026-02-16 19:33:38,380 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:33:38] "GET /?source=&category=&sort=price_low&search= HTTP/1.1" 200 -
+2026-02-16 19:34:42,056 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:34:42] "GET /api/deals HTTP/1.1" 200 -
+2026-02-16 19:35:33,684 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:35:33] "GET / HTTP/1.1" 200 -
+2026-02-16 19:35:39,374 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:35:39] "GET /?source=&category=&sort=price_low&search= HTTP/1.1" 200 -
+2026-02-16 19:36:56,404 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:36:56] "GET / HTTP/1.1" 200 -
+2026-02-16 19:41:42,182 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:41:42] "[33mGET /api/coupons HTTP/1.1[0m" 404 -
+2026-02-16 19:42:14,185 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:42:14] "GET / HTTP/1.1" 200 -
+2026-02-16 19:43:29,161 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2026-02-16 19:43:29,162 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-16 19:45:13,138 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:45:13] "GET / HTTP/1.1" 200 -
+2026-02-16 19:48:50,986 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:48:50] "GET / HTTP/1.1" 200 -
+2026-02-16 19:48:51,165 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:48:51] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-16 19:51:22,535 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:51:22] "GET /api/coupons HTTP/1.1" 200 -
+2026-02-16 19:51:47,777 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:51:47] "GET / HTTP/1.1" 200 -
+2026-02-16 19:53:11,048 - __main__ - INFO - Starting Saasta Deals on http://0.0.0.0:5000
+2026-02-16 19:53:11,089 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.88.10:5000
+2026-02-16 19:53:11,090 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-16 19:53:27,321 - werkzeug - INFO - 192.168.88.10 - - [16/Feb/2026 19:53:27] "GET / HTTP/1.1" 200 -
+2026-02-16 19:53:27,688 - werkzeug - INFO - 192.168.88.10 - - [16/Feb/2026 19:53:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-16 19:53:39,710 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:53:39] "GET / HTTP/1.1" 200 -
+2026-02-16 19:53:40,017 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:53:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-16 19:54:40,855 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2026-02-16 19:54:40,856 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-02-16 19:54:46,619 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:54:46] "GET / HTTP/1.1" 200 -
+2026-02-16 19:54:46,905 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 19:54:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-02-16 20:03:55,620 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:03:55] "GET / HTTP/1.1" 200 -
+2026-02-16 20:03:57,208 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:03:57] "GET / HTTP/1.1" 200 -
+2026-02-16 20:06:07,471 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:06:07] "GET / HTTP/1.1" 200 -
+2026-02-16 20:06:10,305 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:06:10] "GET / HTTP/1.1" 200 -
+2026-02-16 20:06:53,632 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:06:53] "GET / HTTP/1.1" 200 -
+2026-02-16 20:07:23,272 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:07:23] "GET / HTTP/1.1" 200 -
+2026-02-16 20:07:54,610 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:07:54] "GET / HTTP/1.1" 200 -
+2026-02-16 20:07:55,882 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:07:55] "GET / HTTP/1.1" 200 -
+2026-02-16 20:07:56,204 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:07:56] "GET / HTTP/1.1" 200 -
+2026-02-16 20:07:57,257 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:07:57] "GET / HTTP/1.1" 200 -
+2026-02-16 20:07:57,584 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:07:57] "GET / HTTP/1.1" 200 -
+2026-02-16 20:08:17,727 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:08:17] "GET / HTTP/1.1" 200 -
+2026-02-16 20:12:44,312 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:12:44] "GET / HTTP/1.1" 200 -
+2026-02-16 20:13:12,263 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:13:12] "GET /api/coupons HTTP/1.1" 200 -
+2026-02-16 20:13:28,848 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:13:28] "GET /api/coupons?city=Hyderabad HTTP/1.1" 200 -
+2026-02-16 20:14:27,257 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:14:27] "GET /api/coupons?city=Hyderabad HTTP/1.1" 200 -
+2026-02-16 20:14:31,929 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:14:31] "GET /api/coupons?city=Hyderabad HTTP/1.1" 200 -
+2026-02-16 20:15:49,540 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:15:49] "GET / HTTP/1.1" 200 -
+2026-02-16 20:16:25,092 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:16:25] "GET / HTTP/1.1" 200 -
+2026-02-16 20:16:53,733 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:16:53] "[33mGET /api/coupons HTTP/1.1[0m" 404 -
+2026-02-16 20:17:31,016 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:17:31] "GET / HTTP/1.1" 200 -
+2026-02-16 20:17:44,396 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:17:44] "GET / HTTP/1.1" 200 -
+2026-02-16 20:18:04,781 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:18:04] "GET /api/coupons HTTP/1.1" 200 -
+2026-02-16 20:19:08,189 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:19:08] "GET / HTTP/1.1" 200 -
+2026-02-16 20:21:08,682 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:21:08] "GET / HTTP/1.1" 200 -
+2026-02-16 20:23:09,676 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:23:09] "GET / HTTP/1.1" 200 -
+2026-02-16 20:25:10,658 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:25:10] "GET / HTTP/1.1" 200 -
+2026-02-16 20:25:58,407 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:25:58] "GET / HTTP/1.1" 200 -
+2026-02-16 20:26:12,974 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:26:12] "GET / HTTP/1.1" 200 -
+2026-02-16 20:27:11,681 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:27:11] "GET / HTTP/1.1" 200 -
+2026-02-16 20:29:12,656 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:29:12] "GET / HTTP/1.1" 200 -
+2026-02-16 20:29:36,082 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:29:36] "GET / HTTP/1.1" 200 -
+2026-02-16 20:30:14,833 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:30:14] "GET / HTTP/1.1" 200 -
+2026-02-16 20:31:06,280 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:31:06] "GET / HTTP/1.1" 200 -
+2026-02-16 20:33:06,676 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:33:06] "GET / HTTP/1.1" 200 -
+2026-02-16 20:35:07,681 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:35:07] "GET / HTTP/1.1" 200 -
+2026-02-16 20:35:20,089 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:35:20] "GET / HTTP/1.1" 200 -
+2026-02-16 20:37:08,686 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:37:08] "GET / HTTP/1.1" 200 -
+2026-02-16 20:39:09,172 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:39:09] "GET / HTTP/1.1" 200 -
+2026-02-16 20:41:09,798 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:41:09] "GET / HTTP/1.1" 200 -
+2026-02-16 20:43:10,673 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:43:10] "GET / HTTP/1.1" 200 -
+2026-02-16 20:45:11,670 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:45:11] "GET / HTTP/1.1" 200 -
+2026-02-16 20:47:12,658 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:47:12] "GET / HTTP/1.1" 200 -
+2026-02-16 20:49:13,683 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:49:13] "GET / HTTP/1.1" 200 -
+2026-02-16 20:51:14,675 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:51:14] "GET / HTTP/1.1" 200 -
+2026-02-16 20:53:15,657 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:53:15] "GET / HTTP/1.1" 200 -
+2026-02-16 20:55:16,685 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:55:16] "GET / HTTP/1.1" 200 -
+2026-02-16 20:57:17,678 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:57:17] "GET / HTTP/1.1" 200 -
+2026-02-16 20:59:18,674 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 20:59:18] "GET / HTTP/1.1" 200 -
+2026-02-16 21:01:19,685 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:01:19] "GET / HTTP/1.1" 200 -
+2026-02-16 21:03:20,679 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:03:20] "GET / HTTP/1.1" 200 -
+2026-02-16 21:05:21,684 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:05:21] "GET / HTTP/1.1" 200 -
+2026-02-16 21:07:22,668 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:07:22] "GET / HTTP/1.1" 200 -
+2026-02-16 21:09:23,700 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:09:23] "GET / HTTP/1.1" 200 -
+2026-02-16 21:11:24,703 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:11:24] "GET / HTTP/1.1" 200 -
+2026-02-16 21:13:25,668 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:13:25] "GET / HTTP/1.1" 200 -
+2026-02-16 21:15:26,683 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:15:26] "GET / HTTP/1.1" 200 -
+2026-02-16 21:17:27,687 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:17:27] "GET / HTTP/1.1" 200 -
+2026-02-16 21:19:28,679 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:19:28] "GET / HTTP/1.1" 200 -
+2026-02-16 21:21:29,678 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:21:29] "GET / HTTP/1.1" 200 -
+2026-02-16 21:23:30,668 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:23:30] "GET / HTTP/1.1" 200 -
+2026-02-16 21:25:31,680 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:25:31] "GET / HTTP/1.1" 200 -
+2026-02-16 21:27:32,684 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:27:32] "GET / HTTP/1.1" 200 -
+2026-02-16 21:29:33,670 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:29:33] "GET / HTTP/1.1" 200 -
+2026-02-16 21:31:34,689 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:31:34] "GET / HTTP/1.1" 200 -
+2026-02-16 21:33:35,656 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:33:35] "GET / HTTP/1.1" 200 -
+2026-02-16 21:52:22,607 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:52:22] "GET / HTTP/1.1" 200 -
+2026-02-16 21:54:23,667 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:54:23] "GET / HTTP/1.1" 200 -
+2026-02-16 21:56:24,661 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:56:24] "GET / HTTP/1.1" 200 -
+2026-02-16 21:58:25,664 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 21:58:25] "GET / HTTP/1.1" 200 -
+2026-02-16 22:00:26,670 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:00:26] "GET / HTTP/1.1" 200 -
+2026-02-16 22:02:27,674 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:02:27] "GET / HTTP/1.1" 200 -
+2026-02-16 22:04:28,663 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:04:28] "GET / HTTP/1.1" 200 -
+2026-02-16 22:06:29,675 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:06:29] "GET / HTTP/1.1" 200 -
+2026-02-16 22:08:30,671 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:08:30] "GET / HTTP/1.1" 200 -
+2026-02-16 22:10:31,660 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:10:31] "GET / HTTP/1.1" 200 -
+2026-02-16 22:12:32,662 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:12:32] "GET / HTTP/1.1" 200 -
+2026-02-16 22:14:33,674 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:14:33] "GET / HTTP/1.1" 200 -
+2026-02-16 22:16:34,672 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:16:34] "GET / HTTP/1.1" 200 -
+2026-02-16 22:18:35,670 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:18:35] "GET / HTTP/1.1" 200 -
+2026-02-16 22:20:36,664 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:20:36] "GET / HTTP/1.1" 200 -
+2026-02-16 22:22:37,679 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:22:37] "GET / HTTP/1.1" 200 -
+2026-02-16 22:24:38,680 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:24:38] "GET / HTTP/1.1" 200 -
+2026-02-16 22:26:39,665 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:26:39] "GET / HTTP/1.1" 200 -
+2026-02-16 22:28:49,245 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:28:49] "GET / HTTP/1.1" 200 -
+2026-02-16 22:30:49,688 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:30:49] "GET / HTTP/1.1" 200 -
+2026-02-16 22:32:50,654 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:32:50] "GET / HTTP/1.1" 200 -
+2026-02-16 22:34:51,663 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:34:51] "GET / HTTP/1.1" 200 -
+2026-02-16 22:36:52,694 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:36:52] "GET / HTTP/1.1" 200 -
+2026-02-16 22:38:53,686 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:38:53] "GET / HTTP/1.1" 200 -
+2026-02-16 22:40:54,673 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:40:54] "GET / HTTP/1.1" 200 -
+2026-02-16 22:42:55,686 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:42:55] "GET / HTTP/1.1" 200 -
+2026-02-16 22:44:56,694 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:44:56] "GET / HTTP/1.1" 200 -
+2026-02-16 22:46:57,673 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:46:57] "GET / HTTP/1.1" 200 -
+2026-02-16 22:48:58,692 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:48:58] "GET / HTTP/1.1" 200 -
+2026-02-16 22:50:59,670 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:50:59] "GET / HTTP/1.1" 200 -
+2026-02-16 22:53:00,681 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:53:00] "GET / HTTP/1.1" 200 -
+2026-02-16 22:55:01,652 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:55:01] "GET / HTTP/1.1" 200 -
+2026-02-16 22:57:02,676 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:57:02] "GET / HTTP/1.1" 200 -
+2026-02-16 22:59:03,662 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 22:59:03] "GET / HTTP/1.1" 200 -
+2026-02-16 23:05:39,952 - werkzeug - INFO - 127.0.0.1 - - [16/Feb/2026 23:05:39] "GET / HTTP/1.1" 200 -
+2026-02-17 06:40:08,694 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:40:08] "GET / HTTP/1.1" 200 -
+2026-02-17 06:42:09,244 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:42:09] "GET / HTTP/1.1" 200 -
+2026-02-17 06:44:10,240 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:44:10] "GET / HTTP/1.1" 200 -
+2026-02-17 06:46:11,246 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:46:11] "GET / HTTP/1.1" 200 -
+2026-02-17 06:48:12,225 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:48:12] "GET / HTTP/1.1" 200 -
+2026-02-17 06:50:13,209 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:50:13] "GET / HTTP/1.1" 200 -
+2026-02-17 06:52:14,240 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:52:14] "GET / HTTP/1.1" 200 -
+2026-02-17 06:54:15,204 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:54:15] "GET / HTTP/1.1" 200 -
+2026-02-17 06:56:16,201 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:56:16] "GET / HTTP/1.1" 200 -
+2026-02-17 06:58:17,193 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 06:58:17] "GET / HTTP/1.1" 200 -
+2026-02-17 07:00:18,198 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 07:00:18] "GET / HTTP/1.1" 200 -
+2026-02-17 07:02:19,201 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 07:02:19] "GET / HTTP/1.1" 200 -
+2026-02-17 08:27:33,677 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 08:27:33] "[33mGET /local HTTP/1.1[0m" 404 -
+2026-02-17 08:27:42,818 - werkzeug - INFO - 127.0.0.1 - - [17/Feb/2026 08:27:42] "GET / HTTP/1.1" 200 -
+2026-05-24 14:47:55,064 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-24 14:47:55,077 - deals_bot.web_app - INFO - Added 31 deals from major Indian e-commerce sites
+2026-05-24 14:47:55,168 - deals_bot.web_app - INFO - Total coupons now: 319
+2026-05-24 14:47:55,183 - deals_bot.web_app - INFO - Coupons refreshed: 319 valid coupons at 2026-05-24 14:47:55.183658
+2026-05-24 14:48:14,520 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-24 14:48:14,565 - deals_bot.web_app - INFO - Coupons refreshed: 319 valid coupons at 2026-05-24 14:48:14.565966
+2026-05-24 15:05:05,817 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-24 15:05:05,856 - deals_bot.web_app - INFO - Coupons refreshed: 319 valid coupons at 2026-05-24 15:05:05.856004

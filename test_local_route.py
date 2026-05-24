@@ -1,4 +1,4 @@
-from web_app import app
+from deals_bot.web_app import app
 import re
 
 # Create test client

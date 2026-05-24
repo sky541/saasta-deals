@@ -9,7 +9,7 @@ import logging
 import re
 import requests
 from datetime import datetime, timedelta
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from bs4 import BeautifulSoup
 
 from flask import Flask, render_template_string, jsonify, request, make_response
@@ -25,7 +25,24 @@ app = Flask(__name__)
 # Global variable to store cached coupons
 coupons_cache = None
 cache_updated = None
+coupons_file_mtime = None
 REFRESH_INTERVAL_HOURS = 1  # Refresh every hour for fresh deals
+COUPONS_FILE_PATHS = [
+    "deals_bot/data/coupons.json",
+    "data/coupons.json",
+    "../deals_bot/data/coupons.json",
+    "deals_bot/data/combined_deals.json",
+    "data/combined_deals.json",
+    "../deals_bot/data/combined_deals.json",
+]
+
+
+def get_coupons_file_path() -> Optional[str]:
+    """Return the first existing coupons data file path."""
+    for filepath in COUPONS_FILE_PATHS:
+        if os.path.exists(filepath):
+            return filepath
+    return None
 
 
 # ============================================================================
@@ -555,24 +572,50 @@ def add_default_coupons():
 
 
 def refresh_coupons():
-    """Refresh coupons from data file"""
-    global coupons_cache, cache_updated
-    coupons_cache = load_coupons()
-    # Also filter out expired coupons
+    """Refresh coupons from data file."""
+    global coupons_cache, cache_updated, coupons_file_mtime
+    coupons_cache = load_coupons(raw=True)
     if coupons_cache:
         coupons_cache = filter_valid_coupons(coupons_cache)
+
     cache_updated = datetime.now()
+    filepath = get_coupons_file_path()
+    if filepath and os.path.exists(filepath):
+        try:
+            coupons_file_mtime = os.path.getmtime(filepath)
+        except Exception:
+            coupons_file_mtime = None
+    else:
+        coupons_file_mtime = None
+
     logger.info(
         f"Coupons refreshed: {len(coupons_cache)} valid coupons at {cache_updated}"
     )
 
 
 def check_and_refresh():
-    """Check if refresh needed and refresh if needed"""
-    global cache_updated
-    if cache_updated is None or (datetime.now() - cache_updated) > timedelta(
-        hours=REFRESH_INTERVAL_HOURS
-    ):
+    """Check if refresh needed and refresh if needed."""
+    global cache_updated, coupons_file_mtime
+    filepath = get_coupons_file_path()
+    should_refresh = False
+
+    if cache_updated is None:
+        should_refresh = True
+    else:
+        if filepath and os.path.exists(filepath):
+            try:
+                current_mtime = os.path.getmtime(filepath)
+                if coupons_file_mtime is None or current_mtime != coupons_file_mtime:
+                    should_refresh = True
+            except Exception:
+                should_refresh = True
+
+        if not should_refresh and (datetime.now() - cache_updated) > timedelta(
+            hours=REFRESH_INTERVAL_HOURS
+        ):
+            should_refresh = True
+
+    if should_refresh:
         refresh_coupons()
 
 
@@ -4647,30 +4690,27 @@ DASHBOARD_TEMPLATE = """
 """
 
 
-def load_coupons() -> List[Dict[str, Any]]:
-    """Load coupons from JSON file"""
-    # Try multiple paths for local and deployed environments
-    paths_to_try = [
-        "deals_bot/data/coupons.json",
-        "data/coupons.json",
-        "../deals_bot/data/coupons.json",
-        "deals_bot/data/combined_deals.json",
-        "data/combined_deals.json",
-        "../deals_bot/data/combined_deals.json",
-    ]
-    for filepath in paths_to_try:
-        if os.path.exists(filepath):
-            try:
-                with open(filepath, "r") as f:
-                    data = json.load(f)
-                    # Handle different JSON structures
-                    if "coupons" in data:
-                        return data.get("coupons", [])
-                    elif "deals" in data:
-                        return data.get("deals", [])
-            except:
-                pass
-    return []
+def load_coupons(raw: bool = False) -> List[Dict[str, Any]]:
+    """Load coupons from JSON file."""
+    filepath = get_coupons_file_path()
+    if not filepath:
+        return []
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            if "coupons" in data:
+                coupons = data.get("coupons", [])
+            elif "deals" in data:
+                coupons = data.get("deals", [])
+            else:
+                coupons = []
+    except Exception:
+        return []
+
+    if raw:
+        return coupons
+    return filter_valid_coupons(coupons)
 
 
 def is_coupon_expired(coupon: Dict[str, Any]) -> bool:
@@ -5430,7 +5470,8 @@ def index():
 @app.route("/api/coupons")
 def api_coupons():
     """API endpoint with filtering support"""
-    all_coupons = load_coupons()
+    check_and_refresh()
+    all_coupons = coupons_cache if coupons_cache else load_coupons()
 
     # Apply filters
     source = request.args.get("source", "")

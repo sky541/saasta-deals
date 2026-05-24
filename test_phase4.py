@@ -11,7 +11,7 @@ Tests the "Near Me" geolocation feature including:
 import json
 import math
 import unittest
-from web_app import app, calculate_distance, filter_by_distance, load_coupons
+from deals_bot.web_app import app, calculate_distance, filter_by_distance, load_coupons
 
 class TestGeolocation(unittest.TestCase):
     """Test geolocation distance calculations and filtering"""

@@ -1,18 +1,12 @@
-import os
-import sys
 import argparse
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-# Import modules after path setup
-from amazon_scraper import AmazonScraper
-from flipkart_scraper import FlipkartScraper
+from deals_bot.amazon_scraper import AmazonScraper
+from deals_bot.flipkart_scraper import FlipkartScraper
 
 
 def run_scheduler(args):
     """Run the batch scheduler"""
-    from scheduler import DealsBatchScheduler
+    from deals_bot.scheduler import DealsBatchScheduler
     
     scheduler = DealsBatchScheduler(interval_hours=args.interval)
     
@@ -25,7 +19,7 @@ def run_scheduler(args):
 
 def run_dashboard(args):
     """Run the web dashboard"""
-    from web_app import run_server
+    from deals_bot.web_app import run_server
     
     run_server(host=args.host, port=args.port)
 
@@ -110,7 +104,7 @@ def main():
             print(f"{source}: {result}")
     elif args.command == 'both':
         import threading
-        from scheduler import DealsBatchScheduler
+        from deals_bot.scheduler import DealsBatchScheduler
         
         # Run scheduler in background thread
         scheduler = DealsBatchScheduler(interval_hours=args.interval)

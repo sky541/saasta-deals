@@ -3,7 +3,7 @@ Phase 3 Testing: Advanced Filters for Local Restaurants
 Tests: Cuisines, Meal Periods, Rating Ranges, Price Ranges
 """
 
-from web_app import app
+from deals_bot.web_app import app
 import re
 
 print("=" * 60)
