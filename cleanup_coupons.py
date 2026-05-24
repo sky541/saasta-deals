@@ -9,7 +9,7 @@ def is_expired(expires: str) -> bool:
         return False
     try:
         exp_date = datetime.strptime(expires.strip(), "%d %b %Y")
-        return exp_date.date() < datetime.now().date()
+        return exp_date.date() <= datetime.now().date()
     except:
         return False
 

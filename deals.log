@@ -759,3 +759,9 @@
 2026-05-24 14:48:14,565 - deals_bot.web_app - INFO - Coupons refreshed: 319 valid coupons at 2026-05-24 14:48:14.565966
 2026-05-24 15:05:05,817 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
 2026-05-24 15:05:05,856 - deals_bot.web_app - INFO - Coupons refreshed: 319 valid coupons at 2026-05-24 15:05:05.856004
+2026-05-24 15:13:05,421 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-24 15:13:05,443 - deals_bot.web_app - INFO - Coupons refreshed: 25 valid coupons at 2026-05-24 15:13:05.443231
+2026-05-24 15:13:16,486 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-24 15:13:16,519 - deals_bot.web_app - INFO - Coupons refreshed: 25 valid coupons at 2026-05-24 15:13:16.519407
+2026-05-24 15:15:07,657 - apscheduler.scheduler - INFO - Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-24 15:15:07,680 - deals_bot.web_app - INFO - Coupons refreshed: 25 valid coupons at 2026-05-24 15:15:07.680005

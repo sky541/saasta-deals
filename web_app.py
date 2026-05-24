@@ -546,7 +546,7 @@ def add_default_coupons():
                 exp_str = coupon.get("expires", "").strip()
                 if exp_str:
                     exp_date = datetime.strptime(exp_str, "%d %b %Y")
-                    if exp_date.date() < datetime.now().date():
+                    if exp_date.date() <= datetime.now().date():
                         expired_removed += 1
                         continue  # skip expired coupon
             except:
@@ -4714,16 +4714,47 @@ def load_coupons(raw: bool = False) -> List[Dict[str, Any]]:
 
 
 def is_coupon_expired(coupon: Dict[str, Any]) -> bool:
-    """Check if a coupon has expired"""
+    """Check if a coupon has expired."""
     expires = coupon.get("expires", "")
     if not expires:
         return False
-    try:
-        # Parse date format like "28 Feb 2026"
-        exp_date = datetime.strptime(expires.strip(), "%d %b %Y")
-        return exp_date.date() < datetime.now().date()
-    except:
+
+    parsed_date = None
+    expires_str = expires.strip()
+    date_formats = [
+        "%d %b %Y",
+        "%d %B %Y",
+        "%Y-%m-%d",
+        "%Y.%m.%d",
+        "%d-%m-%Y",
+        "%d.%m.%Y",
+        "%b %d, %Y",
+        "%B %d, %Y",
+    ]
+    for fmt in date_formats:
+        try:
+            parsed_date = datetime.strptime(expires_str, fmt)
+            break
+        except Exception:
+            continue
+
+    if parsed_date is None:
+        # Try to extract a numeric date from the string before parsing
+        import re
+
+        match = re.search(r"(\d{4}[./-]\d{1,2}[./-]\d{1,2})", expires_str)
+        if match:
+            for fmt in ["%Y-%m-%d", "%Y.%m.%d"]:
+                try:
+                    parsed_date = datetime.strptime(match.group(1), fmt)
+                    break
+                except Exception:
+                    continue
+
+    if parsed_date is None:
         return False
+
+    return parsed_date.date() <= datetime.now().date()
 
 
 def is_expiring_soon(coupon: Dict[str, Any], days: int = 7) -> bool:
