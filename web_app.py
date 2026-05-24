@@ -521,24 +521,25 @@ def add_default_coupons():
                 f"Added {len(major_deals)} deals from major Indian e-commerce sites"
             )
 
-        # Update any expired coupons
-        from datetime import timedelta
-
-        future_date = datetime.now() + timedelta(days=30)
-        future_date_str = future_date.strftime("%d %b %Y")
-
-        expired_count = 0
+        # Remove any expired coupons from the list instead of extending them
+        expired_removed = 0
+        cleaned_coupons = []
         for coupon in coupons:
             try:
-                exp_date = datetime.strptime(coupon.get("expires", ""), "%d %b %Y")
-                if exp_date.date() < datetime.now().date():
-                    coupon["expires"] = future_date_str
-                    expired_count += 1
+                exp_str = coupon.get("expires", "").strip()
+                if exp_str:
+                    exp_date = datetime.strptime(exp_str, "%d %b %Y")
+                    if exp_date.date() < datetime.now().date():
+                        expired_removed += 1
+                        continue  # skip expired coupon
             except:
+                # If parsing fails, keep the coupon to avoid accidental deletion
                 pass
+            cleaned_coupons.append(coupon)
 
-        if expired_count > 0:
-            logger.info(f"Updated {expired_count} expired coupons")
+        if expired_removed > 0:
+            logger.info(f"Removed {expired_removed} expired coupons from data")
+            coupons = cleaned_coupons
             added = True
 
         if added:
